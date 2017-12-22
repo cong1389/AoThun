@@ -1,0 +1,134 @@
+﻿o<!---_Checkout.Cart-->
+@model App.Front.Models.ShoppingCart.MiniShoppingCartModel
+
+@if (Model != null)
+{
+    <div class="sidebar-content">
+        <div class="order-summary order-summary-is-collapsed">
+            <h2 class="visually-hidden">Thông tin đơn hàng</h2>
+            <div class="order-summary-sections">
+
+                <div class="order-summary-section order-summary-section-product-list" data-order-summary-section="line-items">
+                    <table class="product-table">
+                        <thead>
+                            <tr>
+                                <th scope="col"><span class="visually-hidden">Hình ảnh</span></th>
+                                <th scope="col"><span class="visually-hidden">Mô tả</span></th>
+                                <th scope="col"><span class="visually-hidden">Số lượng</span></th>
+                                <th scope="col"><span class="visually-hidden">Giá</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model.Items)
+                {
+                                <tr class="product" data-product-id="1007014700" data-variant-id="1016090970">
+                                    <td class="product-image">
+                                        <div class="product-thumbnail">
+                                            <div class="product-thumbnail-wrapper">
+                                                <img class="product-thumbnail-image" src="@Url.Content("~/" + product.ImageSmallSize)" alt="@product.Title">
+                                            </div>
+                                            <span class="product-thumbnail-quantity" aria-hidden="true">
+                                                @Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().Quantity
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="product-description">
+                                        <span class="product-description-name order-summary-emphasis">@product.Title</span>
+
+                                    </td>
+                                    <td class="product-quantity visually-hidden">
+                                        @Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().Quantity
+                                    </td>
+                                    <td class="product-price">
+                                        <span class="order-summary-emphasis">
+                                            @if (Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice != 0)
+                                            {
+                                                @Html.Raw(string.Format("{0:##,### VND}", Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice))
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw("Liên hệ")
+                                            }
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="order-summary-section order-summary-section-discount hidden " data-order-summary-section="discount">
+
+                    <input name="utf8" type="hidden" value="✓">
+                    <div class="fieldset">
+                        <div class="field  ">
+                            <div class="field-input-btn-wrapper">
+                                <div class="field-input-wrapper">
+                                    <label class="field-label" for="discount.code">Mã giảm giá</label>
+                                    <input placeholder="Mã giảm giá" class="field-input" data-discount-field="true" autocomplete="off" autocapitalize="off" spellcheck="false" size="30" type="text" id="discount.code" name="discount.code" value="">
+                                </div>
+                                <button type="submit" class="field-input-btn btn btn-default btn-disabled">
+                                    <span class="btn-content">Sử dụng</span>
+                                    <i class="btn-spinner icon icon-button-spinner"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-summary-section order-summary-section-total-lines" data-order-summary-section="payment-lines">
+                    <table class="total-line-table">
+                        <thead>
+                            <tr>
+                                <th scope="col"><span class="visually-hidden">Mô tả</span></th>
+                                <th scope="col"><span class="visually-hidden">Giá</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="hidden">
+                            <tr class="total-line total-line-subtotal">
+                                <td class="total-line-name">Tạm tính</td>
+                                <td class="total-line-price">
+                                    <span class="order-summary-emphasis" data-checkout-subtotal-price-target="120000000">
+                                        111
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr class="total-line total-line-shipping">
+                                <td class="total-line-name">Phí vận chuyển</td>
+                                <td class="total-line-price">
+                                    <span class="order-summary-emphasis" data-checkout-total-shipping-target="0">
+
+                                        —
+
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="total-line-table-footer">
+                            <tr class="total-line">
+                                <td class="total-line-name payment-due-label">
+                                    <span class="payment-due-label-total">Tổng cộng</span>
+                                </td>
+                                <td class="total-line-name payment-due">
+                                    <span class="payment-due-price" data-checkout-payment-due-target="120000000">
+                                        @Html.Raw(string.Format("{0:##,### VND}", Model.SubTotal))
+                                    </span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<!---/_Checkout.Cart-->

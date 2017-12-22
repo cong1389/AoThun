@@ -1,0 +1,112 @@
+﻿<!----GetTopMenu ---->
+@using App.Domain.Common
+@using App.Front.Models
+@using App.Aplication
+@using App.Domain.Entities.Menu
+@using Resources
+@using App.FakeEntity.Menu
+@model IEnumerable<MenuNavViewModel>
+
+@if (Model != null)
+{
+    <div class='header_icon fright hidden-xs hidden-sm'>
+        <div class='header_login'>
+            <a href="#" title="" class="awemenu-icon">
+                <i class="glyphicon glyphicon-user"></i>
+            </a>
+            <ul class='header_login_content unstyled'>
+
+                <li><a href='account/login.html'>Đăng nhập</a></li>
+                <li><a href='account/register.html'>Đăng ký</a></li>
+
+            </ul>
+        </div>
+        <div id="top-cart" class='top-cart-block'></div>
+
+
+        <!-- Top Search
+        ============================================= -->
+        <div class='header_search fleft'>
+            <a href='#'><i class='glyphicon glyphicon-search'></i></a>
+            <form action="http://mazzola.vn/search" class='nomargin'>
+                <input type="hidden" name="type" value="product" />
+                <input type="text" name="q" class="form-control noboxshadow noradius" placeholder="Bạn muốn tìm gì...">
+                <button class='button nomargin'>Tìm kiếm</button>
+            </form>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                EGA.search.headerSearch();
+            })
+        </script>
+    </div>
+
+    <div class='primary_menu_wrap fright hidden-sm hidden-xs'>
+        <nav id="primary-menu" class='hidden-xs hidden-sm'>
+            <ul>
+                @foreach (MenuNavViewModel item in Model)
+                {
+                <!-- normal sub menu -->
+                    <li class=''>
+                        <a class='menu' href="@(item.OtherLink = item.OtherLink !=null? item.OtherLink : Url.Action("GetContent", "Menu", new {menu = item.SeoUrl , area = ""}) )" title="@item.MenuName">
+                            <div>
+                                <div class='menu_icon'></div>
+                                @item.MenuName
+                            </div>
+                        </a>
+                        <i class='fa fa-caret-down'></i>
+                        <ul>
+                            <div class='submenu_group'>
+                                <div class='submenu_col'>
+                                    @foreach (var lv1 in item.ChildNavMenu)
+                                    {
+                                        <li class=''>
+                                            <a class='sub-menu' href="@Url.Action("GetContent", "Menu", new {menu = lv1.SeoUrl, area = ""})" title="@lv1.MenuName">
+                                                <div> @lv1.MenuName</div>
+                                            </a>
+                                        </li>
+                                    }
+                                </div>
+                            </div>
+                        </ul>
+                    </li>
+                      <!-- end normal sub menu -->
+                }
+            </ul>
+        </nav>
+
+        <!-- #primary-menu end -->
+    </div>
+}
+
+<script>
+
+    function ViewPopupCart() {
+        jQuery.post('/shoppingcart/GetPopupCart')
+      .done(function (data) {
+          jQuery("#top-cart").html(data.list);
+      });
+    }
+
+    function RemoveCartItem(id) {
+        var param = {
+            type: 'POST',
+            url: '@Url.Action("DeleteProduct", "ShoppingCart")',
+            data: { 'id': id },
+            dataType: 'json',
+            success: function (response) {
+                ViewPopupCart();
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert(textStatus);
+            }
+        }
+        jQuery.ajax(param);
+    }
+
+    jQuery(document).ready(function () {
+        ViewPopupCart();
+    });
+
+</script>
+<!----/GetTopMenu ---->

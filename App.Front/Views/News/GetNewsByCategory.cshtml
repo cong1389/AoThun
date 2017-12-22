@@ -1,0 +1,67 @@
+﻿<!--GetNewsByCategory---->
+@using App.Domain.Entities.Data
+@using App.Domain.Common
+@using App.Domain.Entities.Menu
+@using App.Aplication
+@model IEnumerable<App.Domain.Entities.Data.News>
+@if (Model.IsAny())
+{
+    @Html.Action("BannerTopOfNewsPage", "Banner", new { menuId = ViewBag.MenuId })    
+
+    <section class="container page-content">
+         @Html.Partial("_BreadCrumb")
+        <hr class="vertical-space2" />
+
+        <aside class="col-md-3 sidebar">
+            @Html.Action("MenuNavLeft", "MenuNav", new { virtualId = ViewBag.VirtualId, area = "" })
+        </aside>
+
+        <section class="col-md-9 cntt-w">
+
+            @foreach (var item in Model)
+            {
+            <article id="post-8758" class="blog-post blgtyp2 post-8758 post type-post status-publish format-standard has-post-thumbnail hentry category-cloud-computing category-it-news category-networking">
+                <div class="col-md-5 alpha boxFixImg_Blog_309_243">
+                    <a href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})" title="@item.Title">
+                        <img src="@Url.Content("~/" + item.ImageMediumSize)" alt='@item.Title' title='@item.Title' class="landscape thumbnail blog2_thumb" width="420" height="330">
+                    </a>
+                </div>
+                <div class="col-md-7 omega">
+                    <div class="postmetadata">
+                        <h6 class="blog-date">
+                            <asp:Literal runat="server" ID="ltrDate"></asp:Literal>
+                        </h6>
+                    </div>
+                    <h4>
+                        <a href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})" title="@item.Title">
+                            @item.Title
+                        </a>
+                    </h4>
+                    <p>
+                        <asp:Literal runat="server" ID="ltrBrief"></asp:Literal>
+                    </p>
+
+                    <div class="portfolio-link">
+                        <a href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})">
+                            @T("XemThem")
+                        </a>
+                    </div>
+
+                </div>
+                <hr class="vertical-space1">
+            </article>
+
+            }
+
+            <!--Padding-->
+            <div class="wp-pagenavi">
+                @{Html.RenderPartial("_PagedLinks");}
+            </div>
+
+            <hr class="vertical-space">
+        </section>
+        
+    </section>
+
+}
+<!--/GetNewsByCategory---->

@@ -1,0 +1,79 @@
+﻿<!---GetAttributeSearchBox-->
+@using App.Aplication
+@model IEnumerable<App.Domain.Entities.Attribute.Attribute>
+@{ var lstAttrIds = (List<int>)ViewBag.Attributes; }
+
+@if (Model.IsAny())
+{
+    foreach (var item in Model)
+    {
+        <div class="widget_links clearfix">
+            <div class="conten-attr">
+                <a href='#filter_group_@(item.Id+100)' data-toggle='collapse'><h4>@item.AttributeName<i class='fa-angle-down fa'></i></h4></a>
+                @if (item.AttributeValues.IsAny())
+                {
+                    <div id="filter_group_@(item.Id+100)" class="attr-items panel-collapse collapse in filter_list">
+                        @foreach (var at in item.AttributeValues.OrderByDescending(x => x.OrderDisplay))
+                        {
+                            if (!string.IsNullOrEmpty(at.ColorHex))
+                            {
+                                if (lstAttrIds.Exists(x => x == at.Id))
+                                {
+                                    <div id="color_item" class="item active">
+                                        <div class="select-item">
+                                            <label>
+                                                <input id="@at.Id" type="checkbox" name="attr" value="@at.Id" checked="checked" />
+                                                <span class="bg" style="background-color: @at.ColorHex"></span>
+                                                <span class="hidden">@at.ValueName</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div id="color_item" class="item">
+                                        <div class="select-item">
+                                            <label>
+                                                <input id="@at.Id" type="checkbox" name="attr" value="@at.Id" />
+                                                <span class="bg" style="background-color: @at.ColorHex"></span>
+                                                <span class="hidden">@at.ValueName</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                if (lstAttrIds.Exists(x => x == at.Id))
+                                {
+                                    <div class="item active">
+                                        <div class="select-item size active">
+                                            <label>
+                                                <input id="@at.Id" type="checkbox" name="attr" value="@at.Id" checked="checked" />
+                                                <span>@at.ValueName</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item">
+                                        <div class="select-item size">
+                                            <label>
+                                                <input id="@at.Id" type="checkbox" name="attr" value="@at.Id" />
+                                                <span>@at.ValueName</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                }
+                <a rel="nofollow" href="javascript:void(0)" id="showmore" style="display: none">Hiện thêm @item.AttributeName.ToLower()</a>
+
+            </div>
+        </div>
+    }
+}
+<!---/GetAttributeSearchBox-->

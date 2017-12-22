@@ -1,0 +1,149 @@
+﻿<!---GetPostByCategory-->
+@using App.Domain.Common
+@using App.Domain.Entities.Data
+@using App.Aplication
+@using App.Domain.Entities.Menu;
+@model IEnumerable<App.Domain.Entities.Data.Post>
+
+@Html.Partial("_BreadCrumb")
+
+<section id="content">
+
+    <div class="container clearfix">
+        <!-- Content
+        ============================================= -->
+        <input type='hidden' id='collection_id' value='=0'>
+
+        <div class='row collection_wrapper'>
+            <!-- Sidebar
+            ============================================= -->
+
+            <div class="nobottommargin sidebar right col-sm-4 col-md-3 col-xs-12">
+                @Html.Action("SearchBoxSideBar", "SearchBox", new
+           {
+               area = "",
+               productOld = ViewBag.ProductOld,
+               productNew = ViewBag.ProductNew,
+               attributes = ViewBag.Attributes,
+               prices = ViewBag.Prices,
+               proids = ViewBag.ProAttributes
+           })
+            </div>
+
+            <!-- .sidebar end -->
+            <!-- Post Content
+            ============================================= -->
+            <div class="post_content col-sm-8 col-md-9 col-xs-12">
+                @if (Model.IsAny())
+                {
+                    <!-- Shop
+                    ============================================= -->
+                    <div id="shop" class="product-3 clearfix">
+                        <div class='sort-wrapper'>
+                            <div class="browse-tags row" style='margin-bottom:20px;line-height: 30px; overflow:hidden;'>
+                                <div class="col-sm-6 col-md-8 col-xs-12">
+                                    <p class="subtext nomargin">
+
+                                        Có <span class='require_symbol'>@Model.Count()</span> sản phẩm.
+
+                                    </p>
+                                </div>
+                                <div class='col-sm-6 col-xs-12 col-md-4 text-right'>
+                                    <span class='col-sm-5 col-xs-4 nopadding text-left'>Sắp xếp theo:</span>
+                                    <span class="pull-right col-sm-7 col-xs-8 norightpadding">
+                                        <select id='sortControl' class="sort-by form-control noboxshadow noradius input-sm">
+                                            <option sort_by="manual" value='manual'>Sản phẩm nổi bật</option>
+                                            <option sort_by="(price:product=asc)" value='price-ascending'>Giá: Tăng dần</option>
+                                            <option sort_by="(price:product=desc)" value='price-descending'>Giá: Giảm dần</option>
+                                            <option sort_by="(title:product=asc)" value='title-ascending'>Tên: A-Z</option>
+                                            <option sort_by="(title:product=desc)" value='title-descending'>Tên: Z-A</option>
+                                            <option sort_by="(updated_at:product=asc)" value='created-ascending'>Cũ nhất</option>
+                                            <option sort_by="(updated_at:product=desc)" value='created-descending'>Mới nhất</option>
+                                            <option sort_by="(sold_quantity:product=desc)" value='best-selling'>Bán chạy nhất</option>
+                                        </select>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id='grid_pagination' class='row'>
+
+                            <div class='grid'>
+
+                                @foreach (var product in Model)
+                                {
+                                    <div class='col-md-3 col-sm-6 col-xs-6 product_single'>
+                                        <div class="product clearfix">
+                                            <div class="product-image">
+                                                <a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })" title="@product.Title">
+                                                    <img width='240' height='240' data-lazyload="@Url.Content("~/" + product.ImageMediumSize)"
+                                                         alt="@product.Title" title="@product.Title">
+                                                </a>
+
+                                                <div class='product_overlay hidden-sm hidden-xs style_2 hidden'>
+                                                    <div class='quick_action clearfix'>
+                                                        <a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })" data-toggle="tooltip" title='Thêm vào giỏ' class="product_quick_add">
+                                                            <i class="fa fa-shopping-cart"></i>
+                                                        </a>
+
+                                                        <a href="#product-pop-up" data-toggle="tooltip" title='Xem nhanh' class="fancybox-fast-view" product_url="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })">
+                                                            <i class="fa fa-eye"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-desc">
+                                                <div class="product-title">
+                                                    <h4><a href="../products/day-nit-n69.html"> @product.Title</a></h4>
+                                                    <!-- <span>DNR - 27</span> -->
+                                                </div>
+                                                <div class="product-price">
+                                                    <ins>
+                                                        @if (product.Price.HasValue && product.Discount.HasValue)
+                                                        {
+                                                            @Html.Raw(string.Format("{0:##,### VND}", product.Price - product.Price * product.Discount / 100))
+                                                        }
+                                                        else if (product.Price.HasValue && !product.Discount.HasValue)
+                                                        {
+                                                            @Html.Raw(string.Format("{0:##,### VND}", product.Price))
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.Raw("Liên hệ")
+                                                        }
+                                                        @if (product.Discount.HasValue)
+                                                        {
+                                                            <span class="product-discount">
+                                                                @Html.Raw(product.Discount.ToString() + "%")
+                                                            </span>
+                                                        }
+                                                    </ins>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                            @{Html.RenderPartial("_PagedLinks");}
+
+                        </div>
+                    </div><!-- #shop end -->
+                                }
+                                else
+                                {
+                                    <div class="collection_description">
+                                        <h2>
+                                            @Html.Raw("Không có dữ liệu");
+                                        </h2>
+                                    </div>
+                                       
+                                }
+            </div>
+        </div>
+        <div class='clear'></div>
+    </div>
+    <!-- #content end -->
+</section>
+<!---/GetPostByCategory-->

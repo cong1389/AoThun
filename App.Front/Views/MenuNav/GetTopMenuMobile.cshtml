@@ -1,0 +1,46 @@
+﻿
+<!---GetTopMenuMobile-->
+@using App.Domain.Common
+@using App.Front.Models
+@using App.Aplication
+@using App.Domain.Entities.Menu
+@using Resources
+@using App.FakeEntity.Menu
+@model IEnumerable<MenuNavViewModel>
+
+<a href="#menu-toggle" class="btn btn-default hidden-lg hidden-md" id="menu-toggle"><i></i></a>
+<!-- Page Content -->
+<div id="menu_xs" class='hidden-lg hidden-md'>
+    <!-- Sidebar -->
+    <div class='header_search fleft'>
+        <form action="http://mazzola.vn/search" class='nomargin'>
+            <input type="hidden" name="type" value="product" />
+            <input type="text" name="q" class="form-control noboxshadow noradius" placeholder="Bạn muốn tìm gì...">
+            <button class='button nomargin'><i class='glyphicon glyphicon-search'></i></button>
+        </form>
+    </div>
+    <ul class="sidebar-nav unstyled noleftpadding">
+        @foreach (MenuNavViewModel item in Model)
+            {
+            <li class=''>
+                <a href="@(item.OtherLink = item.OtherLink !=null? item.OtherLink : Url.Action("GetContent", "Menu", new {menu = item.SeoUrl , area = ""}) )" title="@item.MenuName" class='menu'>@item.MenuName<span>+</span></a>
+                <ul>
+                    @foreach (var lv1 in item.ChildNavMenu)
+                    {
+                        <li class=''>
+                            <a class='sub-menu' href="@Url.Action("GetContent", "Menu", new {menu = lv1.SeoUrl, area = ""})">
+                                <div>
+                                    @lv1.MenuName
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+
+    </ul>
+    <!-- /#page-content-wrapper -->
+</div>
+
+<!---/GetTopMenuMobile-->

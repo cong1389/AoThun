@@ -1,0 +1,104 @@
+﻿<!---GetNewProductRelative2--->
+@using App.Aplication
+@model IEnumerable<App.Domain.Entities.Data.Post>
+@if (Model.IsAny())
+{
+    <div class='col-xs-12 col_md_80 related_product_wrapper'>
+
+        <div class="" id='product-related-products'>
+            <div class='product_block_title'>
+                <h4 class='pd_related_title'>SẢN PHẨM LIÊN QUAN</h4>
+            </div>
+
+            <div id="" class="pd_related_product">
+
+                @foreach (var product in Model)
+                {
+                    <div class="slick-slide">
+                        <div class="img">
+                            <div class='product_single'>
+                                <div class="product clearfix">
+                                    <div class="product-image">
+                                        <a href="@Url.Action("PostDetail", "Post", new {seoUrl = product.SeoUrl, area = ""})">
+                                            <img width='240' height='240' data-lazyload="@Url.Content("~/" + product.ImageMediumSize)" alt="@product.Title">
+                                        </a>
+
+                                        <div class='product_overlay hidden-sm hidden-xs style_2'>
+                                            <div class='quick_action clearfix'>
+
+                                                <a href="qcj-32.html" data-toggle="tooltip" title='Lựa chọn' class=""><i class="fa fa-shopping-cart"></i></a>
+
+                                                <a href="#product-pop-up" data-toggle="tooltip" title='Xem nhanh' class="fancybox-fast-view" product_url="/products/qcj-32"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-desc">
+                                        <div class="product-title">
+                                            <h4><a href="qcj-32.html">@product.Title</a></h4>
+                                            <!-- <span>QCJ - 31-1</span> -->
+                                        </div>
+                                        <div class="product-price">
+                                            <ins>
+                                                @if (product.Price.HasValue && product.Discount.HasValue)
+                                                {
+                                                    @Html.Raw(string.Format("{0:##,### VND}", product.Price - product.Price * product.Discount / 100))
+                                                }
+                                                else if (product.Price.HasValue && !product.Discount.HasValue)
+                                                {
+                                                    @Html.Raw(string.Format("{0:##,### VND}", product.Price))
+                                                }
+                                                else
+                                                {
+                                                    @Html.Raw("Liên hệ")
+                                                }
+                                                @if (product.Discount.HasValue)
+                                                {
+                                                    <span class="product-discount">
+                                                        @Html.Raw(product.Discount.ToString() + "%")
+                                                    </span>
+                                                }
+                                            </ins>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.pd_related_product').slick({
+                        slidesToShow: 4,
+                        prevArrow: '<button type="button" class="slick-prev small_nav"><i class="fa fa-chevron-circle-left"></i></button>',
+                        nextArrow: '<button type="button" class="slick-next small_nav"><i class="fa fa-chevron-circle-right"></i></button>',
+                        focusOnSelect: true,
+                        responsive: [
+                        {
+                            breakpoint: 991,
+                            settings: {
+                                arrows: false,
+                                slidesToShow: 3,
+                            }
+                        },
+                        {
+                            breakpoint: 479,
+                            settings: {
+                                arrows: false,
+                                slidesToShow: 2,
+                            }
+                        }
+
+                        ],
+                    });
+                });
+            </script>
+        </div>
+    </div>
+
+}
+<!---/GetNewProductRelative2--->

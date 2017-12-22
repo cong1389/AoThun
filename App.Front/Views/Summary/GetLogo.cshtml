@@ -1,0 +1,18 @@
+﻿ <!---GetLogo--->
+@model App.Domain.Entities.GlobalSetting.SystemSetting
+
+@if (Model != null)
+{
+ <!-- Logo
+ ============================================= -->
+    <div id="logo">
+        <a href="@Url.Action("Index", "Home", new { area = "" })" title='@Model.Title' class="retina-logo" data-dark-logo="@Url.Content("~/" + Model.LogoImage)">
+            <img src="@Url.Content("~/" + Model.LogoImage)" alt='@Model.Title'>
+        </a>
+        <a href="@Url.Action("Index", "Home", new { area = "" })"  title='@Model.Title' >
+            <img src="@Url.Content("~/" + Model.LogoImage)" alt='@Model.Title'/>
+        </a>
+    </div>
+  <!-- #logo end -->   
+}
+<!---/GetLogo--->

@@ -1,0 +1,49 @@
+﻿<!---GetMenuLinkSideBar-->
+
+@using App.Aplication
+@using App.FakeEntity.Menu
+@model IEnumerable<MenuNavViewModel>
+@if (Model.IsAny())
+{
+    foreach (var item in Model)
+    {
+        <ul class='widget_content'>
+            <li>
+                <a href="@Url.Action("GetContent", "Menu", new {area = "", menu = item.SeoUrl})">@item.MenuName</a>
+                <i class='fa fa-angle-down'></i>
+                <ul class='sidebar_submenu'>
+                    @if (item.ChildNavMenu.IsAny())
+                    {
+                        var products = (List<int>)ViewBag.ProIds;
+                        foreach (var child in item.ChildNavMenu)
+                        {
+                            if (products != null)
+                            {
+                                if (products.Any(x => x == child.MenuId))
+                                {
+                                    <li>
+                                        <a href="@Url.Action("GetContent", "Menu", new { area = "", menu = child.SeoUrl })">@child.MenuName</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="@Url.Action("GetContent", "Menu", new { area = "", menu = child.SeoUrl })">@child.MenuName</a>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="@Url.Action("GetContent", "Menu", new { area = "", menu = child.SeoUrl })">@child.MenuName</a>
+                                </li>
+                            }
+                        }
+                    }
+                </ul>
+            </li>
+        </ul>
+    }
+}
+
+<!---/GetMenuLinkSideBar-->

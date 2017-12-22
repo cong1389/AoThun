@@ -1,0 +1,17 @@
+﻿@model App.Domain.Entities.Ads.Banner
+@if (Model != null)
+{
+    <section id="title-wrapper" style="background-image: url('@(Url.Content("~/" + Model.ImgPath))');">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-holder">
+                        <div class="title-holder-cell text-left">
+                            <h2 class="page-title"><span class="text-uppercase">@Model.Title</span></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

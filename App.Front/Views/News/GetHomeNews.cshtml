@@ -1,0 +1,66 @@
+﻿<!---GetHomeNews--->
+@using App.Domain.Entities.Data
+@model IEnumerable<App.Domain.Entities.Data.News>
+
+<div class="vc_row wpb_row vc_row-fluid vc_custom_1471198040046 wpb_section wpb_padding divNews">
+    <div class="container">
+        <div class="row">
+            <div class="wpb_column vc_column_container vc_col-sm-12">
+                <div class="vc_column-inner ">
+                    <div class="wpb_wrapper">
+                        <div class="st-heading style-1 text-left clearfix">
+                            <h3 class="box-title pull-left">
+                                <a id="hypLastBlogCateName" runat="server">
+                                    <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                   @T("ThongTinTruyenThong")
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="st-blog">
+                            <div class="row">
+                                 @foreach (var item in Model)
+                                 {
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <div class="blog-container">
+                                                <div class="post-thumb">
+                                                    <a  href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})">
+                                                        <img width="600" height="400" src="@Url.Content("~/" + item.ImageMediumSize)" alt='@item.Title' title='@item.Title' class="attachment-slicetheme-small size-slicetheme-small wp-post-image"
+                                                             sizes="(max-width: 600px) 100vw, 600px" />
+                                                    </a>
+                                                </div>
+                                                <div class="blog-inner">
+                                                    <h4 class="post-title">
+                                                          <a  href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})">
+                                                            @item.Title
+                                                        </a>
+                                                    </h4>
+                                                    <div class="post-meta">
+                                                        <span class="post-author">
+                                                            <em>by</em>
+                                                            @item.CreatedDate.ToString("dd/MM/yyyy")
+                                                        </span>
+
+
+                                                    </div>
+                                                    <div class="post-excerpt">
+                                                        <p>
+                                                             @item.ShortDesc
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                 }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!---/GetHomeNews--->

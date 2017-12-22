@@ -1,0 +1,93 @@
+﻿<!----GetProductHome-->
+@using App.Domain.Common
+@using App.Domain.Entities.Data
+@using App.Aplication
+@using App.Domain.Entities.Menu;
+@model IEnumerable<App.Domain.Entities.Data.Post>
+
+@if (Model.IsAny())
+{
+    foreach (App.Domain.Entities.Menu.MenuLink menuLink in (IEnumerable<MenuLink>)ViewBag.MenuLinkHome)
+    {
+
+        <div class='index_col_wrap nobottommargin section nobg' id='divHomeProduct'>
+            <div class='block_title'>
+                <h3>
+                    <a href='@Url.Action("GetContent", "Menu", new {menu = menuLink.SeoUrl, area = ""})'>
+                        @menuLink.MenuName
+                    </a>
+                </h3>
+            </div>
+
+            <div class='row'>
+
+                <div class='col-xs-12 index_col_products'>
+                    <div class='row'>
+                        @foreach (var product in Model.Where(x => x.VirtualCategoryId.Contains(menuLink.CurrentVirtualId)))
+                        {
+                            <div class="product_single col-xs-6 col-md-3">
+                                <div class="product clearfix">
+                                    <div class="product-image">
+                                        <a href="@Url.Action("PostDetail","Post", new {seoUrl =product.SeoUrl,area=""})" title="@product.Title">
+                                            <img width='240' height='240' data-lazyload="@Url.Content("~/" + product.ImageMediumSize)" alt="@product.Title" title="@product.Title">
+                                        </a>
+
+                                        <div class='product_overlay hidden-sm hidden-xs style_2'>
+                                            <div class='quick_action clearfix'>
+                                                <a href="@Url.Action("PostDetail","Post", new {seoUrl =product.SeoUrl,area=""})" title="Thêm vào giỏ" data-toggle="tooltip" class="product_quick_add">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                </a>
+
+                                                <a href="#@Url.Action("PostDetail","Post", new {seoUrl =product.SeoUrl,area=""})" title="Xem nhanh" data-toggle="tooltip" class="fancybox-fast-view"
+                                                   product_url="@Url.Action("PostDetail","Post", new {seoUrl =product.SeoUrl,area=""})"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-desc">
+                                        <div class="product-title">
+                                            <h4><a href="products/qcr-38.html">@product.Title</a></h4>
+                                            <!-- <span></span> -->
+                                        </div>
+                                        <div class="product-price">
+                                            <ins>
+                                                @if (product.Price.HasValue && product.Discount.HasValue)
+                                                {
+                                                    @Html.Raw(string.Format("{0:##,### VND}", product.Price - product.Price * product.Discount / 100))
+                                                }
+                                                else if (product.Price.HasValue && !product.Discount.HasValue)
+                                                {
+                                                    @Html.Raw(string.Format("{0:##,### VND}", product.Price))
+                                                }
+                                                else
+                                                {
+                                                    @Html.Raw("Liên hệ")
+                                                }
+                                                @if (product.Discount.HasValue)
+                                                {
+                                                    <span class="product-discount">
+                                                        @Html.Raw(product.Discount.ToString() + "%")
+                                                    </span>
+                                                }
+                                            </ins>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='clear'></div>
+    }
+}
+ else
+                            {
+                                <p class="text-danger">
+                                    Nội dung đang cập nhật
+                                </p>
+                            }
+<!----/GetProductHome-->

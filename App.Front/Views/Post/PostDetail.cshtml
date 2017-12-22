@@ -1,0 +1,565 @@
+﻿<!---PostDetail--->
+@using App.Domain.Common
+@using App.Aplication
+@using ShoppingCartItem = App.Domain.Entities.Orders.ShoppingCartItem
+@model App.Domain.Entities.Data.Post
+
+@if (Model != null)
+{
+    Html.RenderPartial("_BreadCrumb");
+
+    <section id="content" class="product-content">
+        <div class="container clearfix">
+            <!-- Content
+            ============================================= -->
+            <div class='product-page'>
+                <div class="single-product">
+                    <div class="product">
+                        <div class='row'>
+                            <form method="post" id="ProductDetailsForm" action="" crossorigin="anonymous">
+                                <div class="col-md-5 col-xs-12">
+                                    <!-- Product Single - Gallery
+                                    ============================================= -->
+                                    <div class="product-image product-main-image">
+                                        <div class="gallery-image">
+                                            <div id="gallery" class="royalSlider rsDefault">
+                                                @if (Model.GalleryImages.IsAny())
+                                                {
+                                                    var attrid = Model.AttributeValues.FirstOrDefault();
+                                                    var gallery = Model.GalleryImages.Where(x => x.AttributeValueId == attrid.Id);
+                                                    foreach (var item in Model.GalleryImages)
+                                                    {
+                                                        <a class="rsImg" data-rsBigImg="@Url.Content("~/" + item.ImagePath)" href="@Url.Content("~/" + item.ImagePath)">
+                                                            <img width="195" height="350" class="rsTmb" src="@Url.Content("~/" + item.ImageThumbnail)" />
+                                                        </a>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <a class="rsImg" data-rsBigImg="@Url.Content("~/" + Model.ImageBigSize)" href="@Url.Content("~/" + Model.ImageBigSize)">
+                                                        <img width="195" height="350" class="rsTmb" src="@Url.Content("~/" + Model.ImageSmallSize)" />
+                                                    </a>
+                                                }
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- Product Single - Gallery End -->
+
+                                </div>
+                                <div class="col-md-4 col-xs-6 pd_desc_wrapper">
+                                    <div class="product-desc" style=''>
+                                        <div class='page_title'>
+                                            <h1>@Model.Title</h1>
+
+                                            <span class='sku'>Mã SP: @Model.ProductCode</span>
+
+                                        </div>
+                                        <div class='pd_sale_wrapper clearfix'>
+                                            <!-- Product Single - Price
+                                            ============================================= -->
+                                            <div class="product-price">
+                                                <ins>
+                                                    @if (Model.GalleryImages.IsAny())
+                                                    {
+                                                        var attrid = Model.AttributeValues.FirstOrDefault();
+                                                        var gallery = Model.GalleryImages.FirstOrDefault(x => x.AttributeValueId == attrid.Id);
+                                                        if (gallery != null && gallery.Price != null)
+                                                        {
+                                                            <span>
+                                                                @Html.Raw(string.Format("{0:##,### VND}", gallery.Price))
+                                                            </span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="text text-danger">Liên hệ</span>
+                                                        }
+                                                        @Html.Hidden("hddPrice", (gallery != null && gallery.Price != null) ? gallery.Price : 0)
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text text-danger">Liên hệ</span>
+                                                    }
+                                                </ins>
+
+                                            </div><!-- Product Single - Price End -->
+                                            <!-- Product Single - Rating
+                                            ============================================= -->
+                                            <div class="clear"></div>
+                                            <div class="line"></div>
+                                            <!-- Product Single - Quantity & Cart Button
+                                            ============================================= -->
+                                            <div class="hidden" style="">
+                                                <select id="product-select" name="id">
+
+                                                    <option value="1012081446" class="">S - 310,000₫</option>
+
+                                                    <option value="1012081447" class="">M - 310,000₫</option>
+
+                                                    <option value="1012081448" class="">L - 310,000₫</option>
+
+                                                    <option value="1012081449" class="">XL - 310,000₫</option>
+
+                                                    <option value="1012081450" class="">2XL - 310,000₫</option>
+
+                                                    <option value="1012081451" class="">3XL - 310,000₫</option>
+
+                                                </select>
+                                            </div>
+
+                                            <div class="row  ">
+                                                <div id="option0Picker" class="col-xs-12 options_picker" style="position:relative;">
+
+                                                    <p class="status">
+                                                        <label>Tình trạng:</label>
+                                                        @if (Model.OutOfStock)
+                                                        {
+                                                            <span class="label label-danger">Hết hàng</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="label label-success">Còn hàng</span>
+                                                        }
+                                                    </p>
+
+                                                    @if (Model.MenuLink.TemplateType == (int)TemplateContent.Product)
+                                                    {
+                                                        int i = 0;
+                                                        <div class="product-attr">
+                                                            <div class="pd-at-title">
+                                                                @foreach (var item in Model.AttributeValues.Select(x => x.Attribute).Distinct().ToList())
+                                                                {
+                                                                    <div class="conten-attr">
+                                                                        @foreach (var at in Model.AttributeValues.Where(x => x.AttributeId == item.Id))
+                                                                        {
+
+                                                                            string activeClass = "active";
+                                                                            if (i > 0)
+                                                                            {
+                                                                                activeClass = string.Empty;
+                                                                            }
+                                                                            i += 1;
+                                                                            <div class="item @activeClass">
+                                                                                @if (!string.IsNullOrEmpty(at.ColorHex))
+                                                                                {
+                                                                                    <div class="select-item">
+                                                                                        <label>
+                                                                                            <input data-post="@Model.Id" type="checkbox" name="color" value="@at.Id" data-id="@Model.Id" />
+                                                                                            <span class="bg" style="background-color: @at.ColorHex"></span>
+                                                                                            <span>@at.ValueName</span>
+                                                                                        </label>
+                                                                                    </div>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="select-item size">
+                                                                                        <label>
+                                                                                            <input data-post="@Model.Id" type="checkbox" name="color" value="@at.Id" data-id="@Model.Id" />
+                                                                                            <span>@at.ValueName</span>
+                                                                                        </label>
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                                <div id="option1Picker" class="col-xs-12 options_picker  hidden  ">
+                                                    <h6 class="options_header"></h6>
+                                                    <ul class="inline">
+
+                                                        <li title="" data_option0_code="s" data_option1_code="" class="size_picker">
+
+                                                            <!--
+                                                            <img class="" src=""/> <!-- khong co tag </img> -->
+                                                        </li>
+
+                                                        <li title="" data_option0_code="m" data_option1_code="" class="size_picker">
+
+                                                            <!--
+                                                            <img class="" src=""/> <!-- khong co tag </img> -->
+                                                        </li>
+
+                                                        <li title="" data_option0_code="l" data_option1_code="" class="size_picker">
+
+                                                            <!--
+                                                            <img class="" src=""/> <!-- khong co tag </img> -->
+                                                        </li>
+
+                                                        <li title="" data_option0_code="xl" data_option1_code="" class="size_picker">
+
+                                                            <!--
+                                                            <img class="" src=""/> <!-- khong co tag </img> -->
+                                                        </li>
+
+                                                        <li title="" data_option0_code="2xl" data_option1_code="" class="size_picker">
+
+                                                            <!--
+                                                            <img class="" src=""/> <!-- khong co tag </img> -->
+                                                        </li>
+
+                                                        <li title="" data_option0_code="3xl" data_option1_code="" class="size_picker">
+
+                                                            <!--
+                                                            <img class="" src=""/> <!-- khong co tag </img> -->
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+
+                                                <script>
+                                                    // phong.nguyen: determine "default product" (1 variant), init options-picker
+                                                    //   20160312: declare default product or NOT.
+                                                    //   20160401: fixbug move liquid "product.variants..." to a_snippets.liquid (not a *.js.liquid).
+
+                                                    var boDefaultPro = false;
+
+                                                </script>
+
+                                            </div>
+
+                                            <!-- bao quan -->
+                                            <div id='tinhSize' class="modal fade " role="dialog">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">×</button>
+
+                                                            <h4 class="modal-title"></h4>
+                                                        </div>
+                                                        <div class="modal-body clearfix">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class='quantity_title hidden'>
+                                                <label class='nomargin'>Số lượng: </label>
+                                            </div>
+                                            <div class="multinventory hidden">
+                                                <a class="btn-multinventory clickmultistock" data-toggle="modal" data-target="#myModalmultistock" href="#">
+                                                    Xem danh sách các chi nhánh còn hàng
+                                                </a>
+                                            </div>
+                                            <div class="quantity clearfix product-quantity">
+                                                <input type="button" value="-" class="minus">
+                                                <input type="text" id='product_quantity' min="1" name="quantity" value="1" title="Qty" class="qty" size="4" />
+                                                <input type="button" value="+" class="plus">
+                                            </div>
+                                            <a class="addToCart add_to_cart add-to-cart button nomargin col-xs-12 col-md-6 nopadding" href="">Thêm vào giỏ</a>
+
+                                            <div class='clear'></div>
+
+                                            <button type="submit" id='' class="button col-xs-12 buynow buynow_detail hidden">MUA NGAY<span style='font-size: 12px'>Giao tận nơi hoặc nhận ở cửa hàng</span></button>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-md-3 col-xs-6 pd_policies_wrapper'>
+
+                                    @Html.Action("PostDetailPolices", "StaticContent", new { MenuId = 18, area = "" })
+
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- pd tech -->
+                    <div class='row'>
+                        <div class="col-xs-12 col_md_80">
+
+                            <div class="pd_description tab_product">
+                                <ul class="nav nav-tabs clearfix" role="tablist">
+
+                                    <li class='active' role="presentation">
+                                        <a href="#tab-1" aria-controls="tab-1" role="tab" data-toggle="tab">CHI TIẾT SẢN PHẨM</a>
+                                    </li>
+
+                                    @if (!string.IsNullOrEmpty(Model.TechInfo))
+                                    {
+                                        <li class='' role="tablist">
+                                            <a href="#tab-2" aria-controls="tab-3" role="tab" data-toggle="tab">HƯỚNG DẪN BẢO QUẢN</a>
+                                            @*<a href="#modalBaoQuan" id='baoQuan' data-toggle="modal" data-target="#modalBaoQuan">HƯỚNG DẪN BẢO QUẢN</a>*@
+                                        </li>
+                                    }
+
+
+
+                                    <li class='' role="tablist">
+                                        <a href="#tab-3" aria-controls="tab-3" role="tab" data-toggle="tab">BÌNH LUẬN / ĐÁNH GIÁ</a>
+                                    </li>
+
+
+                                    <li class='' role="tablist">
+                                        <a href="#tab-4" aria-controls="tab-4" role="tab" data-toggle="tab">CHÍNH SÁCH ĐỔI TRẢ</a>
+                                    </li>
+
+                                </ul>
+                                <div class="tab-content">
+
+                                    <div role="tabpanel" class="tab-pane active" id="tab-1">
+                                        @Html.Raw(Model.Description)
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane" id="tab-2">
+                                        @Html.Raw(Model.TechInfo)
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="tab-3">
+                                        <div class="comment">
+                                            <div class="fb-comments" data-href="@HttpContext.Current.Request.Url" data-numposts="5" data-width="100%"></div>
+                                        </div>
+                                    </div>
+
+
+                                    <div role="tabpanel" class="tab-pane" id="tab-4">
+
+                                        <p style="text-align: center;" data-mce-style="text-align: center;"><strong>QUI ĐỊNH ĐỔI HÀNG – MAZZOLA</strong></p><ul><li><strong>Thời gian</strong> : Sản phẩm được đổi trong vòng 7 ngày . Khách hàng đổi từ 11h đến 21h30 trong ngày.</li><li><strong>Cách thức</strong> : Khách hàng có thể đổi hàng trên toàn hệ thống của Mazzola</li><li><strong>Chính sách đổi hàng</strong> :</li></ul><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;+ Khách hàng vui lòng còn giữ hóa đơn .</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;+ Sản phẩm được đổi phải còn đầy đủ tem , nhãn mác của cửa hàng Mazzola.</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;+ Sản phẩm phải còn mới chưa qua sử dụng, không bị hư hỏng hoặc có mùi lạ .</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;+ Khách hàng có thể đổi sang sản phẩm khác có giá trị tương đương hoặc lớn hơn (1 đổi 1).</p><p>&nbsp; &nbsp; <strong>*** <em><u>LƯU Ý</u></em> :</strong></p><ul><li>Sản phẩm đã mua tại cửa hàng sẽ không được hoàn trả lại. Xin Qúy khách vui lòng chọn lựa kỹ trước khi mua.</li><li>Không áp dụng đổi cho sản phẩm đã giảm giá.</li><li>Sản phẩm được đổi không điều kiện khi sản phẩm đó được xem là lỗi kỹ thuật.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li></ul>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class='col-xs-12 col_md_20'>
+
+                            <div id="detail-two" class="hidden-xs hidden-sm" style="z-index:1">
+                                <h1>@Model.Title</h1>
+                                <h4>Mã SP : @Model.ProductCode</h4>
+                                <div style="background:#eeeeee;padding:10px" class='clearfix'>
+                                    <div class="price">
+                                        <label class="variant-price">
+                                            Giá:
+                                            <ins>
+                                                @if (Model.GalleryImages.IsAny())
+                                                {
+                                                    var attrid = Model.AttributeValues.FirstOrDefault();
+                                                    var gallery = Model.GalleryImages.FirstOrDefault(x => x.AttributeValueId == attrid.Id);
+                                                    if (gallery != null && gallery.Price != null)
+                                                    {
+                                                        <span>
+                                                            @Html.Raw(string.Format("{0:##,### VND}", gallery.Price))
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text text-danger">Liên hệ</span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span class="text text-danger">Liên hệ</span>
+                                                }
+                                            </ins>
+                                        </label>
+                                    </div>
+                                    <div class="product-price"></div>
+                                    <div class="product-btn-buy-2">
+                                        <a class="addToCart button buynow_scroll button_full noleftmargin norightmargin" href="">MUA NGAY</a>
+                                        @*<button href="#" title="Đặt mua" class="button buynow_scroll button_full noleftmargin norightmargin">MUA NGAY</button>*@
+                                    </div>
+                                    <div class="deliver-top-no deliver-phone" style="margin-top: 5px; padding-left:45px;border-bottom:none !important">
+                                        <img style='float:left; margin-left:-45px' src='../../hstatic.net/495/1000133495/1000194031/product_scroll_img677f.png?v=226'>
+                                        <strong style='line-height: 20px; float:left;display:block;'>Hỗ trợ mua nhanh</strong>
+                                        <span style='line-height: 20px; float:left;display:block; font-size: 18px; font-weight: 600; color: #ab6767'>0901801268</span>
+                                    </div>
+                                </div>
+                                <div class="register-phone">
+                                    <div class="resgister-phone-title">
+                                        <i class="fa fa-headphones" aria-hidden="true"></i>
+                                        <p>
+                                            <span>Hãy để lại <strong>SĐT</strong>, Chuyên Viên Tư Vấn</span><br />
+                                            <span>sẽ Gọi ngay cho bạn MIỄN PHÍ</span>
+                                        </p>
+                                    </div>
+                                    @*<form accept-charset='UTF-8' action='http://mazzola.vn/contact' class='contact-form' method='post'>
+                                            <input name='form_type' type='hidden' value='contact'>
+                                            <input name='utf8' type='hidden' value='✓'>
+
+                                            <div id="message">
+
+
+                                            </div>
+                                            <p class="footer_form">
+                                                <input required type="hidden" id="name" name="contact[name]" class="form-control input-lg" placeholder="Tên của bạn" autocapitalize="words" value="">
+                                                <input id="phone" name="contact[phone]" type="text" class="form-control input-lg" placeholder="Số điện thoại" required="required" />
+                                                <input type="hidden" id="email" name="contact[email]" class="form-control input-lg" placeholder="Nhập email của bạn" value="aosomihanquoc99@gmail.com" required="required" />
+                                                <input class="input-text-1" type="hidden" id="message" name="contact[body]" value="Khách hàng liên hệ" />
+                                                <input type="submit" class="btn btn-lg btn-black btn-block" value="Gửi">
+                                            </p>
+                                        </form>*@
+                                </div>
+                            </div>
+
+                            <script>
+
+                                $(window).scroll(function () {
+                                    var top = $(document).height() - ($(window).scrollTop() + $('#detail-two').outerHeight(true) + $('.product_viewed_products').outerHeight(true) + $('#footer').outerHeight(true));
+                                    if ($(window).scrollTop() > $('.single-product .product').height()) {
+                                        $('#detail-two').addClass('fixed');
+                                    } else {
+                                        $('#detail-two').removeClass('fixed');
+                                    }
+
+                                    if (($(window).scrollTop() + $('#detail-two').height()) > $('#content').height()) {
+                                        $('#detail-two').css('top', top);
+                                    }
+                                    else {
+                                        $('#detail-two').css('top', 110);
+                                    }
+                                })
+                            </script>
+                        </div>
+                        <!-- end pd tech -->
+                        <div class='clear'></div>
+                        <!-- related products -->
+                        @*@Html.Action("GetNewProductRelative2", "Post", new { area = "", virtualId = Model.MenuLink.VirtualId, productId = Model.Id })*@
+
+                    </div>
+                    <!-- end related products -->
+                </div>
+            </div>
+
+        </div>
+        <!-- #content end -->
+    </section>
+
+
+}
+@section stylesheets
+{
+    <link href="~/Content/royalslider/royalslider.min.css" rel="stylesheet" />
+    <link href="~/Content/royalslider/rs-default.css" rel="stylesheet" />
+}
+
+@section jquerys{
+    <script src="~/Scripts/royalslider/jquery.royalslider.min.js"></script>
+    <script type="text/javascript">
+
+        function initGallery() {
+            $('#gallery')
+                .royalSlider({
+                    fullscreen: {
+                        enabled: true,
+                        nativeFS: true
+                    },
+                    controlNavigation: 'thumbnails',
+                    loop: false,
+                    imageScaleMode: 'fit',
+                    autoScaleSliderHeight: 450,
+                    autoScaleSliderWidth: 490,
+                    slidesSpacing: 5,
+                    autoHeight: false,
+                    autoScaleSlider: false,
+                    imageAlignCenter: true,
+                    numImagesToPreload: 2,
+                    arrowsNav: true,
+                    arrowsNavAutoHide: true,
+                    arrowsNavHideOnTouch: true,
+                    keyboardNavEnabled: true,
+                    fadeinLoadedSlide: true,
+                    globalCaption: false,
+                    globalCaptionInside: false,
+                    thumbs: {
+                        //orientation: 'vertical',
+                        appendSpan: true,
+                        firstMargin: false,
+                        paddingTop: 15,
+                        spacing: 15,
+                        autoCenter: false
+                    }
+                });
+            $('.rsContainer').on('touchmove touchend', function () { });
+        }
+
+        $(function () {
+
+            initGallery();
+
+            var slider = $('#gallery').data('royalSlider');
+            slider.ev.on('rsSlideClick', function () {
+                if (slider.isFullscreen) {
+                    slider.next();
+                } else {
+                    slider.enterFullscreen();
+                }
+            });
+        });
+
+        function CartNotification()
+        {
+            jQuery.post('@Url.Action("OrderNotification", "ShoppingCart")')
+           .done(function (data) {
+               var wait = setTimeout(function(){
+                   $.jGrowl(data.list
+                       ,{life: 5000});
+               });
+           });
+        }
+
+
+        //add to cart
+        $(".addToCart").on('click', function (e) {
+            e.preventDefault();
+            var form_id = $(this).closest('form').attr('id');
+
+            var dataParam = {
+                postId : @Model.Id,
+                quantity:  parseInt($('#product_quantity').val()),
+                price: parseInt($('#hddPrice').val()),
+                form: jQuery('#' + form_id).serialize()
+            };
+
+            var param = {
+                type: 'POST',
+                url: '@Url.Action("AddProduct", "ShoppingCart")',
+                data:dataParam,
+                dataType: 'json',
+                success: function(response) {
+                    AddItemSuccess(response);
+                    CartNotification();
+                },
+                error: function(XMLHttpRequest, textStatus) {
+                    Haravan.onError(XMLHttpRequest, textStatus);
+                }
+            }
+            jQuery.ajax(param);
+
+        });
+
+        function AddItemSuccess(data) {
+            jQuery("#top-cart").html(data.list);
+        };
+
+        function  addItem(form_id) {
+            Haravan.addItemFromForm(form_id, EGA.product.addItemSuccess);
+        };
+
+    </script>
+}
+
+@section facebook
+{
+    @*<div id="fb-root"></div>
+        <script>
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&appId=743590089013725&version=v2.0";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>*@
+}
+@section google
+{
+    @*<script src="https://apis.google.com/js/platform.js" async defer></script>*@
+}
+<!---/PostDetail---->

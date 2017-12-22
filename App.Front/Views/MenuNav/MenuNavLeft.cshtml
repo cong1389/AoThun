@@ -1,0 +1,74 @@
+﻿<!----MenuNavLeft--->
+@using App.Aplication
+@model IEnumerable<App.FakeEntity.Menu.MenuNavViewModel>
+@if (Model.IsAny())
+{
+    int i = 0;
+    int j = 0;
+
+
+    <div class="widget">
+        <div class="subtitle-wrap">
+            <h4 class="subtitle text-uppercase">
+                <asp:Literal runat="server" ID="ltrSearch"></asp:Literal>
+            </h4>
+        </div>
+        <form role="search" action="" method="get">
+
+            <div>
+                <input id='Search' name='search' type="text" placeholder="Enter Keywords..." class="search-side live-search" autocomplete="off" onkeypress="return checkEnter(event)">
+                <button type='submit' id='btnSubmit' class='search btn btn-default btn-info hidden' onclick="return submitButtonSearchThemes(event)">
+                    <asp:Literal runat="server" ID="ltrContinus"></asp:Literal>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="widget">
+        <div id="categories-2" class="widget widget_categories">
+            <div class="subtitle-wrap">
+                <h4 class="subtitle text-uppercase">
+                    DANH MỤC
+                </h4>
+            </div>
+
+            <ul>
+                @foreach (var item in Model)
+                {
+                    if (item.ChildNavMenu.IsAny())
+                    {
+                        <li class="cat-item cat-item-69">
+                            <a href="@Url.Action("GetContent", "Menu", new {menu = item.SeoUrl, area = ""})">@item.MenuName</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="widget">
+        <div class="subtitle-wrap">
+            <h4 class="subtitle text-uppercase">
+                <asp:Literal runat="server" ID="ltrSocial"></asp:Literal>
+            </h4>
+        </div>
+
+        <div class="socialfollow">
+            <dgc:block_like ID="block_like" runat="server" />
+        </div>
+    </div>
+
+    <script>
+
+        //Search Themes
+        function submitButtonSearchThemes(task) {
+            var txtSearch = jQuery(".searchTemplate").val();
+            var langId = '<%=LangId %>';
+            if (txtSearch != "") {
+                window.location = langId == "vn" ? GetLink3Param('tim-kiem', langId, RemoveUnicode(txtSearch)) : GetLink3Param('search', langId, RemoveUnicode(txtSearch));
+            }
+            return false;
+        }
+    </script>
+
+}
+<!----/MenuNavLeft--->

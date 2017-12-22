@@ -1,0 +1,53 @@
+﻿<!---Footer--->
+@model App.Domain.Entities.GlobalSetting.ContactInformation
+@if (Model != null)
+{
+    <footer id="footer" class='dark'>
+
+        <div class="container">
+            <!-- Footer Widgets
+            ============================================= -->
+            <div class="style_1 prefooter_wrap footer-widgets-wrap clearfix">
+                <div class='row'>
+                    @*//@Html.Action("GetLogoFooter", "Summary", new { area =""})*@
+
+
+                    <div id="divFooterLogo" class="scroller" data-always-visible="1" data-rail-visible="0"></div>
+                    <div id="divFooterAddress" class="scroller" data-always-visible="1" data-rail-visible="0"></div>
+
+                    @Html.Action("GetFooterLink", "MenuNav", new { area = "" })
+
+                    <div class="prefooter_one col-xs-12">
+                        <div class="widget widget_links clearfix">
+                            <h4 class='widget_trigger'><i class="fa fa-map-signs"></i> @T("Social.Label")</h4>
+                            <div class="widget_content">
+                                @{Html.RenderPartial("Socials/_Social.FB_Page");}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- .footer-widgets-wrap end -->
+        </div>
+
+
+    </footer>
+                                    }
+
+<script>
+    jQuery(function () {
+
+        jQuery.post('@Url.Action("GetFooterAddress", "Summary")')
+          .done(function (data) {
+              jQuery("#divFooterAddress").html(data.list);
+          });
+
+        jQuery.post('@Url.Action("GetFooterLogo", "Summary")')
+               .done(function (data) {
+                   jQuery("#divFooterLogo").html(data.list);
+               });
+    })
+
+</script>
+
+<!---/GetInformationFooter--->

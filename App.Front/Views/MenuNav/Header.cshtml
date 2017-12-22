@@ -1,0 +1,26 @@
+﻿<!---Header--->
+@using App.Domain.Common
+@using App.Front.Models
+@using App.Aplication
+@using App.Domain.Entities.Menu
+@using Resources
+@using App.FakeEntity.Menu
+@model IEnumerable<MenuNavViewModel>
+
+@if (Model != null)
+{
+    @Html.Action("GetTopMenuMobile", "MenuNav", new { area = "" })
+
+    <header id="header" class='style_1'>
+        <div id="header-wrap" class=''>
+            <div class="container clearfix">
+                @Html.Action("GetTopMenu", "MenuNav", new { area = "" })
+
+                @Html.Action("GetLogo", "Summary", new { area = "" })
+
+            </div>
+        </div>
+    </header>
+}
+
+<!---/Header--->

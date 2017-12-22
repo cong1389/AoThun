@@ -1,0 +1,162 @@
+﻿@using Resources
+<ul class="nav navbar-nav">
+    <li class="menu-dropdown classic-menu-dropdown ">
+        <a href="@Url.Action("Index", "Home")"><i class="fa fa-home" aria-hidden="true"></i> Dashboard</a>
+    </li>
+    <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
+        <a href="javascript:;">
+            <i class="icon-briefcase"></i> Cấu hình
+            <span class="arrow"></span>
+        </a>
+        <ul class="dropdown-menu pull-left">
+            <li>
+                <a href="@Url.Action("Index", "ContactInformation")" class="nav-link"><i class="icon-graph"></i>  @FormUI.ContactInformation </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "MailSetting")" class="nav-link"><i class="icon-graph"></i> @FormUI.ServerMailSetting </a>
+            </li>
+            <li aria-haspopup="true" class="dropdown-submenu ">
+                <a href="javascript:;" class="nav-link nav-toggle ">
+                    <i class="icon-graph"></i> Quãng cáo
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li aria-haspopup="true" class=" ">
+                        <a href="@Url.Action("Index", "PageBanner")" class="nav-link ">
+                            Vị trí hiển thị quảng cáo
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class=" ">
+                        <a href="@Url.Action("Index", "Banner")" class="nav-link ">
+                            Danh sách quảng cáo
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li aria-haspopup="true" class="dropdown-submenu ">
+                <a href="javascript:;" class="nav-link nav-toggle ">
+                    <i class="icon-graph"></i>Thiết lập ngôn ngữ
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li aria-haspopup="true" class=" ">
+                        <a href="@Url.Action("Index", "Language")" class="nav-link ">
+                            Ngôn ngữ
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li aria-haspopup="true" class="dropdown-submenu ">
+                <a href="javascript:;" class="nav-link nav-toggle ">
+                    <i class="icon-graph"></i>Quản lý thành viên
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li aria-haspopup="true" class=" ">
+                        <a href="@Url.Action("Index", "Account")" class="nav-link"> @FormUI.Users </a>
+                    </li>
+                    <li aria-haspopup="true" class=" ">
+                        <a href="@Url.Action("Index", "Role")" class="nav-link"> @FormUI.Roles </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+    <li class="menu-dropdown mega-menu-dropdown  ">
+        <a href="javascript:;">
+            <i class="fa fa-cogs"></i> Hệ thống
+            <span class="arrow"></span>
+        </a>
+        <ul class="dropdown-menu pull-left">
+            <li>
+                <a href="@Url.Action("Index", "SystemSetting")" class="nav-link"><i class="icon-graph"></i>  @FormUI.SystemSetting </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "SeoSetting")" class="nav-link"><i class="icon-graph"></i>  @FormUI.SettingSeoGlobal </a>
+            </li>
+            <li aria-haspopup="true" class="dropdown-submenu ">
+                <a href="javascript:;" class="nav-link nav-toggle ">
+                    <i class="icon-graph"></i>Control dynamic
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li aria-haspopup="true" class=" ">
+                        <a href="@Url.Action("Index", "GenericControl")" class="nav-link ">
+                            @FormUI.GenericControl
+                        </a>
+                    </li>
+                    <li aria-haspopup="true" class=" ">
+                        <a href="@Url.Action("Index", "GenericControlValue")" class="nav-link ">
+                            @FormUI.GenericControlValue
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </li>
+
+    <li class="menu-dropdown classic-menu-dropdown">
+        <a href="javascript:;">
+            <i class="fa fa-file-archive-o"></i>Catalog<span class="arrow"></span>
+        </a>
+        <ul class="dropdown-menu pull-left">
+            <li>
+                <a href="@Url.Action("Index", "Menu")" class="nav-link"> @FormUI.MenuLink </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "SlideShow")" class="nav-link"> Danh sách slide </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Post")" class="nav-link"> @FormUI.PostManagement </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "StaticContent")" class="nav-link"> @FormUI.StaticContent </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "News")" class="nav-link"> @FormUI.NewsManagement </a>
+            </li>
+
+
+            <li class="">
+                <a href="@Url.Action("Index", "Province")" class="nav-link"> Danh sách tỉnh thành </a>
+            </li>
+            <li aria-haspopup="true" class="dropdown-submenu ">
+                <a href="javascript:;" class="nav-link nav-toggle ">
+                    Quản lý thuộc tính
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="@Url.Action("Index", "Attribute")" class="nav-link"> @FormUI.Attribute </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "AttributeValue")" class="nav-link"> @FormUI.AttributeValue </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+    <li class="menu-dropdown classic-menu-dropdown">
+        <a href="javascript:;">
+            <i class="fa fa-users"></i>Bán hàng<span class="arrow"></span>
+        </a>
+        <ul class="dropdown-menu pull-left">
+            <li class="hidden">
+                <a href="@Url.Action("Index", "Repair")" class="nav-link"> @FormUI.Repair </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Order")" class="nav-link"> Hóa đơn </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "FlowStep")" class="nav-link">Khách hàng</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Brand")" class="nav-link">Hãng sản xuất</a>
+            </li>
+        </ul>
+    </li>
+
+</ul>

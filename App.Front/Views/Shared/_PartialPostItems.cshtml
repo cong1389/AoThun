@@ -1,0 +1,111 @@
+﻿<!---_PartialPostItems--->
+
+@using App.Domain.Common
+@using App.Aplication
+@model IEnumerable<App.Domain.Entities.Data.Post>
+@if (Model.IsAny())
+{
+    var post1 = Model.Where(m => m.Id % 2 == 0 && (m.ProductHot || (m.ProductNew && m.ProductHot))).Take(15);
+    var post2 = Model.Where(m => m.Id % 2 != 0 && (m.ProductHot || (m.ProductNew && m.ProductHot))).Take(15);
+
+    <div id="Div1" class="vc_row wpb_row vc_row-fluid vc_custom_1471198040046 wpb_section wpb_padding divProject">
+        <div class="container">
+            <div class="row">
+                <div class="wpb_column vc_column_container vc_col-sm-12">
+                    <div class="vc_column-inner ">
+                        <div class="wpb_wrapper">
+                            <div class="st-heading style-1 text-left">
+                                <h3 class="box-title pull-left">
+                                    <a href="/quy-hoach/vn" id="ctl00_mainContent_ctl00_hypContinusProject">
+                                        <i class="fa fa-building"></i>
+                                        Các dự án tiêu biểu
+                                    </a>
+                                </h3>
+                            </div>
+                            <div class="st-blog crsl">
+                                <div class=" row1">
+                                    <div class="max-title max-title3 pull-right navigationslide">
+                                        <div class="divProject-navigation">
+                                            <a class="btn prev"><i class="fa fa-angle-double-left fa-2x"></i></a>
+                                            <a class="btn next"><i class="fa fa-angle-double-right fa-2x"></i></a>
+                                        </div>
+                                    </div>
+                                    <div id="divProject" class="fadeOut owl-carousel">
+                                        @foreach (var item in post1)
+                                        {
+                                            <div class="portfolio-item ">
+                                                <div class="img-container blog-container">
+                                                    <div class="post-thumb">
+                                                        <a href="@Url.Action("PostDetail","Post", new {seoUrl =item.SeoUrl,area=""})">
+                                                            <img width="600" height="400" class="featured-image attachment-slicetheme-small size-slicetheme-small wp-post-image"
+                                                                 sizes="(max-width: 600px) 100vw, 600px" src="@Url.Content("~/" + item.ImageMediumSize)" alt="@item.Title" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="blog-inner">
+                                                        <div class="left-curve"></div>
+                                                        <div class="right-curve"></div>
+                                                        <h4 class="post-title">
+                                                            <a href="@Url.Action("PostDetail","Post", new {seoUrl =item.SeoUrl,area=""})">
+                                                                @item.Title
+                                                            </a>
+                                                        </h4>
+                                                        <div class="post-excerpt hidden">
+                                                            <p>
+                                                                @item.Description
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                    <div class="max-title max-title3 pull-right navigationslide">
+                                        <div class="divProject-navigation2">
+                                            <a class="btn prev"><i class="fa fa-angle-double-left fa-2x"></i></a>
+                                            <a class="btn next"><i class="fa fa-angle-double-right fa-2x"></i></a>
+                                        </div>
+                                    </div>
+                                    <div id="divProject2" class="fadeOut owl-carousel">
+
+                                        @foreach (var item in post2)
+                                        {
+                                            <div class="portfolio-item ">
+                                                <div class="img-container blog-container">
+                                                    <div class="post-thumb">
+                                                        <a href="@Url.Action("PostDetail","Post", new {seoUrl =item.SeoUrl,area=""})">
+                                                            <img width="600" height="400" class="featured-image attachment-slicetheme-small size-slicetheme-small wp-post-image"
+                                                                 sizes="(max-width: 600px) 100vw, 600px" src="@Url.Content("~/" + item.ImageMediumSize)" alt="@item.Title" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="blog-inner">
+                                                        <div class="left-curve"></div>
+                                                        <div class="right-curve"></div>
+                                                        <h4 class="post-title">
+                                                            <a href="@Url.Action("PostDetail","Post", new {seoUrl =item.SeoUrl,area=""})">
+                                                                @item.Title
+                                                            </a>
+                                                        </h4>
+                                                        <div class="post-excerpt hidden">
+                                                            <p>
+                                                                @item.Description
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<!---/_PartialPostItems--->

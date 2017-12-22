@@ -1,0 +1,123 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>@ViewBag.Title </title>
+
+    @{Html.RenderAction("GetMetaTagsSeo", "Summary");}
+    @{Html.RenderAction("GetMeta", "Summary"); }
+
+    @{Html.RenderPartial("_StyleSheet");}
+
+    @RenderSection("stylesheets", false)
+    @RenderSection("styles", false)
+
+    @{Html.RenderPartial("_Scripts"); }
+</head>
+<body class="stretched loaded no-transition body_index">
+
+    <div class='body_preloader'></div>
+
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+
+    <div class='body_overlay'></div>
+    <!-- /#sidebar-wrapper -->
+
+    <div id="wrapper" class="clearfix">
+
+        <!-- header -->
+        @{ Html.RenderAction("Header", "MenuNav", new { area = "" });}
+        <!-- end header -->
+
+        @RenderBody()
+
+        @{Html.RenderAction("Footer", "Summary", new { area = "" }); }
+
+
+        <!-- #footer end -->
+    </div><!-- #wrapper end -->
+    <!-- Go To Top
+    ============================================= -->
+    <div id="gotoTop" class="fa fa-chevron-up"></div>
+    <!-- Footer Scripts
+    ============================================= -->
+    <!-- quick add cart -->
+    <div id='product-pop-up' style="display:none;" class="single-product shop-quick-view-ajax clearfix">
+    </div>
+
+    <div id="product-quick-add" style="display: none; width: 700px;">
+        <div class="product-page ">
+            <div class="row">
+                <form id="ProductDetailsForm_QuickAdd">
+                    <div class="hidden" style="">
+                        <select id="product-select-qa" name="id"></select>
+                        <input type="hidden" class="unit_price_not_formated"><!-- </input> -->
+                        <input type="hidden" class="product_url" value=""> <!--</input>-->
+                        <input type="hidden" class="product_title_hd" value=""> <!--</input>-->
+                        <input type="hidden" class="product_img_small" value=""> <!--</input>-->
+                    </div>
+                    <input id="product-quantity" name="quantity" type="text" value="1" readonly class="form-control input-sm quantity">
+                    <button id="addtocartQA" class="btn btn-primary" type="submit">Thêm vào giỏ</button>
+                </form>
+            </div>  <!-- END: row -->
+        </div>
+    </div>
+
+    <!-- end quick add cart -->
+    @*<script id="sidebar_viewed_template" type="text/template">
+            <div class="spost clearfix">
+                <div class="entry-image">
+                    <a href="{{ product_url }}"><img src="{{ product_img }}" alt="{{ product_title }}"></a>
+                </div>
+                <div class="entry-c">
+                    <div class="entry-title">
+                        <h4><a href="{{ product_url }}">{{ product_title }}</a></h4>
+                    </div>
+                    <ul class="entry-meta">
+                        <li class="color">
+                            <ins>{{ product_price }}</ins>
+                            <del>{{ product_compare_price }}</del>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </script>*@
+    @*<script id='product_viewed_products_template' type="text/template">
+            <li class="clearfix">
+                <a title='{{ product_title }}' href="{{ product_url }}"><img src="{{ product_img }}"></a>
+            </li>
+        </script>*@
+
+    <!-- shop-asset -->
+    <!-- Fonts START -->
+    <!-- Fonts END -->
+    <link href='/assets/global/design/plugins/bootstrap/3.3.6/css/bootstrap.min.css' rel='stylesheet' type='text/css' media='all' />
+    <!-- <link href='//hstatic.net/0/0/global/design/plugins/fancybox/jquery.fancybox.css' rel='stylesheet' type='text/css'  media='all'  /> -->
+    <link href='/assets/lib/jquery.fancybox677f.css?v=226' rel='stylesheet' type='text/css' media='all' />
+    <link href='/assets/global/design/plugins/font-awesome/4.5.0/css/font-awesome.min.css' rel='stylesheet' type='text/css' media='all' />
+    <link href='/assets/lib/plugins.scss677f.css?v=226' rel='stylesheet' type='text/css' media='all' />
+    <link href='/assets/lib/style677f.css?v=226' rel='stylesheet' type='text/css' media='all' />
+    <link href='/assets/lib/responsive677f.css?v=226' rel='stylesheet' type='text/css' media='all' />
+    <!-- Egany custom style -->
+    <link href='/assets/lib/custom_style.scss677f.css?v=226' rel='stylesheet' type='text/css' media='all' />
+    <!-- External JavaScripts
+    ============================================= -->
+
+    <link rel='stylesheet' media="screen" href='/assets/global/box-style15ac.css_v=1483418901649.css' />
+
+    @RenderSection("jquerys", false)
+    @RenderSection("scripts", false)
+    @RenderSection("google", false)
+    @RenderSection("facebook", false)
+
+
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+﻿<!----_Post.Address-->
+
+@model App.Domain.Entities.GlobalSetting.ContactInformation
+@if (Model != null)
+{
+    <div class="widget divContact">
+        <div class="st-heading  text-left">
+            <h3 class="box-title">
+                Liên hệ
+            </h3>
+        </div>
+        <div class="">
+            <p class="address">
+                <i class="fa fa-map-marker"></i>
+                @Model.Address
+            </p>
+            <p class="address">
+                <i class="fa fa-tablet"></i>
+                :    @Model.Hotline
+                &nbsp;&nbsp;   <i class="fa fa-phone"></i>
+                : @Model.MobilePhone
+            </p>
+            <p class="address">
+                <i class="fa fa-envelope-o"></i>
+                @Model.Email
+            </p>
+
+
+            <!--block_like-->
+            <ul class="social_icon heading_top text-left">
+                <li>
+
+
+                    <a href="javascript:void(0)" class="facebook" id="shareBtn"> <i class="fa fa-facebook"></i><span></span></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="twitter" onclick="st_buildingx_PopupCenterDual('','twitter',600,600);"> <i class="fa fa-twitter"></i><span></span></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="instagram" onclick="st_buildingx_PopupCenterDual('','pinterest',600,600);"> <i class="fa fa-pinterest"></i><span></span></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="dribble" onclick="st_buildingx_PopupCenterDual('','google',600,600);"> <i class="fa fa-google-plus"></i><span></span></a>
+                </li>
+            </ul>
+
+            <!--/block_like-->
+            <div id="divFBLike"></div>
+        </div>
+
+
+    </div>
+
+    <div class="clear"></div>
+    <!-----------------------------------fb coment-------------------------------------------------------------------------------------------->
+    <div class="widget divCommentFB">
+        <div class="st-heading  text-left">
+            <h3 class="box-title">
+                Ý kiến khách hàng
+            </h3>
+        </div>
+        <div class="st-metabox style-1">
+            <div class="comment">
+                <div id="divFBComment"></div>
+            </div>
+        </div>
+    </div>
+
+     <!----------------------------------/fb coment-------------------------------------------------------------------------------------------->
+
+    <script>
+
+        jQuery(document).ready(function () {
+            var url = window.location.href;
+
+            document.getElementById('shareBtn').onclick = function () {
+                FB.ui({
+                    display: 'popup',
+                    method: 'share',
+                    href: '' + url + '',
+                }, function (response) { });
+            }
+
+            //FB like
+            var fbLikeCode = '<div class="fb-like" data-href=' + url + ' data-layout="standard" data-action="like" data-show-faces="true"></div>';
+            jQuery('#divFBLike').html(fbLikeCode);
+
+            //FB comment
+            var fbComment = '<fb:comments href="' + url + '" data-num-posts="10" data-width="300" data-order-by="reverse_time"></fb:comments>'
+            jQuery('#divFBComment').html(fbComment);
+        });
+    </script>
+
+}
+<!----/_Post.Address-->

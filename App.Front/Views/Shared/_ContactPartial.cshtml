@@ -1,0 +1,66 @@
+﻿@model App.Domain.Entities.GlobalSetting.ContactInformation
+
+<div class="info-company marginbottom">
+    <div class="col-sm-6">
+        <div class="img">
+            <img src="/Images/chart.png" />
+        </div>
+    </div>
+    <div class="col-sm-6 col-xs-12">
+        <ul>
+            <li class="fa-home">
+                @Model.Address
+            </li>
+            @if (!string.IsNullOrEmpty(Model.MobilePhone))
+            {
+                <li class="fa-phone" itemprop="telephone">@Model.MobilePhone</li>
+            }
+            @if (!string.IsNullOrEmpty(Model.Fax))
+            {
+                <li class="fa-print" itemprop="faxNumber">@Model.Fax</li>
+            }
+            @if (!string.IsNullOrEmpty(Model.Email))
+            {
+                <li class="fa-envelope" itemprop="email">@Model.Email</li>
+            }
+           
+            <li class="fa-globe" itemprop="url">www.thienphattiengiang.com</li>
+        </ul>
+    </div>
+    <a class="view-map hidden" onclick="">Xem bản đồ</a><div class="clear"></div>
+</div>
+
+
+<div id="formContact" name="formContact" method="post" action="#" class="form validate col-sm-6">
+
+    <form id="formContact" name="formContact" method="post" action="#" class="form validate">
+        <p>@T("Contact.Thanks")</p>
+        <div class="form-group">
+            <label for="">@T("HoTen.Lable") <span class="per">(*)</span></label>
+            <input type="text" name="name" id="name" class="icon1 form-control" />
+        </div>
+        <div class="form-group">
+            <label for="">@T("Email.Lable") <span class="per">(*)</span></label>
+            <input type="text" name="email" id="email" class="icon2 form-control" />
+        </div>
+        <div class="form-group">
+            <label for="">@T("DienThoai.Lable")<span class="per">(*)</span></label>
+            <input type="text" name="phone" id="phone" class="icon3 form-control" />
+        </div>
+        <div class="form-group">
+            <label for="">@T("NoiDungLienLac")<span class="per">(*)</span></label>
+            <textarea class="icon4 form-control" id="content" name="content"></textarea>
+        </div>
+        <div class="form-group hidden">
+            <label for="">Mã bảo vệ <span class="per">(*)</span></label>
+            <input type="text" name="security_code" id="security_code" class="icon5 form-control" />
+            @*<img class="security_ver" src="http://trisedco.com/includes/sec_image.php?code=jMTUyMIw" />*@
+        </div>
+        <div class="form-group">
+            <div class="col-right">
+                <button id="do_submit" name="do_submit" type="submit" class="btn" value="@T("btnSend")"><span>@T("btnSend")</span></button>
+                <button id="btnReset" name="btnReset" type="reset" class="btn" value="@T("NhapLai")"><span>@T("NhapLai")</span></button>
+            </div>
+        </div>
+    </form>
+</div>

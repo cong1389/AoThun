@@ -1,0 +1,175 @@
+﻿<!---Cart-->
+@using App.Aplication
+@model App.Front.Models.ShoppingCart.MiniShoppingCartModel
+
+<section id="page-title">
+    <div class="container clearfix">
+        <ol class="breadcrumb col-md-6 col-sm-6">
+            <li><a href="/">Trang chủ</a></li>
+
+            <li class="active">Giỏ hàng</li>
+
+        </ol>
+    </div>
+</section>
+
+<section id="content">
+
+    <div class="container clearfix">
+        @if (Model.Items.IsAny())
+        {
+            <form action="/cart" method="post" id="cartformpage">
+                <div class="table-responsive">
+                    <table class="table cart">
+                        <thead>
+                            <tr>
+                                <th class="cart-product-remove">&nbsp;</th>
+                                <th class="cart-product-thumbnail">&nbsp;</th>
+                                <th class="cart-product-name">Sản phẩm</th>
+                                <th class="cart-product-price">Đơn giá</th>
+                                <th class="cart-product-quantity">Số lượng</th>
+                                <th class="cart-product-subtotal">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyCart">
+
+                            @foreach (var product in Model.Items)
+                            {
+                                <tr class="cart_item" id="row@(product.Id)">
+                                    <td class="cart-product-remove">
+                                        <a href="" class="remove" title="">
+                                            <i class="icon-trash2"></i>
+                                        </a>
+                                    </td>
+
+                                    <td class="cart-product-thumbnail">
+                                        <a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })">
+                                            <img src="@Url.Content("~/" + product.ImageSmallSize)" alt="@product.Title">
+                                        </a>
+                                    </td>
+
+                                    <td class="cart-product-name">
+                                        <a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })">
+                                            @product.Title
+                                        </a>
+                                        <p style="display: none">Default Title</p>
+                                    </td>
+
+                                    <td class="cart-product-price">
+                                        <span class="amount">
+                                            @if (Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice != 0)
+                                            {
+                                                @Html.Raw(string.Format("{0:##,### VND}", Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice))
+                                                @Html.Hidden("hddPrice" + product.Id, Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice)
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw("Liên hệ")
+                                                @Html.Hidden("hddPrice" + product.Id, 0)
+                                            }
+
+                                        </span>
+                                    </td>
+
+                                    <td class="cart-product-quantity">
+                                        <div class="quantity clearfix product-quantity">
+                                            <input type="button" value="-" class="minus" onclick="MinusQuantity(@product.Id)">
+                                            <input type="text" id='product_quantity_@product.Id' min="1" name="quantity_@product.Id"
+                                                   value="@Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().Quantity" title="Qty" class="qty" size="4" />
+                                            <input type="button" value="+" class="plus" onclick="PlusQuantity(@product.Id)">
+                                        </div>
+                                    </td>
+
+                                    <td class="cart-product-subtotal">
+                                        <span class="amount">
+                                            @if (Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice != 0)
+                                            {
+                                                var price = Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice;
+                                                var quantity = Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().Quantity;
+                                                @Html.Raw(string.Format("{0:##,### VND}", price * quantity))
+                                            }
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+
+                            <tr style="text-align:center;">
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td><h4 style="margin-bottom:10px;">Tổng tiền </h4></td>
+                                <td><span class="amount color lead"><strong>@Model.SubTotal</strong></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-6 col-sm-6 col-xs-12 nopadding" style="margin-top:-20px!important">
+                        <div class="checkout-buttons clearfix">
+                            <label for="note">Ghi chú </label>
+                            <textarea style="height:85px" id="note" class="sm-form-control" name="note" rows="8" cols="50"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12  nopadding">
+
+                        <input type="submit" name="startcheckout" value="startcheckout" id="startcheckout" class="hidden" />
+                        <button name="checkout" class="button button-3d  fright" onclick="$('#startcheckout').trigger('click'); return false;">
+                            Thanh toán
+                        </button>
+                    </div>
+                </div>
+            </form>
+        }
+    </div>
+</section>
+
+<script>
+
+    function MinusQuantity(postid) {
+        var quantity = parseInt($('#product_quantity_' + postid).val());
+        if (quantity > 0) {
+            quantity -= 1;
+        }
+        else {
+            quantity = 0;
+        }
+        UpdateCartItem(postid, quantity);
+    }
+
+    function PlusQuantity(postid) {
+        var quantity = parseInt($('#product_quantity_' + postid).val());
+        if (quantity < 100) {
+            quantity += 1
+        }
+        else {
+            quantity = 100;
+        }
+        UpdateCartItem(postid, quantity);
+    }
+
+    function UpdateCartItem(postid, quantity) {
+
+        var dataParam = {
+            postId: postid,
+            quantity: parseInt(quantity),
+            price: parseInt($('#hddPrice' + postid).val())
+        };
+        var param = {
+            type: 'POST',
+            url: '@Url.Action("UpdateCartItem", "ShoppingCart")',
+            data: dataParam,
+            dataType: 'json',
+            success: function (response) {
+                jQuery("#bodyCart").html(response.list);
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                Haravan.onError(XMLHttpRequest, textStatus);
+            }
+        }
+        jQuery.ajax(param);
+    }
+</script>
+
+<!---/Cart-->

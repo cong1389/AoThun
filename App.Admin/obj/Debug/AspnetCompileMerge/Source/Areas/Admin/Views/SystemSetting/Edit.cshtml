@@ -1,0 +1,23 @@
+﻿@using App.Domain.Common
+@using App.Framework.Ultis
+@using Resources
+@model App.FakeEntity.System.SystemSettingViewModel
+@{
+    ViewBag.Title = FormUI.Edit;
+    ViewBag.Toolbar = new[] { "Save", "SaveNew", "Divider", "Back" };
+}
+
+@using (Html.BeginForm("Edit", "SystemSetting", FormMethod.Post, new { data_container = @ViewContext.RouteData.Values["controller"], @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x=>x.Id) 
+    @Html.HiddenFor(x=>x.LogoImage) 
+    @Html.HiddenFor(x=>x.Favicon) 
+
+    Html.RenderPartial("_CreateOrUpdate", Model);
+}
+@section scripts{
+    <script src="@Url.FakePathAdmin("scripts/plugins/ckeditor/ckeditor.js")"></script> 
+}
+
+

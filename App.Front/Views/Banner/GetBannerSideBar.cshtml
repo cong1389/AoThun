@@ -1,0 +1,63 @@
+﻿<!----GetBannerSideBar-->
+
+@using App.Aplication
+@model IEnumerable<App.Domain.Entities.Ads.Banner>
+@if (Model.IsAny())
+{
+    <div id="divAdv" class="row fadeOut owl-carousel owl-theme center-block img-center" style="opacity: 1; display: block;">
+
+        <div class="owl-wrapper-outer">
+            <div class="owl-wrapper" style="width: 8890px; left: 0px; display: block; transition: all 800ms ease; transform: translate3d(-1905px, 0px, 0px);">
+                @foreach (var item in Model)
+                {
+                    <div class="owl-item" style="width: 635px;">
+                        <div class="item">
+                            <a href="@item.WebsiteLink" rel="nofollow " target="@item.Target">
+                                <img src="@Url.Content("~/"+item.ImgPath)" class="attachment-slicetheme-small size-slicetheme-small wp-post-image">
+                            </a>
+                        </div>
+                    </div>
+                }
+                <div class="owl-item" style="width: 635px;">
+                    <div class="item">
+                        <a id="ctl00_top_menu_rptPartner_ctl01_hypImg" target="_blank">
+                            <img src="http://bba.vn/Resource/UpLoad/Banner/banner13108201710031101092017064946.png" id="ctl00_top_menu_rptPartner_ctl01_img" class="attachment-slicetheme-small size-slicetheme-small wp-post-image" alt="blog01">
+                        </a>
+                    </div>
+                </div><div class="owl-item" style="width: 635px;">
+                    <div class="item">
+                        <a id="ctl00_top_menu_rptPartner_ctl02_hypImg" target="_blank">
+                            <img src="http://bba.vn/Resource/UpLoad/Banner/cdba4261f9e4586f8184a2af1f73352e_1280_582_CA18112016030221.jpg" id="ctl00_top_menu_rptPartner_ctl02_img" class="attachment-slicetheme-small size-slicetheme-small wp-post-image" alt="blog01">
+                        </a>
+                    </div>
+                </div><div class="owl-item" style="width: 635px;">
+                    <div class="item">
+                        <a id="ctl00_top_menu_rptPartner_ctl03_hypImg" target="_blank">
+                            <img src="http://bba.vn/Resource/UpLoad/Banner/57a96c65b2296f3319f840b6360e325218112016025946.png" id="ctl00_top_menu_rptPartner_ctl03_img" class="attachment-slicetheme-small size-slicetheme-small wp-post-image" alt="blog01">
+                        </a>
+                    </div>
+                </div><div class="owl-item" style="width: 635px;">
+                    <div class="item">
+                        <a id="ctl00_top_menu_rptPartner_ctl04_hypImg" target="_blank">
+                            <img src="http://bba.vn/Resource/UpLoad/Banner/e361b6eb9b311216868d7d8caaece797_1280_582_CA18112016121619.jpg" id="ctl00_top_menu_rptPartner_ctl04_img" class="attachment-slicetheme-small size-slicetheme-small wp-post-image" alt="blog01">
+                        </a>
+                    </div>
+                </div><div class="owl-item" style="width: 635px;">
+                    <div class="item">
+                        <a id="ctl00_top_menu_rptPartner_ctl05_hypImg" target="_blank">
+                            <img src="http://bba.vn/Resource/UpLoad/Banner/520a5fcc16dbf6f28c02f637824cfc54_1280_582_CA18112016121557.jpg" id="ctl00_top_menu_rptPartner_ctl05_img" class="attachment-slicetheme-small size-slicetheme-small wp-post-image" alt="blog01">
+                        </a>
+                    </div>
+                </div><div class="owl-item" style="width: 635px;">
+                    <div class="item">
+                        <a id="ctl00_top_menu_rptPartner_ctl06_hypImg" target="_blank">
+                            <img src="http://bba.vn/Resource/UpLoad/Banner/5-jpg-20160618124211YDwwb89Gws_thum1911201611522004092017082755_R.jpg" id="ctl00_top_menu_rptPartner_ctl06_img" class="attachment-slicetheme-small size-slicetheme-small wp-post-image" alt="blog01">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+}
+
+<!----/GetBannerSideBar-->

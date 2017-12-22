@@ -1,0 +1,24 @@
+﻿<!----BannerTop-->
+
+@using App.Aplication
+@model IEnumerable<App.Domain.Entities.Ads.Banner>
+@if (Model.IsAny())
+{
+    foreach (var item in Model)
+    {
+        <section id="title-wrapper" style="background-image: url('@(Url.Content("~/" + item.ImgPath))');">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-holder">
+                            <div class="title-holder-cell text-left">
+                                <h2 class="page-title"><span class="text-uppercase">@ViewBag.PostTitle</span></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}
+<!----/BannerTop-->

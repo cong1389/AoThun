@@ -1,0 +1,18 @@
+﻿<!--GetSlideShow -->
+
+@using App.Aplication
+@model IEnumerable<App.Domain.Entities.Slide.SlideShow>
+@if (Model.IsAny())
+{
+
+    <section id="slider" class="nopadding clearfix">
+        @foreach (var item in Model)
+        {
+            <a href="@item.WebsiteLink" target="@item.Target" title="@item.Title">
+                <img src="@Url.Content("~/"+item.ImgPath)" alt="@item.Title">
+            </a>
+        }
+    </section>
+}
+
+<!--/GetSlideShow -->

@@ -1,0 +1,38 @@
+﻿<!--NewsDetail---->
+@using App.Domain.Entities.Data
+@using App.Domain.Entities.Menu
+@model App.Domain.Entities.Data.News
+
+@if (Model != null)
+{
+    Html.Action("BannerTopOfNewsPage", "Banner", new { menuId = ViewBag.BannerId, title = ViewBag.Title })
+
+        <section class="container page-content">
+            @Html.Partial("_BreadCrumb")
+            <hr class="vertical-space2">
+            <aside class="col-md-3 sidebar">
+                @Html.Action("MenuNavLeft", "MenuNav", new { virtualId = Model.VirtualCategoryId, area = "" })
+            </aside>
+
+            <section class="col-md-9 cntt-w">
+
+                <article class="blog-single-post">
+                    <div class="post-trait-w">
+                        <h2>
+                            @Model.Title
+                        </h2>
+                        <a href="@Url.Content("~/" + Model.ImageMediumSize)" class='thickbox' title='Zoom'>
+                            <img src="@Url.Content("~/" + Model.ImageMediumSize)" width=356 alt="@Model.Title" title="@Model.Title" />
+                        </a>
+                    </div>
+                    <div class="post post-8758 type-post status-publish format-standard has-post-thumbnail hentry category-cloud-computing category-it-news category-networking">
+                        @Html.Raw(@Model.Description)
+                    </div>
+                </article>
+
+                <hr class="vertical-space">
+            </section>
+        </section>
+}
+
+<!--/NewsDetail---->

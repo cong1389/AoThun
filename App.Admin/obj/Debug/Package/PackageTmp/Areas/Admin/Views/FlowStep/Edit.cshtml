@@ -1,0 +1,16 @@
+﻿@using App.Domain.Common
+@using App.Framework.Ultis
+@using Resources
+@model App.FakeEntity.Step.FlowStepViewModel
+@{
+    ViewBag.Title = FormUI.Edit;
+    ViewBag.Toolbar = new[] { "Save", "SaveNew", "Divider", "Back" };
+}
+
+@using (Html.BeginForm("Edit", "FlowStep", FormMethod.Post, new { data_container = ViewContext.RouteData.Values["controller"], enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x=>x.Id) 
+
+    Html.RenderPartial("_CreateOrUpdate", Model);
+}

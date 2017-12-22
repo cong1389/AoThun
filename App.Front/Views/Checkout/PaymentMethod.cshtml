@@ -1,0 +1,123 @@
+﻿<!----PaymentMethod-->
+@using App.Aplication
+@model App.Front.Models.Checkout.CheckoutPaymentMethodModel
+
+<section id="page-title">
+    <div class="container clearfix">
+        <ol class="breadcrumb col-md-6 col-sm-6">
+            <li><a href="/">Trang chủ</a></li>
+
+            <li class="active">Phương thức thanh toán</li>
+
+        </ol>
+    </div>
+</section>
+
+@if (Model != null)
+{
+    <div class="content billingaddress">
+        <div class="wrap">
+            <div class="sidebar">
+                <div id="divCart" class="scroller" data-always-visible="1" data-rail-visible="0"></div>
+            </div>
+            <div class="main">
+                <div class="main-header">
+                    <a href="#" class="logo">
+                        <h1 class="logo-text">
+                          <div id="divCompanyName"></div>
+                        </h1>
+                    </a>
+                </div>
+                <div class="main-content">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="step">
+                            <div class="step-sections " step="2">
+
+                                @{
+                                    Html.RenderAction("ShippingMethod", "Checkout", new { area = "" });
+                                }
+
+                                <div id="section-payment-method" class="section">
+                                    <div class="section-header">
+                                        <h2 class="section-title">Phương thức thanh toán</h2>
+                                    </div>
+                                    <div class="section-content">
+                                        <div class="content-box">
+
+
+                                            @{
+                                                for (int i = 0; i < Model.PaymentMethods.Count(); i++)
+                                                {
+                                                    <div class="radio-wrapper content-box-row">
+                                                        <label class="radio-label" for="payment_method_id_341643">
+                                                            <div class="radio-input">
+                                                                <input id="payment_method_id@(Model.PaymentMethods[i].Id)" class="input-radio" name="payment_method_id" type="radio" value="@Model.PaymentMethods[i].PaymentMethodSystemName" checked="@Model.PaymentMethods[i].Selected">
+                                                            </div>
+                                                            <span class="radio-label-primary">@Model.PaymentMethods[i].PaymentMethodSystemName</span>
+                                                        </label>
+                                                    </div>
+                                                }
+
+                                            }
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="step-footer">
+
+                                <input type="submit" id="nextstep" name="nextstep" class="hidden" />
+                                <button class="step-footer-continue-btn btn" onclick="$('#nextstep').trigger('click');return false;">
+                                    <span class="btn-content">Hoàn tất đơn hàng</span>
+                                    <i class="btn-spinner icon icon-button-spinner"></i>
+                                </button>
+
+                                <a href="@Url.Action("BillingAddress","Checkout")" class="step-footer-previous-link">
+                                    <svg class="previous-link-icon icon-chevron icon" xmlns="http://www.w3.org/2000/svg" width="6.7" height="11.3" viewBox="0 0 6.7 11.3">
+                                    <path d="M6.7 1.1l-1-1.1-4.6 4.6-1.1 1.1 1.1 1 4.6 4.6 1-1-4.6-4.6z"></path></svg>
+                                    Quay lại thông tin giao hàng
+                                </a>
+
+
+                            </div>
+                        </div>
+                                                }
+                </div>
+            </div>
+        </div>
+
+    </div>
+                                                }
+@section stylesheets
+{
+    <link href="~/assets/global/checkouts.css" rel="stylesheet" />
+    <link href="~/assets/global/check_out.css" rel="stylesheet" />
+}
+
+@section jquerys{
+    <script src="~/assets/global/jquery.validate.js"></script>
+
+    <script>
+        jQuery(function () {
+
+            jQuery.post('@Url.Action("GetSystemSetting", "Summary")')
+            .done(function (data) {
+                if (data.list !=null) {
+                    jQuery("#divCompanyName").html(data.list.Title);
+                }
+
+        });
+
+        jQuery.post('@Url.Action("CartByCustomer", "Checkout")')
+                .done(function (data) {
+                    jQuery("#divCart").html(data.list);
+                });
+        })
+
+    </script>
+}
+<!----/PaymentMethod-->

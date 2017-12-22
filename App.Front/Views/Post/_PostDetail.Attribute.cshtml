@@ -1,0 +1,22 @@
+﻿
+@model IEnumerable<App.Domain.Entities.GenericControl.GenericControl>
+
+<div id="AllTweets">
+
+    @foreach (var genericControl in Model)
+    {
+        int i = 1;
+        <div class="form-group">
+            <ul>
+                @foreach (var genericControlValues in genericControl.GenericControlValues)
+                {
+                    <li>
+                <span class="badge">@i</span> 
+                <span class="box-label">@genericControlValues.ValueName</span>
+                <span class="box-value">@genericControlValues.ColorHex</span>  </li>
+                    i++;
+                }
+            </ul>
+        </div>
+    }
+</div>

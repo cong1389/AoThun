@@ -1,0 +1,31 @@
+﻿@using App.Aplication
+@model IEnumerable<App.FakeEntity.Menu.MenuNavViewModel>
+@if (Model.IsAny())
+{
+    int i = 0;
+
+    <div class="prefooter_one col-xs-12">
+        <div class="widget widget_links clearfix">
+            <h4 class='widget_trigger'>
+                Hướng dẫn
+                <i class='visible-xs fa fa-plus-square pull-right'></i>
+            </h4>
+            <ul class='widget_content'>
+                @foreach (var item in Model)
+                {
+                    if (!string.IsNullOrEmpty(item.OtherLink))
+                    {
+                        <li><a href="@item.OtherLink">@item.MenuName</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("GetContent", "Menu", new {menu = item.SeoUrl, area = ""})">@item.MenuName</a></li>
+
+                    }
+                    i++;
+                }
+               
+            </ul>
+        </div>
+    </div>
+}

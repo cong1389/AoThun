@@ -1,0 +1,9 @@
+﻿@using App.Aplication
+@model IEnumerable<App.Domain.Entities.Data.Post>
+
+<!----GetProductHot-->
+@if (Model.IsAny())
+{
+    @Html.Partial("_PartialPostItems", Model)
+}
+<!----/GetProductHot-->
