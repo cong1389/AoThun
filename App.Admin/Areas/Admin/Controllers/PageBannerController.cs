@@ -1,4 +1,5 @@
 using App.Admin.Helpers;
+using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.Ads;
 using App.Domain.Interfaces.Services;
@@ -17,15 +18,24 @@ using System.Web.Mvc;
 namespace App.Admin.Controllers
 {
 	public class PageBannerController : BaseAdminController
-	{
-		private readonly IPageBannerService _pageBannerService;
+    {
+        private const string CACHE_PAGEBANNER_KEY = "db.PageBanner";
+        private readonly ICacheManager _cacheManager;
 
-		public PageBannerController(IPageBannerService pageBannerService)
+        private readonly IPageBannerService _pageBannerService;
+
+		public PageBannerController(IPageBannerService pageBannerService
+            , ICacheManager cacheManager)
 		{
 			this._pageBannerService = pageBannerService;
-		}
+            _cacheManager = cacheManager;
 
-		[RequiredPermisson(Roles="CreateEditPageBanner")]
+            //Clear cache
+            _cacheManager.RemoveByPattern(CACHE_PAGEBANNER_KEY);
+
+        }
+
+        [RequiredPermisson(Roles="CreateEditPageBanner")]
 		public ActionResult Create()
 		{
 			return base.View();

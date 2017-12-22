@@ -61,6 +61,10 @@ namespace App.Extensions
                 ImageMediumSize = entity.ImageMediumSize,
                 ImageSmallSize = entity.ImageSmallSize,
                 CreatedDate = entity.CreatedDate,
+                MenuLink = entity.MenuLink,
+                OrderDisplay= entity.OrderDisplay,
+                OtherLink= entity.OtherLink,
+                SpecialDisplay= entity.SpecialDisplay,
 
                 Title = entity.GetLocalized(x => x.Title, entity.Id),
                 ShortDesc = entity.GetLocalized(x => x.ShortDesc, entity.Id),
@@ -376,7 +380,7 @@ namespace App.Extensions
 
             destination.BillingAddress = model.BillingAddress;
             destination.ShippingAddress = model.ShippingAddress;
-            
+
 
             return destination;
         }

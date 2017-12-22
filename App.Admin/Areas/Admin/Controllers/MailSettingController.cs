@@ -1,4 +1,5 @@
 using App.Admin.Helpers;
+using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Interfaces.Services;
@@ -17,15 +18,24 @@ using System.Web.Mvc;
 namespace App.Admin.Controllers
 {
 	public class MailSettingController : BaseAdminController
-	{
-		private readonly IMailSettingService _mailSettingService;
+    {
+        private const string CACHE_MAILSETTING_KEY = "db.MailSetting";
+        private readonly ICacheManager _cacheManager;
 
-		public MailSettingController(IMailSettingService mailSettingService)
+        private readonly IMailSettingService _mailSettingService;
+
+		public MailSettingController(IMailSettingService mailSettingService
+            , ICacheManager cacheManager)
 		{
 			this._mailSettingService = mailSettingService;
-		}
+            _cacheManager = cacheManager;
 
-		[RequiredPermisson(Roles="CreateEditMailSetting")]
+            //Clear cache
+            _cacheManager.RemoveByPattern(CACHE_MAILSETTING_KEY);
+
+        }
+
+        [RequiredPermisson(Roles="CreateEditMailSetting")]
 		public ActionResult Create()
 		{
 			return base.View();

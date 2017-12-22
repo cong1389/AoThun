@@ -1,4 +1,5 @@
 ﻿using App.Admin.Controllers;
+using App.Core.Caching;
 using App.Domain.Entities.Language;
 using App.FakeEntity.Language;
 using App.Service.Common;
@@ -16,17 +17,27 @@ namespace App.Admin.Controllers
 {
     public class LocaleResourceController : BaseAdminController
     {
+        private const string CACHE_LANGUAGE_KEY = "db.Language";
+        private readonly ICacheManager _cacheManager;
+
         private readonly ILanguageService _langService;
 
         private readonly ILocaleStringResourceService _localeStringResourceService;
 
         private readonly ICommonServices _services;
 
-        public LocaleResourceController(ICommonServices services, ILocaleStringResourceService localeStringResourceService, ILanguageService langService)
+        public LocaleResourceController(ICommonServices services
+            , ILocaleStringResourceService localeStringResourceService
+            , ILanguageService langService
+             , ICacheManager cacheManager)
         {
             this._langService = langService;
             this._services = services;
             this._localeStringResourceService = localeStringResourceService;
+            _cacheManager = cacheManager;
+
+            //Clear cache
+            _cacheManager.RemoveByPattern(CACHE_LANGUAGE_KEY);
         }
 
         public ActionResult Index(int languageId, int page = 1, string keywords = "")

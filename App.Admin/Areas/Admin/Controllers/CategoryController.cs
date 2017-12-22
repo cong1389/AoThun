@@ -1,4 +1,5 @@
 using App.Admin.Helpers;
+using App.Core.Caching;
 using App.Core.Common;
 using App.Domain.Entities.Menu;
 using App.Domain.Interfaces.Services;
@@ -14,14 +15,22 @@ namespace App.Admin.Controllers
 {
 	public class CategoryController : BaseAdminController
 	{
-		private readonly IMenuLinkService _menuLinkService;
+        private const string CACHE_CATEGORY_KEY = "db.Category";
+        private readonly ICacheManager _cacheManager;
 
-		public CategoryController(IMenuLinkService menuLinkService)
+        private readonly IMenuLinkService _menuLinkService;
+
+		public CategoryController(IMenuLinkService menuLinkService
+             , ICacheManager cacheManager)
 		{
 			this._menuLinkService = menuLinkService;
-		}
+            _cacheManager = cacheManager;
 
-		private List<MenuNav> CreateMenuNav(int? parentId, IEnumerable<MenuNav> source)
+            //Clear cache
+            _cacheManager.RemoveByPattern(CACHE_CATEGORY_KEY);
+        }
+
+        private List<MenuNav> CreateMenuNav(int? parentId, IEnumerable<MenuNav> source)
 		{
 			return source.Where<MenuNav>((MenuNav x) => {
 				int? nullable1 = x.ParentId;

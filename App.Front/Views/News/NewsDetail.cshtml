@@ -5,7 +5,7 @@
 
 @if (Model != null)
 {
-    Html.Action("BannerTopOfNewsPage", "Banner", new { menuId = ViewBag.BannerId, title = ViewBag.Title })
+    Html.Action("BannerTopOfNewsPage", "Banner", new { menuId = ViewBag.BannerId, title = ViewBag.Title });
 
         <section class="container page-content">
             @Html.Partial("_BreadCrumb")

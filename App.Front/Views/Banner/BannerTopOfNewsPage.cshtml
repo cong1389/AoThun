@@ -1,4 +1,6 @@
-﻿@model App.Domain.Entities.Ads.Banner
+﻿<!----BannerTopOfNewsPage-->
+
+@model App.Domain.Entities.Ads.Banner
 @if (Model != null)
 {
     <section id="title-wrapper" style="background-image: url('@(Url.Content("~/" + Model.ImgPath))');">
@@ -15,3 +17,4 @@
         </div>
     </section>
 }
+<!----/BannerTopOfNewsPage-->

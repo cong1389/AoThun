@@ -4,7 +4,7 @@
 @model App.Domain.Entities.Data.StaticContent
 @if (Model != null)
 {
-    @Html.Action("BannerTop", "Banner", new { menuId = ViewBag.BannerId, postTitle = ViewBag.Title })
+    @Html.Action("BannerTop", "Banner", new { menuId = ViewBag.BannerId, title = ViewBag.Title })
 
     @Html.Partial("_BreadCrumb")
 

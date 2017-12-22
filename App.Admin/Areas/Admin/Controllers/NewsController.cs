@@ -11,7 +11,6 @@ using App.Service.Language;
 using App.Service.LocalizedProperty;
 using App.Service.Menu;
 using App.Service.News;
-using App.Aplication;
 using AutoMapper;
 using Resources;
 using System;
@@ -20,6 +19,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Caching;
 
 /// <summary>
 /// Khi get value từ tầng service nhớ, isCache:false
@@ -28,6 +28,9 @@ namespace App.Admin.Controllers
 {
     public class NewsController : BaseAdminController
     {
+        private const string CACHE_NEWS_KEY = "db.News";
+        private readonly ICacheManager _cacheManager;
+
         private readonly IMenuLinkService _menuLinkService;
 
         private readonly INewsService _newsService;
@@ -43,13 +46,18 @@ namespace App.Admin.Controllers
             , IMenuLinkService menuLinkService
             , IImagePlugin imagePlugin
             , ILanguageService languageService
-            , ILocalizedPropertyService localizedPropertyService)
+            , ILocalizedPropertyService localizedPropertyService
+            , ICacheManager cacheManager)
         {
             this._newsService = newsService;
             this._menuLinkService = menuLinkService;
             this._imagePlugin = imagePlugin;
             this._languageService = languageService;
             this._localizedPropertyService = localizedPropertyService;
+            _cacheManager = cacheManager;
+
+            //Clear cache
+            _cacheManager.RemoveByPattern(CACHE_NEWS_KEY);
         }
 
 

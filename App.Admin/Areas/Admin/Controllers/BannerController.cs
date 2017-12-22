@@ -18,23 +18,34 @@ using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using App.Core.Caching;
 
 namespace App.Admin.Controllers
 {
 	public class BannerController : BaseAdminController
-	{
-		private readonly IMenuLinkService _menuLinkService;
+    {
+        private const string CACHE_BANNER_KEY = "db.Banner";
+        private readonly ICacheManager _cacheManager;
+
+        private readonly IMenuLinkService _menuLinkService;
 
 		private readonly IBannerService _bannerService;
 
 		private readonly IPageBannerService _pageBannerService;
 
-		public BannerController(IBannerService bannerService, IMenuLinkService menuLinkService, IPageBannerService pageBannerService)
+		public BannerController(IBannerService bannerService
+            , IMenuLinkService menuLinkService
+            , IPageBannerService pageBannerService
+            , ICacheManager cacheManager)
 		{
-			this._bannerService = bannerService;
-			this._menuLinkService = menuLinkService;
-			this._pageBannerService = pageBannerService;
-		}
+            _bannerService = bannerService;
+            _menuLinkService = menuLinkService;
+            _pageBannerService = pageBannerService;
+            _cacheManager = cacheManager;
+
+            //Clear cache
+            _cacheManager.RemoveByPattern(CACHE_BANNER_KEY);
+        }
 
 		public ActionResult Create()
 		{
@@ -139,7 +150,8 @@ namespace App.Admin.Controllers
 						model.Image.SaveAs(str);
 						model.ImgPath = string.Concat(Contains.AdsFolder, fileName);
 					}
-					Banner banner = Mapper.Map<BannerViewModel, Banner>(model, byId);
+
+					Banner banner = Mapper.Map(model, byId);
 					this._bannerService.Update(banner);
 					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Banner)));
 					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))

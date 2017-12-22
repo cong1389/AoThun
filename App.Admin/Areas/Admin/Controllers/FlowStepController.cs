@@ -13,22 +13,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Caching;
 
 namespace App.Admin.Controllers
 {
     public class FlowStepController : BaseAdminController
-	{
-		private readonly IFlowStepService _flowStepService;
+    {
+        private const string CACHE_FLOWSTEP_KEY = "db.FlowStep";
+        private readonly ICacheManager _cacheManager;
+
+        private readonly IFlowStepService _flowStepService;
 
 		private IImagePlugin _imagePlugin;
 
-		public FlowStepController(IFlowStepService flowStepService, IImagePlugin imagePlugin)
+		public FlowStepController(IFlowStepService flowStepService, IImagePlugin imagePlugin
+            , ICacheManager cacheManager)
 		{
 			this._flowStepService = flowStepService;
 			this._imagePlugin = imagePlugin;
-		}
+            _cacheManager = cacheManager;
 
-		[RequiredPermisson(Roles="CreateEditFlowStep")]
+            //Clear cache
+            _cacheManager.RemoveByPattern(CACHE_FLOWSTEP_KEY);
+
+        }
+
+        [RequiredPermisson(Roles="CreateEditFlowStep")]
 		public ActionResult Create()
 		{
 			return base.View();

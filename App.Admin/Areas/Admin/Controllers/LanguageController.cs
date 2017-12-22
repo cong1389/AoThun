@@ -12,21 +12,27 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Caching;
 
 namespace App.Admin.Controllers
 {
     public class LanguageController : BaseAdminController
     {
         #region Language
+        private const string CACHE_LANGUAGE_KEY = "db.Language";
+        private readonly ICacheManager _cacheManager;
 
         private readonly ILanguageService _langService;
-
-        //private readonly ICommonServices _services;
-
-        public LanguageController(ILanguageService langService)
+        
+        public LanguageController(ILanguageService langService
+            , ICacheManager cacheManager)
         {
             this._langService = langService;
-            //this._services = services;
+            _cacheManager = cacheManager;
+
+            //Clear cache
+            _cacheManager.RemoveByPattern(CACHE_LANGUAGE_KEY);
+
         }
 
         [HttpGet]

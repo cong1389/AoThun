@@ -47,20 +47,9 @@ namespace App.Front
             routes.MapRoute(null, "tim-kiem", new { controller = "Menu", action = "Search" }, new string[] { "App.Front.Controllers" });
 
             routes.MapRoute(null, "cart", new { controller = "ShoppingCart", action = "Cart" }, new string[] { "App.Front.Controllers" });
-
-            //routes.MapRoute(null, "product-hot.html", new
-            //{
-            //    controller = "Menu",
-            //    action = "GetContent",
-            //    page = 1,
-            //    //productHot = true,
-            //    //productNew = false,
-            //    //productOld = false
-            //}, new string[] { "App.Front.Controllers" });
-
-
-            routes.MapRoute(null, "{seoUrl}-tts.html", new { controller = "News", action = "NewsDetail", seoUrl = UrlParameter.Optional }, new string[] { "App.Front.Controllers" });
-            routes.MapRoute(null, "{seoUrl}-prs.html", new { controller = "Post", action = "PostDetail", seoUrl = UrlParameter.Optional }, new string[] { "App.Front.Controllers" });
+            
+            routes.MapRoute(null, "{seoUrl}-ctt.html", new { controller = "News", action = "NewsDetail", seoUrl = UrlParameter.Optional }, new string[] { "App.Front.Controllers" });
+            routes.MapRoute(null, "{seoUrl}-ctt.html", new { controller = "Post", action = "PostDetail", seoUrl = UrlParameter.Optional }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "{menu}.html", new { controller = "Menu", action = "GetContent", menu = UrlParameter.Optional, page = 1 }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "{menu}/trang-{page}.html", new { controller = "Menu", action = "GetContent", menu = UrlParameter.Optional, page = UrlParameter.Optional }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "{catUrl}/{parameters}.html", new { controller = "Post", action = "SearchResult", catUrl = UrlParameter.Optional, parameters = UrlParameter.Optional, page = 1 }, new string[] { "App.Front.Controllers" });

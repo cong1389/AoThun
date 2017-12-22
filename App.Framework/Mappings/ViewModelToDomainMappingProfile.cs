@@ -70,19 +70,19 @@ namespace App.Framework.Mappings
                 .ForMember((Language x) => x.Flag, map
                 => map.Condition((LanguageFormViewModel source) => !string.IsNullOrEmpty(source.Flag)));
 
-                CreateMap<LocalizedPropertyViewModel, LocalizedProperty>()
-                .ForMember((LocalizedProperty x) => x.Id, map
-                => map.MapFrom<int>((LocalizedPropertyViewModel vm) => vm.Id))
-                .ForMember((LocalizedProperty x) => x.EntityId, map
-                => map.MapFrom<int>((LocalizedPropertyViewModel vm) => vm.EntityId))
-                .ForMember((LocalizedProperty x) => (object)x.LanguageId, map
-                => map.MapFrom<int>((LocalizedPropertyViewModel vm) => vm.LanguageId))
-                .ForMember((LocalizedProperty x) => x.LocaleKeyGroup, map
-                => map.MapFrom<string>((LocalizedPropertyViewModel vm) => vm.LocaleKeyGroup))
-                .ForMember((LocalizedProperty x) => (object)x.LocaleKey, map
-                => map.MapFrom<string>((LocalizedPropertyViewModel vm) => vm.LocaleKey))
-                .ForMember((LocalizedProperty x) => (object)x.LocaleValue, map
-                => map.MapFrom<string>((LocalizedPropertyViewModel vm) => vm.LocaleValue));
+            CreateMap<LocalizedPropertyViewModel, LocalizedProperty>()
+            .ForMember((LocalizedProperty x) => x.Id, map
+            => map.MapFrom<int>((LocalizedPropertyViewModel vm) => vm.Id))
+            .ForMember((LocalizedProperty x) => x.EntityId, map
+            => map.MapFrom<int>((LocalizedPropertyViewModel vm) => vm.EntityId))
+            .ForMember((LocalizedProperty x) => (object)x.LanguageId, map
+            => map.MapFrom<int>((LocalizedPropertyViewModel vm) => vm.LanguageId))
+            .ForMember((LocalizedProperty x) => x.LocaleKeyGroup, map
+            => map.MapFrom<string>((LocalizedPropertyViewModel vm) => vm.LocaleKeyGroup))
+            .ForMember((LocalizedProperty x) => (object)x.LocaleKey, map
+            => map.MapFrom<string>((LocalizedPropertyViewModel vm) => vm.LocaleKey))
+            .ForMember((LocalizedProperty x) => (object)x.LocaleValue, map
+            => map.MapFrom<string>((LocalizedPropertyViewModel vm) => vm.LocaleValue));
 
             CreateMap<ServerMailSettingViewModel, ServerMailSetting>().ForMember((ServerMailSetting x) => x.FromAddress, map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.FromAddress)).ForMember((ServerMailSetting x) => (object)x.Id, map => map.MapFrom<int>((ServerMailSettingViewModel vm) => vm.Id)).ForMember((ServerMailSetting x) => x.SmtpClient, map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.SmtpClient)).ForMember((ServerMailSetting x) => (object)x.Status, map => map.MapFrom<int>((ServerMailSettingViewModel vm) => vm.Status)).ForMember((ServerMailSetting x) => x.UserID, map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.UserId)).ForMember((ServerMailSetting x) => x.Password, map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.Password)).ForMember((ServerMailSetting x) => x.SMTPPort, map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.SMTPPort)).ForMember((ServerMailSetting x) => (object)x.EnableSSL, map => map.MapFrom<bool>((ServerMailSettingViewModel vm) => vm.EnableSSL)).ForMember((ServerMailSetting x) => (object)x.Status, map => map.MapFrom<int>((ServerMailSettingViewModel vm) => vm.Status));
 
@@ -253,7 +253,15 @@ namespace App.Framework.Mappings
                 .ForMember((News x) => x.OtherLink, map => map.MapFrom<string>((NewsViewModel vm) => vm.OtherLink))
                 .ForMember((News x) => (object)x.OrderDisplay, map => map.MapFrom<string>((NewsViewModel vm) => vm.OrderDisplay))
                 .ForMember((News x) => (object)x.SpecialDisplay, map => map.MapFrom<bool>((NewsViewModel vm) => vm.SpecialDisplay))
-                .ForMember((News x) => (object)x.HomeDisplay, map => map.MapFrom<bool>((NewsViewModel vm) => vm.HomeDisplay)).ForMember((News x) => x.SeoUrl, map => map.MapFrom<string>((NewsViewModel vm) => vm.SeoUrl)).ForMember((News x) => x.VirtualCatUrl, map => map.Condition((NewsViewModel source) => !string.IsNullOrEmpty(source.VirtualCatUrl))).ForMember((News x) => x.Language, map => map.MapFrom<string>((NewsViewModel vm) => vm.Language)).ForMember((News x) => x.ImageBigSize, map => map.Condition((NewsViewModel source) => !string.IsNullOrEmpty(source.ImageBigSize))).ForMember((News x) => x.ImageMediumSize, map => map.Condition((NewsViewModel source) => !string.IsNullOrEmpty(source.ImageMediumSize))).ForMember((News x) => x.ImageSmallSize, map => map.Condition((NewsViewModel source) => !string.IsNullOrEmpty(source.ImageSmallSize))).ForMember((News x) => x.VirtualCategoryId, map => map.Condition((NewsViewModel source) => !string.IsNullOrEmpty(source.VirtualCategoryId))).ForMember((News x) => x.MenuLink, map => map.Ignore());
+                .ForMember((News x) => (object)x.HomeDisplay, map => map.MapFrom<bool>((NewsViewModel vm) => vm.HomeDisplay))
+                .ForMember((News x) => x.SeoUrl, map => map.MapFrom<string>((NewsViewModel vm) => vm.SeoUrl))
+                .ForMember((News x) => x.VirtualCatUrl, map => map.Condition((NewsViewModel source) => !string.IsNullOrEmpty(source.VirtualCatUrl)))
+                .ForMember((News x) => x.Language, map => map.MapFrom<string>((NewsViewModel vm) => vm.Language))
+                .ForMember((News x) => x.ImageBigSize, map => map.Condition((NewsViewModel source) => !string.IsNullOrEmpty(source.ImageBigSize)))
+                .ForMember((News x) => x.ImageMediumSize, map => map.Condition((NewsViewModel source) => !string.IsNullOrEmpty(source.ImageMediumSize)))
+                .ForMember((News x) => x.ImageSmallSize, map => map.Condition((NewsViewModel source) => !string.IsNullOrEmpty(source.ImageSmallSize)))
+                .ForMember((News x) => x.VirtualCategoryId, map => map.Condition((NewsViewModel source) => !string.IsNullOrEmpty(source.VirtualCategoryId)))
+                .ForMember((News x) => x.MenuLink, map => map.Ignore());
 
             CreateMap<FlowStepViewModel, FlowStep>()
                 .ForMember((FlowStep x) => x.Title, map => map.MapFrom<string>((FlowStepViewModel vm) => vm.Title))
@@ -295,7 +303,13 @@ namespace App.Framework.Mappings
                 .ForMember((SettingSeoGlobal x) => x.YoutubeLink, map => map.MapFrom<string>((SettingSeoGlobalViewModel vm) => vm.YoutubeLink))
                 ;
 
-            CreateMap<PageBannerViewModel, PageBanner>().ForMember((PageBanner x) => x.PageName, map => map.MapFrom<string>((PageBannerViewModel vm) => vm.PageName)).ForMember((PageBanner x) => (object)x.Id, map => map.MapFrom<int>((PageBannerViewModel vm) => vm.Id)).ForMember((PageBanner x) => x.Language, map => map.MapFrom<string>((PageBannerViewModel vm) => vm.Language)).ForMember((PageBanner x) => (object)x.OrderDisplay, map => map.MapFrom<int>((PageBannerViewModel vm) => vm.OrderDisplay)).ForMember((PageBanner x) => (object)x.Position, map => map.MapFrom<int>((PageBannerViewModel vm) => vm.Position)).ForMember((PageBanner x) => (object)x.Status, map => map.MapFrom<int>((PageBannerViewModel vm) => vm.Status));
+            CreateMap<PageBannerViewModel, PageBanner>()
+                .ForMember((PageBanner x) => x.PageName, map => map.MapFrom<string>((PageBannerViewModel vm) => vm.PageName))
+                .ForMember((PageBanner x) => (object)x.Id, map => map.MapFrom<int>((PageBannerViewModel vm) => vm.Id))
+                .ForMember((PageBanner x) => x.Language, map => map.MapFrom<string>((PageBannerViewModel vm) => vm.Language))
+                .ForMember((PageBanner x) => (object)x.OrderDisplay, map => map.MapFrom<int>((PageBannerViewModel vm) => vm.OrderDisplay))
+                .ForMember((PageBanner x) => (object)x.Position, map => map.MapFrom<int>((PageBannerViewModel vm) => vm.Position))
+                .ForMember((PageBanner x) => (object)x.Status, map => map.MapFrom<int>((PageBannerViewModel vm) => vm.Status));
 
             CreateMap<BannerViewModel, Banner>()
                 .ForMember((Banner x) => x.Title, map
@@ -322,8 +336,6 @@ namespace App.Framework.Mappings
                 => map.MapFrom<TimeSpan?>((BannerViewModel vm) => vm.FromDate))
                 .ForMember((Banner x) => (object)x.ToDate, map
                 => map.MapFrom<TimeSpan?>((BannerViewModel vm) => vm.ToDate))
-                //.ForMember((Banner x) => (object)x.OrderDisplay, map
-                //=> map.MapFrom<int>((BannerViewModel vm) => vm.OrderDisplay))
                 .ForMember((Banner x) => (object)x.PageId, map
                 => map.MapFrom<int>((BannerViewModel vm) => vm.PageId))
                 .ForMember((Banner x) => (object)x.MenuId, map

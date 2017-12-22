@@ -19,6 +19,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Web.Mvc;
+using AutoMapper;
 
 namespace App.Front.Controllers
 {
@@ -105,10 +106,9 @@ namespace App.Front.Controllers
         {
             int languageId = _workContext.WorkingLanguage.Id;
 
-            ((dynamic)base.ViewBag).MenuId = menuId;
-            ((dynamic)base.ViewBag).VirtualId = virtualCategoryId;
+
             dynamic viewBag = base.ViewBag;
-            
+
             Expression<Func<StaticContent, bool>> status = (StaticContent x) => x.Status == 1;
             viewBag.fixItems = _staticContentService.GetTop<int>(3, status, (StaticContent x) => x.ViewCount);
 
@@ -147,13 +147,13 @@ namespace App.Front.Controllers
                 for (int i1 = 0; i1 < (int)strArrays2.Length; i1++)
                 {
                     string str = strArrays2[i1];
-                    menuLink = this._menuLinkService.Get((MenuLink x) => x.CurrentVirtualId.Equals(str) && x.Id != menuId, false);
-
+                    //menuLink = this._menuLinkService.Get((MenuLink x) => x.CurrentVirtualId.Equals(str) && x.Id != menuId, false);
+                    menuLink = _menuLinkService.GetByMenuName(str, title);
                     if (menuLink != null)
                     {
-                        //Lấy bannerId từ post để hiển thị banner trên post
-                        if (i1 == 0)
-                            ((dynamic)base.ViewBag).MenuId = menuLink.Id;
+                        ////Lấy bannerId từ post để hiển thị banner trên post
+                        //if (i1 == 0)
+                        //    ((dynamic)base.ViewBag).MenuId = menuLink.Id;
 
                         breadCrumbs.Add(new BreadCrumb()
                         {
@@ -171,6 +171,8 @@ namespace App.Front.Controllers
                 ((dynamic)base.ViewBag).BreadCrumb = breadCrumbs;
             }
 
+            ((dynamic)base.ViewBag).MenuId = menuId;
+            ((dynamic)base.ViewBag).VirtualId = virtualCategoryId;
             ((dynamic)base.ViewBag).Title = title;
 
             return base.PartialView(newsLocalized);
@@ -204,8 +206,6 @@ namespace App.Front.Controllers
         [OutputCache(CacheProfile = "Medium")]
         public ActionResult NewsDetail(string seoUrl)
         {
-            int languageId = _workContext.WorkingLanguage.Id;
-
             dynamic viewBag = base.ViewBag;
 
             IStaticContentService staticContentService = this._staticContentService;
@@ -213,14 +213,14 @@ namespace App.Front.Controllers
             viewBag.fixItems = staticContentService.GetTop<int>(3, status, (StaticContent x) => x.ViewCount);
 
             List<BreadCrumb> breadCrumbs = new List<BreadCrumb>();
-            News news = this._newsService.Get((News x) => x.SeoUrl.Equals(seoUrl), true);
+            News news = _newsService.Get((News x) => x.SeoUrl.Equals(seoUrl), true);
             if (news == null)
                 return HttpNotFound();
 
             News newsLocalized = new News();
             if (news != null)
             {
-                newsLocalized.ToModel();
+                newsLocalized = news.ToModel();
 
                 ((dynamic)base.ViewBag).Title = newsLocalized.MetaTitle;
                 ((dynamic)base.ViewBag).KeyWords = newsLocalized.MetaKeywords;
@@ -228,6 +228,7 @@ namespace App.Front.Controllers
                 ((dynamic)base.ViewBag).Description = newsLocalized.MetaDescription;
                 ((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", newsLocalized.ImageMediumSize));
                 ((dynamic)base.ViewBag).MenuId = newsLocalized.MenuId;
+
                 string[] strArrays = newsLocalized.VirtualCategoryId.Split(new char[] { '/' });
                 for (int i = 0; i < (int)strArrays.Length; i++)
                 {
@@ -240,7 +241,7 @@ namespace App.Front.Controllers
 
                     breadCrumbs.Add(new BreadCrumb()
                     {
-                        Title = menuLink.GetLocalizedByLocaleKey(menuLink.MenuName, menuLink.Id, languageId, "MenuLink", "MenuName"),
+                        Title = menuLink.GetLocalized(m => m.MenuName, menuLink.Id),// menuLink.MenuName, menuLink.Id, languageId, "MenuLink", "MenuName"),
                         Current = false,
                         Url = base.Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
                     });

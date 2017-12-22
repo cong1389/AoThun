@@ -18,11 +18,15 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Caching;
 
 namespace App.Admin.Controllers
 {
     public class SystemSettingController : BaseAdminController
     {
+        private const string CACHE_SYSTEMSETTING_KEY = "db.SystemSetting";
+        private readonly ICacheManager _cacheManager;
+
         private readonly ISystemSettingService _systemSettingService;
 
         private readonly ILanguageService _languageService;
@@ -33,11 +37,17 @@ namespace App.Admin.Controllers
             ISystemSettingService systemSettingService
             , ILanguageService languageService
             , ILocalizedPropertyService localizedPropertyService
+             , ICacheManager cacheManager
             )
         {
             this._systemSettingService = systemSettingService;
             this._languageService = languageService;
             this._localizedPropertyService = localizedPropertyService;
+            _cacheManager = cacheManager;
+
+            //Clear cache
+            _cacheManager.RemoveByPattern(CACHE_SYSTEMSETTING_KEY);
+
         }
 
         [RequiredPermisson(Roles = "CreateEditSystemSetting")]

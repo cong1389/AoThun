@@ -1,4 +1,5 @@
 using App.Admin.Helpers;
+using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.Attribute;
 using App.Domain.Interfaces.Services;
@@ -17,13 +18,21 @@ using System.Web.Mvc;
 namespace App.Admin.Controllers
 {
 	public class AttributeController : BaseAdminController
-	{
-		private readonly IAttributeService _attributeService;
+    {
+        private const string CACHE_ATTRIBUTE_KEY = "db.Attribute";
+        private readonly ICacheManager _cacheManager;
 
-		public AttributeController(IAttributeService attributeService)
+        private readonly IAttributeService _attributeService;
+
+		public AttributeController(IAttributeService attributeService
+             , ICacheManager cacheManager)
 		{
-			this._attributeService = attributeService;
-		}
+            _attributeService = attributeService;
+            _cacheManager = cacheManager;
+
+            //Clear cache
+            _cacheManager.RemoveByPattern(CACHE_ATTRIBUTE_KEY);
+        }
 
 		[RequiredPermisson(Roles="CreateEditAttribute")]
 		public ActionResult Create()

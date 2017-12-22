@@ -27,20 +27,23 @@ namespace App.Front.Controllers
 		}
 
 		[ChildActionOnly]
-		public ActionResult BannerTop(int? menuId,string postTitle)
+		public ActionResult BannerTop(int? menuId,string title)
 		{
 			IEnumerable<Banner> banners = this._bannerService.FindBy((Banner x) => x.MenuId == menuId && x.Status == 1 && x.PageBanner.Position == 1 && (!x.FromDate.HasValue || DbFunctions.DiffHours((TimeSpan?)x.ToDate.Value, (TimeSpan?)DateTimeOffset.UtcNow.Offset) >= (int?)0) && (!x.ToDate.HasValue || DbFunctions.DiffHours((TimeSpan?)x.ToDate.Value, (TimeSpan?)DateTimeOffset.UtcNow.Offset) <= (int?)0), false);
 
-            ((dynamic)base.ViewBag).PostTitle = postTitle;
+            ((dynamic)base.ViewBag).PostTitle = title;
 
             return base.PartialView(banners);
 		}
 
 		[ChildActionOnly]
-		public ActionResult BannerTopOfNewsPage(int? menuId)
+		public ActionResult BannerTopOfNewsPage(int? menuId, string title)
 		{
             Banner banners = this._bannerService.Get((Banner x) => x.MenuId == menuId && x.Status == 1 && x.PageBanner.Position == 1 && (!x.FromDate.HasValue || DbFunctions.DiffHours((TimeSpan?)x.ToDate.Value, (TimeSpan?)DateTimeOffset.UtcNow.Offset) >= (int?)0) && (!x.ToDate.HasValue || DbFunctions.DiffHours((TimeSpan?)x.ToDate.Value, (TimeSpan?)DateTimeOffset.UtcNow.Offset) <= (int?)0), false);
-			return base.PartialView(banners);
+
+            ((dynamic)base.ViewBag).Title = title;
+
+            return base.PartialView(banners);
 		}
 
 		[ChildActionOnly]

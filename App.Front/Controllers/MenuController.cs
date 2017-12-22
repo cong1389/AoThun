@@ -54,15 +54,14 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetContent(string menu, int page)
         {
-            MenuLink menuLink = _menuLinkService.GetBySeoUrl(seoUrl: menu, @readonly: false);
+            dynamic viewBag = base.ViewBag;
 
-            //MenuLink menuLink = this._menuLinkService.Get((MenuLink x) => x.SeoUrl.Equals(menu), true);
+            MenuLink menuLink = _menuLinkService.GetBySeoUrl(seoUrl: menu, @readonly: false);
 
             var menuLinkLocalized = menuLink.ToModel();
 
             if (menuLinkLocalized != null)
             {
-                dynamic viewBag = base.ViewBag;
 
                 ((dynamic)base.ViewBag).Title = menuLinkLocalized.MetaTitle ?? menuLinkLocalized.MenuName;
                 ((dynamic)base.ViewBag).MetaKeyWords = menuLinkLocalized.MetaKeywords;
@@ -75,14 +74,13 @@ namespace App.Front.Controllers
                 //((dynamic)base.ViewBag).SiteUrl = base.Url.Action("GetContent", "Menu", new { menu = menu, page = page, area = "" });
                 //((dynamic)base.ViewBag).Description = menuLinkLocalized.MetaDescription;
                 //((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", menuLinkLocalized.ImageUrl));
-            }
 
-            if (menuLinkLocalized.TemplateType == 1)
-            {
-                dynamic viewBag = base.ViewBag;
-                viewBag.MenuList = _menuLinkService.GetByOption(template: new List<int>() { 1 });
-                //IMenuLinkService menuLinkService = this._menuLinkService;
-                //viewBag.MenuList = _menuLinkService.FindBy((MenuLink x) => x.TemplateType == 1, false);
+                if (menuLinkLocalized.TemplateType == 1)
+                {
+                    viewBag.MenuList = _menuLinkService.GetByOption(template: new List<int>() { 1 });
+                    //IMenuLinkService menuLinkService = this._menuLinkService;
+                    //viewBag.MenuList = _menuLinkService.FindBy((MenuLink x) => x.TemplateType == 1, false);
+                }
             }
 
             ((dynamic)base.ViewBag).ParentId = menuLink.ParentId;

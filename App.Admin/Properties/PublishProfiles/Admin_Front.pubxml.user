@@ -3652,7 +3652,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/29/2017 19:39:22</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Banner/Edit.cshtml">
-      <publishTime>11/29/2017 19:39:22</publishTime>
+      <publishTime>12/22/2017 10:43:59</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Banner/Index.cshtml">
       <publishTime>12/14/2017 22:28:48</publishTime>
@@ -3976,19 +3976,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2013 08:43:40</publishTime>
     </File>
     <File Include="bin/App.Admin.dll">
-      <publishTime>12/21/2017 16:44:47</publishTime>
+      <publishTime>12/22/2017 11:19:39</publishTime>
     </File>
     <File Include="bin/App.Admin.pdb">
-      <publishTime>12/21/2017 16:44:47</publishTime>
+      <publishTime>12/22/2017 11:19:39</publishTime>
     </File>
     <File Include="bin/App.Aplication.dll">
-      <publishTime>12/21/2017 16:44:41</publishTime>
+      <publishTime>12/22/2017 11:19:32</publishTime>
     </File>
     <File Include="bin/App.Aplication.dll.config">
       <publishTime>10/30/2017 12:52:02</publishTime>
     </File>
     <File Include="bin/App.Aplication.pdb">
-      <publishTime>12/21/2017 16:44:41</publishTime>
+      <publishTime>12/22/2017 11:19:32</publishTime>
     </File>
     <File Include="bin/App.AsyncService.dll">
       <publishTime>10/30/2017 11:25:54</publishTime>
@@ -4003,61 +4003,61 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/21/2017 14:00:10</publishTime>
     </File>
     <File Include="bin/App.Domain.dll">
-      <publishTime>12/21/2017 14:00:10</publishTime>
+      <publishTime>12/22/2017 10:13:35</publishTime>
     </File>
     <File Include="bin/App.Domain.dll.config">
       <publishTime>10/30/2017 11:25:54</publishTime>
     </File>
     <File Include="bin/App.Domain.pdb">
-      <publishTime>12/21/2017 14:00:10</publishTime>
+      <publishTime>12/22/2017 10:13:35</publishTime>
     </File>
     <File Include="bin/App.FakeEntity.dll">
-      <publishTime>12/21/2017 16:36:46</publishTime>
+      <publishTime>12/22/2017 11:19:19</publishTime>
     </File>
     <File Include="bin/App.FakeEntity.dll.config">
       <publishTime>10/30/2017 12:44:12</publishTime>
     </File>
     <File Include="bin/App.FakeEntity.pdb">
-      <publishTime>12/21/2017 16:36:46</publishTime>
+      <publishTime>12/22/2017 11:19:19</publishTime>
     </File>
     <File Include="bin/App.Framework.dll">
-      <publishTime>12/21/2017 16:36:47</publishTime>
+      <publishTime>12/22/2017 11:19:33</publishTime>
     </File>
     <File Include="bin/App.Framework.dll.config">
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/App.Framework.pdb">
-      <publishTime>12/21/2017 16:36:47</publishTime>
+      <publishTime>12/22/2017 11:19:33</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.dll">
-      <publishTime>12/21/2017 14:00:45</publishTime>
+      <publishTime>12/22/2017 10:14:13</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.pdb">
-      <publishTime>12/21/2017 14:00:45</publishTime>
+      <publishTime>12/22/2017 10:14:13</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.Repository.dll">
-      <publishTime>12/21/2017 14:01:02</publishTime>
+      <publishTime>12/22/2017 10:15:38</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.Repository.pdb">
-      <publishTime>12/21/2017 14:01:02</publishTime>
+      <publishTime>12/22/2017 10:15:38</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.RepositoryAsync.dll">
-      <publishTime>12/21/2017 14:01:02</publishTime>
+      <publishTime>12/22/2017 10:14:14</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.RepositoryAsync.pdb">
-      <publishTime>12/21/2017 14:01:02</publishTime>
+      <publishTime>12/22/2017 10:14:14</publishTime>
     </File>
     <File Include="bin/App.SeoSitemap.dll">
       <publishTime>10/30/2017 11:25:54</publishTime>
     </File>
     <File Include="bin/App.Service.dll">
-      <publishTime>12/21/2017 16:44:41</publishTime>
+      <publishTime>12/22/2017 11:19:32</publishTime>
     </File>
     <File Include="bin/App.Service.dll.config">
       <publishTime>10/30/2017 11:26:06</publishTime>
     </File>
     <File Include="bin/App.Service.pdb">
-      <publishTime>12/21/2017 16:44:41</publishTime>
+      <publishTime>12/22/2017 11:19:32</publishTime>
     </File>
     <File Include="bin/Autofac.dll">
       <publishTime>11/23/2016 23:19:28</publishTime>

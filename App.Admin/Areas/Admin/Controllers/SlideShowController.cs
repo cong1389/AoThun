@@ -19,12 +19,16 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Caching;
 
 namespace App.Admin.Controllers
 {
 	public class SlideShowController : BaseAdminController
 	{
-		private readonly ISlideShowService _slideShowService;
+        private const string CACHE_SLIDESHOW_KEY = "db.SlideShow";
+        private readonly ICacheManager _cacheManager;
+
+        private readonly ISlideShowService _slideShowService;
 
         private readonly ILanguageService _languageService;
 
@@ -34,14 +38,20 @@ namespace App.Admin.Controllers
             ISlideShowService slideShowService
             , ILanguageService languageService
             , ILocalizedPropertyService localizedPropertyService
+            , ICacheManager cacheManager
             )
 		{
 			this._slideShowService = slideShowService;
             this._languageService = languageService;
             this._localizedPropertyService = localizedPropertyService;
+            _cacheManager = cacheManager;
+
+            //Clear cache
+            _cacheManager.RemoveByPattern(CACHE_SLIDESHOW_KEY);
+
         }
 
-		public ActionResult Create()
+        public ActionResult Create()
         {
             var model = new SlideShowViewModel();
 

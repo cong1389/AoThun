@@ -6,7 +6,7 @@
 @model IEnumerable<App.Domain.Entities.Data.News>
 @if (Model.IsAny())
 {
-    @Html.Action("BannerTopOfNewsPage", "Banner", new { menuId = ViewBag.MenuId })    
+    Html.Action("BannerTopOfNewsPage", "Banner", new { menuId = ViewBag.MenuId, title = ViewBag.Title });
 
     <section class="container page-content">
          @Html.Partial("_BreadCrumb")
