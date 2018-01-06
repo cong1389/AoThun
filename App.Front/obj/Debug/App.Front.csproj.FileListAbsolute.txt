@@ -155,7 +155,6 @@ D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.AspNet.Identity.Core.dll
 D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.AspNet.Identity.Owin.dll
 D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.AspNet.SignalR.Core.dll
 D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.AspNet.TelemetryCorrelation.dll
-D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.Owin.dll
 D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.Owin.Host.SystemWeb.dll
 D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.Owin.Security.Cookies.dll
@@ -215,7 +214,6 @@ D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.AspNet.Identity.Core.xml
 D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.AspNet.Identity.Owin.xml
 D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.AspNet.SignalR.Core.xml
 D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.AspNet.TelemetryCorrelation.xml
-D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.Owin.xml
 D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.Owin.Host.SystemWeb.xml
 D:\FreeLance\2017\AoThun\Source\App.Front\bin\Microsoft.Owin.Security.xml

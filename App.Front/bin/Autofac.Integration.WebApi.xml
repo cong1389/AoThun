@@ -97,6 +97,13 @@
             Autofac implementation of the <see cref="T:System.Web.Http.Dependencies.IDependencyResolver"/> interface.
             </summary>
         </member>
+        <member name="M:Autofac.Integration.WebApi.AutofacWebApiDependencyResolver.#ctor(Autofac.ILifetimeScope,System.Action{Autofac.ContainerBuilder})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Autofac.Integration.WebApi.AutofacWebApiDependencyResolver"/> class.
+            </summary>
+            <param name="container">The container that nested lifetime scopes will be create from.</param>
+            <param name="configurationAction">A configuration action that will execute during lifetime scope creation.</param>
+        </member>
         <member name="M:Autofac.Integration.WebApi.AutofacWebApiDependencyResolver.#ctor(Autofac.ILifetimeScope)">
             <summary>
             Initializes a new instance of the <see cref="T:Autofac.Integration.WebApi.AutofacWebApiDependencyResolver"/> class.
@@ -344,6 +351,20 @@
             <summary>
             Gets the filters to override.
             </summary>
+        </member>
+        <member name="T:Autofac.Integration.WebApi.HttpConfigurationExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.Web.Http.HttpConfiguration"/> to enable Web API and Autofac integration.
+            </summary>
+        </member>
+        <member name="M:Autofac.Integration.WebApi.HttpConfigurationExtensions.RegisterHttpRequestMessage(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Makes the current <see cref="T:System.Net.Http.HttpRequestMessage"/> resolvable through the dependency scope.
+            </summary>
+            <param name="config">The HTTP server configuration.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown if <paramref name="config" /> is <see langword="null" />.
+            </exception>
         </member>
         <member name="T:Autofac.Integration.WebApi.IAutofacAuthenticationFilter">
             <summary>

@@ -89,7 +89,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ParentId, new { @class = "control-label col-md-3" })
             <div class="col-md-5">
-                @Html.DropDownListFor(x => x.ParentId, new SelectList(ViewBag.MenuList, "Id", "MenuName"), "--Select--", new { @class = "form-control" })
+                @Html.DropDownListFor(x => x.ParentId, new SelectList(ViewBag.MenuList, "Id", "MenuName"), "--Select--", new { @class = "form-control select2" })
             </div>
         </div>
         <div class="form-group">
