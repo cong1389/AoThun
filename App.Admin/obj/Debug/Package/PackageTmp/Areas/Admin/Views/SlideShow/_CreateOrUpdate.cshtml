@@ -9,8 +9,9 @@
 <div class="form-horizontal">
     <div class="form-body">
         @Html.ValidationSummary(true, "", new { @class = "text-danger col-md-offset-3" })
+        
         <div class="form-group">
-            @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-3" })
+            @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-2" })
             <div class="col-md-5">
                 <div class="radio-list">
                     <label class="radio-inline">
@@ -23,8 +24,9 @@
                 @Html.ValidationMessageFor(model => model.Status, "", new { @class = "help-block" })
             </div>
         </div>
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Image, new { @class = "control-label col-md-3" })
+            @Html.LabelFor(model => model.Image, new { @class = "control-label col-md-2" })
             <div class="col-md-5">
                 <div class="fileinput fileinput-new" data-provides="fileinput">
                     <div class="input-group input-large">
@@ -36,7 +38,6 @@
                             <span class="fileinput-new">@Resources.FormUI.SelectFile</span>
                             <span class="fileinput-exists"> @Resources.FormUI.ChangeFile </span>
                             @Html.TextBoxFor(model => model.Image, new { @type = "file" })
-                            @*<input type="file" name="FileUpload" />*@
                         </span>
                         <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
                     </div>
@@ -72,17 +73,17 @@
                         <div class="tab-pane @(i == 0 ? "active" : "")" id="tab_@(i+1)">
 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Locales[i].Title, new { @class = "control-label col-md-3" })
-                                <div class="col-md-5">
+                                @Html.LabelFor(model => model.Locales[i].Title, new { @class = "control-label col-md-2" })
+                                <div class="col-md-9">
                                     @Html.TextBoxFor(model => model.Locales[i].Title, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.Locales[i].Title, "", new { @class = "help-block" })
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Locales[i].Description, new { @class = "control-label col-md-3" })
-                                <div class="col-md-5">
-                                    @Html.TextAreaFor(model => model.Locales[i].Description, new { @class = "form-control" })
+                                @Html.LabelFor(model => model.Locales[i].Description, new { @class = "control-label col-md-2" })
+                                <div class="col-md-9">
+                                    @Html.TextAreaFor(model => model.Locales[i].Description, new { @class = "form-control ckeditor" })
                                     @Html.ValidationMessageFor(model => model.Locales[i].Description, "", new { @class = "help-block" })
                                 </div>
                             </div>
@@ -100,35 +101,35 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.OrderDisplay, new { @class = "control-label col-md-3" })
+            @Html.LabelFor(model => model.OrderDisplay, new { @class = "control-label col-md-2" })
             <div class="col-md-5">
                 @Html.TextBoxFor(model => model.OrderDisplay, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.OrderDisplay, "", new { @class = "help-block" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.WebsiteLink, new { @class = "control-label col-md-3" })
+            @Html.LabelFor(model => model.WebsiteLink, new { @class = "control-label col-md-2" })
             <div class="col-md-5">
                 @Html.TextBoxFor(model => model.WebsiteLink, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.WebsiteLink, "", new { @class = "help-block" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Width, new { @class = "control-label col-md-3" })
+            @Html.LabelFor(model => model.Width, new { @class = "control-label col-md-2" })
             <div class="col-md-5">
                 @Html.TextBoxFor(model => model.Width, new { @class = "form-control ckeditor" })
                 @Html.ValidationMessageFor(model => model.Width, "", new { @class = "help-block" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Height, new { @class = "control-label col-md-3" })
+            @Html.LabelFor(model => model.Height, new { @class = "control-label col-md-2" })
             <div class="col-md-5">
                 @Html.TextBoxFor(model => model.Height, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Height, "", new { @class = "help-block" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Target, new { @class = "control-label col-md-3" })
+            @Html.LabelFor(model => model.Target, new { @class = "control-label col-md-2" })
             <div class="col-md-5">
                 <div class="radio-list">
                     <label class="radio-inline">
@@ -148,7 +149,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-3">@FormUI.DisplayDate</label>
+            <label class="control-label col-md-2">@FormUI.DisplayDate</label>
             <div class="col-md-4">
                 <div class="input-group input-large date-picker input-daterange" data-date-format="mm/dd/yyyy">
                     @Html.TextBoxFor(model => model.FromDate, "{0:MM/dd/yyyy}", new { @class = "form-control" })
@@ -161,7 +162,7 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Video, new { @class = "control-label col-md-3" })
+            @Html.LabelFor(model => model.Video, new { @class = "control-label col-md-2" })
             <div class="col-md-5">
                 <label class="checkbox">
                     @Html.CheckBoxFor(model => model.Video, new { @class = "" })

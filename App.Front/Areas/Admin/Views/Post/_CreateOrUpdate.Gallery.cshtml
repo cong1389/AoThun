@@ -111,7 +111,7 @@
                     var n = e.fnGetData(t),
                         a = $(">td", t);
                     a[0].innerHTML = '<input type="hidden" value="' + n.Id +'" />'
-                    ,a[1].innerHTML = '<a href="' + n.ImageSmallSize + '" class="fancybox-button" data-rel="fancybox-button"><img class="img-responsive" src= "' + n.ImageSmallSize + '" alt= "" /></a > '
+                        , a[1].innerHTML = '<a href="' + n.ImageSmallSize + '" class="fancybox-button" data-rel="fancybox-button"><img src= "' + n.ImageSmallSize + '" alt= "" width="80px" /></a > '
                         , a[2].innerHTML = '<input type="text" class="form-control" value="' + n.Title + '">'
                         , a[3].innerHTML = '<input type="text" class="form-control" value="' + n.OrderDisplay + '">'
                         , a[4].innerHTML = '<a class="edit" href="">@FormUI.Save</a>|<a class="cancel" href="">@FormUI.Cancel</a>'
@@ -184,7 +184,7 @@
                             {
                                 "title": "@FormUI.Image", "data": "ImageSmallSize", "searchable": false, "width": "15%",
                                 "render": function (data, type, full, meta) {
-                                    return '<a href="' + full.ImageSmallSize + '" class="fancybox-button" data-rel="fancybox-button"><img class="img-responsive" src= "' + full.ImageSmallSize + '" alt= "" /></a > '
+                                    return '<a href="' + full.ImageSmallSize + '" class="fancybox-button" data-rel="fancybox-button"><img  src= "' + full.ImageSmallSize + '" alt= "" width="80px"  /></a > '
                                 }
                             },
                             {
