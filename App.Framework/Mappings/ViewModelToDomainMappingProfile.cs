@@ -57,7 +57,7 @@ namespace App.Framework.Mappings
 
         public ViewModelToDomainMappingProfile()
         {
-            CreateMap<RegisterFormViewModel, IdentityUser>();
+            CreateMap<RegisterFormViewModel, IdentityUser>().ForAllMembers(_ => _.Ignore());
 
             CreateMap<LanguageFormViewModel, Language>()
                 .ForMember((Language x) => x.LanguageName, map => map.MapFrom<string>((LanguageFormViewModel vm) => vm.LanguageName))

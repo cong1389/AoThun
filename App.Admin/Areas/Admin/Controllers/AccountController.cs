@@ -111,10 +111,10 @@ namespace App.Admin.Controllers
             try
             {
                 model.Created = null;
-                IdentityUser identityUser = _userManager.FindById<IdentityUser, Guid>(model.Id);
+                IdentityUser identityUser = _userManager.FindById(model.Id);
                 identityUser = Mapper.Map(model, identityUser);
                 IdentityResult identityResult = await this._userManager.UpdateAsync(identityUser);
-                if (identityResult.Succeeded)
+                if (identityResult.Succeeded)   
                 {
                     if (model.IsSuperAdmin)
                     {
@@ -126,13 +126,13 @@ namespace App.Admin.Controllers
                         string item = this.Request["roles"];
                         if (!string.IsNullOrEmpty(item))
                         {
-                            IList<string> strs = this._userManager.GetRoles<IdentityUser, Guid>(model.Id);
-                            this._userManager.RemoveFromRoles<IdentityUser, Guid>(model.Id, strs.ToArray<string>());
+                            IList<string> strs = this._userManager.GetRoles(model.Id);
+                            this._userManager.RemoveFromRoles(model.Id, strs.ToArray<string>());
                             string[] strArrays = item.Split(new char[] { ',' });
-                            this._userManager.AddToRoles<IdentityUser, Guid>(model.Id, strArrays);
+                            this._userManager.AddToRoles(model.Id, strArrays);
                         }
                     }
-                    this.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Account)));
+                    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Account)));
                     if (!this.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
                     {
                         action = this.RedirectToAction("Index");
@@ -183,7 +183,7 @@ namespace App.Admin.Controllers
             };
             Paging paging1 = paging;
             IEnumerable<App.Domain.Entities.Account.User> users = await this._userService.PagedList(sortingPagingBuilder1, paging1);
-            if (users != null && users.Any<App.Domain.Entities.Account.User>())
+            if (users != null && users.Any())
             {
                 Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging1.TotalRecord, (int i) => this.Url.Action("Index", new { page = i, keywords = keywords }));
                 ((dynamic)this.ViewBag).PageInfo = pageInfo;

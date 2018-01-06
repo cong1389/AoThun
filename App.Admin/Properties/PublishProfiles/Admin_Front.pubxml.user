@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>D:\Project\Practice\AoThun\Source\App.Front</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\FreeLance\2017\AoThun\Source\App.Front</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/Admin/assets/apps/css/inbox.min.css">
@@ -3652,7 +3652,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/29/2017 19:39:22</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Banner/Edit.cshtml">
-      <publishTime>12/22/2017 10:43:59</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Banner/Index.cshtml">
       <publishTime>12/14/2017 22:28:48</publishTime>
@@ -3976,94 +3976,94 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2013 08:43:40</publishTime>
     </File>
     <File Include="bin/App.Admin.dll">
-      <publishTime>12/22/2017 11:19:39</publishTime>
+      <publishTime>01/06/2018 08:27:06</publishTime>
     </File>
     <File Include="bin/App.Admin.pdb">
-      <publishTime>12/22/2017 11:19:39</publishTime>
+      <publishTime>01/06/2018 08:27:06</publishTime>
     </File>
     <File Include="bin/App.Aplication.dll">
-      <publishTime>12/22/2017 11:19:32</publishTime>
+      <publishTime>01/06/2018 08:26:50</publishTime>
     </File>
     <File Include="bin/App.Aplication.dll.config">
       <publishTime>10/30/2017 12:52:02</publishTime>
     </File>
     <File Include="bin/App.Aplication.pdb">
-      <publishTime>12/22/2017 11:19:32</publishTime>
+      <publishTime>01/06/2018 08:26:50</publishTime>
     </File>
     <File Include="bin/App.AsyncService.dll">
       <publishTime>10/30/2017 11:25:54</publishTime>
     </File>
     <File Include="bin/App.Core.dll">
-      <publishTime>12/21/2017 14:00:10</publishTime>
+      <publishTime>01/06/2018 08:13:20</publishTime>
     </File>
     <File Include="bin/App.Core.dll.config">
       <publishTime>10/30/2017 11:25:54</publishTime>
     </File>
     <File Include="bin/App.Core.pdb">
-      <publishTime>12/21/2017 14:00:10</publishTime>
+      <publishTime>01/06/2018 08:13:20</publishTime>
     </File>
     <File Include="bin/App.Domain.dll">
-      <publishTime>12/22/2017 10:13:35</publishTime>
+      <publishTime>01/06/2018 08:13:20</publishTime>
     </File>
     <File Include="bin/App.Domain.dll.config">
       <publishTime>10/30/2017 11:25:54</publishTime>
     </File>
     <File Include="bin/App.Domain.pdb">
-      <publishTime>12/22/2017 10:13:35</publishTime>
+      <publishTime>01/06/2018 08:13:20</publishTime>
     </File>
     <File Include="bin/App.FakeEntity.dll">
-      <publishTime>12/22/2017 11:19:19</publishTime>
+      <publishTime>01/06/2018 08:26:50</publishTime>
     </File>
     <File Include="bin/App.FakeEntity.dll.config">
       <publishTime>10/30/2017 12:44:12</publishTime>
     </File>
     <File Include="bin/App.FakeEntity.pdb">
-      <publishTime>12/22/2017 11:19:19</publishTime>
+      <publishTime>01/06/2018 08:26:50</publishTime>
     </File>
     <File Include="bin/App.Framework.dll">
-      <publishTime>12/22/2017 11:19:33</publishTime>
+      <publishTime>01/06/2018 08:26:52</publishTime>
     </File>
     <File Include="bin/App.Framework.dll.config">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>12/21/2017 11:28:02</publishTime>
     </File>
     <File Include="bin/App.Framework.pdb">
-      <publishTime>12/22/2017 11:19:33</publishTime>
+      <publishTime>01/06/2018 08:26:52</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.dll">
-      <publishTime>12/22/2017 10:14:13</publishTime>
+      <publishTime>01/06/2018 08:24:08</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.pdb">
-      <publishTime>12/22/2017 10:14:13</publishTime>
+      <publishTime>01/06/2018 08:24:08</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.Repository.dll">
-      <publishTime>12/22/2017 10:15:38</publishTime>
+      <publishTime>01/06/2018 08:24:08</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.Repository.pdb">
-      <publishTime>12/22/2017 10:15:38</publishTime>
+      <publishTime>01/06/2018 08:24:08</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.RepositoryAsync.dll">
-      <publishTime>12/22/2017 10:14:14</publishTime>
+      <publishTime>01/06/2018 08:24:08</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.RepositoryAsync.pdb">
-      <publishTime>12/22/2017 10:14:14</publishTime>
+      <publishTime>01/06/2018 08:24:08</publishTime>
     </File>
     <File Include="bin/App.SeoSitemap.dll">
       <publishTime>10/30/2017 11:25:54</publishTime>
     </File>
     <File Include="bin/App.Service.dll">
-      <publishTime>12/22/2017 11:19:32</publishTime>
+      <publishTime>01/06/2018 08:25:37</publishTime>
     </File>
     <File Include="bin/App.Service.dll.config">
       <publishTime>10/30/2017 11:26:06</publishTime>
     </File>
     <File Include="bin/App.Service.pdb">
-      <publishTime>12/22/2017 11:19:32</publishTime>
+      <publishTime>01/06/2018 08:25:37</publishTime>
     </File>
     <File Include="bin/Autofac.dll">
       <publishTime>11/23/2016 23:19:28</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
-      <publishTime>12/06/2017 15:08:08</publishTime>
+      <publishTime>06/12/2017 15:08:08</publishTime>
     </File>
     <File Include="bin/en-US/Resources.resources.dll">
       <publishTime>11/16/2017 00:07:34</publishTime>
@@ -4120,7 +4120,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/15/2017 13:12:32</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.dll">
-      <publishTime>04/05/2017 11:53:36</publishTime>
+      <publishTime>05/04/2017 11:53:36</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
       <publishTime>01/13/2014 16:11:04</publishTime>
@@ -4138,10 +4138,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/13/2012 12:19:34</publishTime>
     </File>
     <File Include="bin/Resources.dll">
-      <publishTime>12/21/2017 14:00:11</publishTime>
+      <publishTime>01/06/2018 08:13:21</publishTime>
     </File>
     <File Include="bin/Resources.pdb">
-      <publishTime>12/21/2017 14:00:11</publishTime>
+      <publishTime>01/06/2018 08:13:21</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/13/2017 15:47:48</publishTime>

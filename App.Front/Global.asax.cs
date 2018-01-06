@@ -46,15 +46,15 @@ namespace App.Front
             ViewEngines.Engines.Add(new ThemeableRazorViewEngine());
         }
 
-        public void AnonymousIdentification_Creating(object sender, AnonymousIdentificationEventArgs args)
-        {
-            try
-            {
-                //var customerService = DependencyResolver.Current.GetService<ICustomerService>();
-                //var customer = customerService.GetByGuid(args.AnonymousID.ToString());
-                args.AnonymousID = Guid.NewGuid().ToString();
-            }
-            catch { }
-        }
+        //public void AnonymousIdentification_Creating(object sender, AnonymousIdentificationEventArgs args)
+        //{
+        //    try
+        //    {
+        //        //var customerService = DependencyResolver.Current.GetService<ICustomerService>();
+        //        //var customer = customerService.GetByGuid(args.AnonymousID.ToString());
+        //        args.AnonymousID = Guid.NewGuid().ToString();
+        //    }
+        //    catch { }
+        //}
     }
 }
