@@ -1,26 +1,16 @@
-﻿using App.Admin.Helpers;
-using App.Admin.Models;
+﻿using App.Admin.Models;
 using App.Core.Caching;
-using App.Core.Utils;
 using App.Domain.Entities.GenericControl;
-using App.Domain.Entities.Menu;
-using App.Domain.Interfaces.Services;
-using App.FakeEntity.GenericControl;
 using App.Framework.Ultis;
 using App.Service.GenericControl;
 using App.Service.Menu;
 using App.Aplication;
-using AutoMapper;
 using Newtonsoft.Json;
-using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace App.Admin.Controllers
 {

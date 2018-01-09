@@ -14,6 +14,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using App.Core.Caching;
+using System.IO;
 
 namespace App.Admin.Controllers
 {
@@ -58,17 +59,18 @@ namespace App.Admin.Controllers
 				}
 				else
 				{
-                    string str = model.Title.NonAccent();
+                    string titleNonAccent = model.Title.NonAccent();
                     if (model.Image != null && model.Image.ContentLength > 0)
 					{
-						string str1 = string.Concat(str, ".jpg");
-						int? nullable = null;
-						int? nullable1 = nullable;
-						nullable = null;
+                        string fileExtension = Path.GetExtension(model.Image.FileName);
+                        string fileName1 = titleNonAccent.FileNameFormat(fileExtension);
+      //                  int? nullable = null;
+						//int? nullable1 = nullable;
+						//nullable = null;
 
-                        _imagePlugin.CropAndResizeImage(model.Image, string.Format("{0}", Contains.FlowStepFolder), str1, ImageSize.FlowStep_WithMediumSize, ImageSize.FlowStep_HeightMediumSize, false);
+                        _imagePlugin.CropAndResizeImage(model.Image, string.Format("{0}", Contains.FlowStepFolder), fileName1, ImageSize.FlowStep_WithMediumSize, ImageSize.FlowStep_HeightMediumSize, false);
 
-                        model.ImageUrl = string.Concat(Contains.FlowStepFolder, str1);
+                        model.ImageUrl = string.Concat(Contains.FlowStepFolder, fileName1);
 					}
 
 					FlowStep flowStep = Mapper.Map<FlowStepViewModel, FlowStep>(model);
@@ -138,23 +140,26 @@ namespace App.Admin.Controllers
 				}
 				else
 				{
-					FlowStep flowStep = this._flowStepService.Get((FlowStep x) => x.Id == model.Id, false);
+					FlowStep byId = this._flowStepService.Get((FlowStep x) => x.Id == model.Id, false);
 
-					string str = model.Title.NonAccent();
+					string titleNonAccent = model.Title.NonAccent();
 					if (model.Image != null && model.Image.ContentLength > 0)
 					{
-						string str1 = string.Concat(str, ".jpg");
-						int? nullable = null;
-						int? nullable1 = nullable;
-						nullable = null;
+                        string fileExtension = Path.GetExtension(model.Image.FileName);
+                        
+                        string fileName1 = titleNonAccent.FileNameFormat(fileExtension);
+      //                  int? nullable = null;
+						//int? nullable1 = nullable;
+						//nullable = null;
 
-						this._imagePlugin.CropAndResizeImage(model.Image, string.Format("{0}", Contains.FlowStepFolder), str1, ImageSize.FlowStep_WithMediumSize, ImageSize.FlowStep_HeightMediumSize, false);
+						this._imagePlugin.CropAndResizeImage(model.Image, string.Format("{0}", Contains.FlowStepFolder), fileName1, ImageSize.FlowStep_WithMediumSize, ImageSize.FlowStep_HeightMediumSize, false);
 
-                        model.ImageUrl = string.Concat(Contains.FlowStepFolder, str1);
+                        model.ImageUrl = string.Concat(Contains.FlowStepFolder, fileName1);
 					}
-					FlowStep flowStep1 = Mapper.Map<FlowStepViewModel, FlowStep>(model, flowStep);
 
-					this._flowStepService.Update(flowStep1);
+					FlowStep flowStep1 = Mapper.Map(model, byId);
+
+                    _flowStepService.Update(flowStep1);
 
 					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.FlowStep)));
 					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))

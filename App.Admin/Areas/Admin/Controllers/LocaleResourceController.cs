@@ -18,6 +18,7 @@ namespace App.Admin.Controllers
     public class LocaleResourceController : BaseAdminController
     {
         private const string CACHE_LANGUAGE_KEY = "db.Language";
+        private const string CACHE_LOCALSTRINGRESOURCE_KEY = "db.LocaleStringResource";
         private readonly ICacheManager _cacheManager;
 
         private readonly ILanguageService _langService;
@@ -38,6 +39,7 @@ namespace App.Admin.Controllers
 
             //Clear cache
             _cacheManager.RemoveByPattern(CACHE_LANGUAGE_KEY);
+            _cacheManager.RemoveByPattern(CACHE_LOCALSTRINGRESOURCE_KEY);
         }
 
         public ActionResult Index(int languageId, int page = 1, string keywords = "")
@@ -77,7 +79,7 @@ namespace App.Admin.Controllers
                 model.IsFromPlugin = locale.IsFromPlugin;
                 model.IsTouched = true;
 
-                LocaleStringResource localeByMap = Mapper.Map<LocaleStringResourceViewModel, LocaleStringResource>(model, locale);
+                LocaleStringResource localeByMap = Mapper.Map(model, locale);
                 _localeStringResourceService.Update(localeByMap);
             }
             else
