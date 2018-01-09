@@ -215,6 +215,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Banner\_CreateOrUpdate.cshtml" />
     <None Include="Properties\PublishProfiles\Admin_Front.pubxml" />
   </ItemGroup>
   <ItemGroup>
@@ -252,9 +253,6 @@
     <Content Include="Areas\Admin\Views\Account\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Assessment\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Assessment\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Assessment\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AttributeValue\Create.cshtml" />
     <Content Include="Areas\Admin\Views\AttributeValue\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\AttributeValue\Index.cshtml" />

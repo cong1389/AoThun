@@ -9,101 +9,24 @@
     <div class="form-body">
         @Html.ValidationSummary(true, "", new { @class = "text-danger col-md-offset-3" })
 
-        <div class="tabbable-line m-heading-1 border-green m-bordered dashboard-stat grey">
-            <ul class="nav nav-tabs ">
-                @{
-                    for (int i = 0; i < Model.Locales.Count; i++)
-                    {
-                        App.Domain.Entities.Language.Language language = DependencyResolver.Current.GetService<ILanguageService>().GetById(Model.Locales[i].LanguageId);
-
-                        <li class="@(i == 0 ? "active" : "")">
-                            <a href="#tab_@(i + 1)" data-toggle="tab"><img src="@language.Flag"/> @language.LanguageName</a>
-                        </li>
-                    }
-                }
-               
-            </ul>
-
-            <div class="tab-content">
-
-                @{
-                    for (int i = 0; i < Model.Locales.Count; i++)
-                    {
-                        <div class="tab-pane @(i == 0 ? "active" : "")" id="tab_@(i+1)">
-                            <div class="row">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Locales[i].MenuName, new { @class = "control-label col-md-3" })
-                                    <div class="col-md-5">
-                                        @Html.TextBoxFor(model => model.Locales[i].MenuName, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Locales[i].MenuName, "", new { @class = "help-block" })
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Locales[i].MetaTitle, new { @class = "control-label col-md-3" })
-                                    <div class="col-md-5">
-                                        @Html.TextBoxFor(model => model.Locales[i].MetaTitle, new { @class = "form-control" })
-                                        @*@Html.ValidationMessageFor(model => model.Locales[i].MetaTitle, "", new { @class = "help-block" })*@
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Locales[i].MetaKeywords, new { @class = "control-label col-md-3" })
-                                    <div class="col-md-5">
-                                        @Html.TextBoxFor(model => model.Locales[i].MetaKeywords, new { @class = "form-control" })
-                                        @*@Html.ValidationMessageFor(model => model.Locales[i].MetaKeywords, "", new { @class = "help-block" })*@
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Locales[i].MetaDescription, new { @class = "control-label col-md-3" })
-                                    <div class="col-md-5">
-                                        @Html.TextBoxFor(model => model.Locales[i].MetaDescription, new { @class = "form-control" })
-                                        @*@Html.ValidationMessageFor(model => model.Locales[i].MetaDescription, "", new { @class = "help-block" })*@
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        @Html.HiddenFor(model => model.Locales[i].LocalesId)
-                        @Html.HiddenFor(model => model.Locales[i].LanguageId)
-                    }
-
-                    @Html.HiddenFor(model => model.MenuName, new { @class = "form-control", @Value = Model.Locales[0].MenuName })                    
-                    @Html.HiddenFor(model => model.MetaTitle, new { @class = "form-control", @Value = Model.Locales[0].MetaTitle })
-                    @Html.HiddenFor(model => model.MetaKeywords, new { @class = "form-control", @Value = Model.Locales[0].MetaKeywords })
-                    @Html.HiddenFor(model => model.MetaDescription, new { @class = "form-control", @Value = Model.Locales[0].MetaDescription })
-
-                }
-
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-3" })
+            <div class="col-md-5">
+                <div class="radio-list">
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(x => x.Status, (int)Status.Enable, new { @checked = "checked" }) @FormUI.Active
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(x => x.Status, (int)Status.Disable) @FormUI.InActive
+                    </label>
+                </div>
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "help-block" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.ParentId, new { @class = "control-label col-md-3" })
             <div class="col-md-5">
-                @Html.DropDownListFor(x => x.ParentId, new SelectList(ViewBag.MenuList, "Id", "MenuName"), "--Select--", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderDisplay, new { @class = "control-label col-md-3" })
-            <div class="col-md-5">
-                @Html.TextBoxFor(model => model.OrderDisplay, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.OrderDisplay, "", new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.SourceLink, new { @class = "control-label col-md-3" })
-            <div class="col-md-5">
-                @Html.TextBoxFor(model => model.SourceLink, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SourceLink, "", new { @class = "help-block" })
+                @Html.DropDownListFor(x => x.ParentId, new SelectList(ViewBag.MenuList, "Id", "MenuName"), "--Select--", new { @class = "form-control select2" })
             </div>
         </div>
         <div class="form-group">
@@ -132,7 +55,7 @@
                 @Html.ValidationMessageFor(model => model.Position, "", new { @class = "help-block" })
             </div>
         </div>
-        <div class="form-group">
+         <div class="form-group">
             @Html.LabelFor(model => model.TypeMenu, new { @class = "control-label col-md-3" })
             <div class="col-md-5">
                 <div class="radio-list">
@@ -178,7 +101,7 @@
                 @Html.ValidationMessageFor(model => model.TemplateType, "", new { @class = "help-block" })
             </div>
         </div>
-        <div class="form-group">
+         <div class="form-group">
             @Html.LabelFor(model => model.DisplayOnHomePage, new { @class = "control-label col-md-3" })
             <div class="col-md-5">
                 <label class="checkbox">
@@ -276,20 +199,102 @@
                 <img src="@Url.Content("~/" + Model.Icon2)" width="80" />
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-3" })
-            <div class="col-md-5">
-                <div class="radio-list">
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(x => x.Status, (int)Status.Enable, new { @checked = "checked" }) @FormUI.Active
-                    </label>
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(x => x.Status, (int)Status.Disable) @FormUI.InActive
-                    </label>
-                </div>
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "help-block" })
+
+        <div class="tabbable-line m-heading-1 border-green m-bordered dashboard-stat grey">
+            <ul class="nav nav-tabs ">
+                @{
+                    for (int i = 0; i < Model.Locales.Count; i++)
+                    {
+                        App.Domain.Entities.Language.Language language = DependencyResolver.Current.GetService<ILanguageService>().GetById(Model.Locales[i].LanguageId);
+
+                        <li class="@(i == 0 ? "active" : "")">
+                            <a href="#tab_@(i + 1)" data-toggle="tab"><img src="@language.Flag"/> @language.LanguageName</a>
+                        </li>
+                    }
+                }               
+            </ul>
+
+            <div class="tab-content">
+
+                @{
+                    for (int i = 0; i < Model.Locales.Count; i++)
+                    {
+                        <div class="tab-pane @(i == 0 ? "active" : "")" id="tab_@(i+1)">
+                            <div class="row">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Locales[i].MenuName, new { @class = "control-label col-md-3" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(model => model.Locales[i].MenuName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Locales[i].MenuName, "", new { @class = "help-block" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Locales[i].MetaTitle, new { @class = "control-label col-md-3" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(model => model.Locales[i].MetaTitle, new { @class = "form-control" })
+                                        @*@Html.ValidationMessageFor(model => model.Locales[i].MetaTitle, "", new { @class = "help-block" })*@
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Locales[i].MetaKeywords, new { @class = "control-label col-md-3" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(model => model.Locales[i].MetaKeywords, new { @class = "form-control" })
+                                        @*@Html.ValidationMessageFor(model => model.Locales[i].MetaKeywords, "", new { @class = "help-block" })*@
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Locales[i].MetaDescription, new { @class = "control-label col-md-3" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(model => model.Locales[i].MetaDescription, new { @class = "form-control" })
+                                        @*@Html.ValidationMessageFor(model => model.Locales[i].MetaDescription, "", new { @class = "help-block" })*@
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        @Html.HiddenFor(model => model.Locales[i].LocalesId)
+                        @Html.HiddenFor(model => model.Locales[i].LanguageId)
+                    }
+
+                    @Html.HiddenFor(model => model.MenuName, new { @class = "form-control", @Value = Model.Locales[0].MenuName })                    
+                    @Html.HiddenFor(model => model.MetaTitle, new { @class = "form-control", @Value = Model.Locales[0].MetaTitle })
+                    @Html.HiddenFor(model => model.MetaKeywords, new { @class = "form-control", @Value = Model.Locales[0].MetaKeywords })
+                    @Html.HiddenFor(model => model.MetaDescription, new { @class = "form-control", @Value = Model.Locales[0].MetaDescription })
+
+                }
+
             </div>
         </div>
+
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderDisplay, new { @class = "control-label col-md-3" })
+            <div class="col-md-5">
+                @Html.TextBoxFor(model => model.OrderDisplay, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrderDisplay, "", new { @class = "help-block" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SourceLink, new { @class = "control-label col-md-3" })
+            <div class="col-md-5">
+                @Html.TextBoxFor(model => model.SourceLink, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SourceLink, "", new { @class = "help-block" })
+            </div>
+        </div>
+        
+       
+       
+        
     </div>
 </div>
 
