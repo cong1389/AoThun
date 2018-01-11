@@ -63,18 +63,21 @@
                                                     @if (Model.GalleryImages.IsAny())
                                                     {
                                                         var attrid = Model.AttributeValues.FirstOrDefault();
-                                                        var gallery = Model.GalleryImages.FirstOrDefault(x => x.AttributeValueId == attrid.Id);
-                                                        if (gallery != null && gallery.Price != null)
+                                                        if (attrid != null)
                                                         {
-                                                            <span>
-                                                                @Html.Raw(string.Format("{0:##,### VND}", gallery.Price))
-                                                            </span>
+                                                            var gallery = Model.GalleryImages.FirstOrDefault(x => x.AttributeValueId == attrid.Id);
+                                                            if (gallery != null && gallery.Price != null)
+                                                            {
+                                                                <span>
+                                                                    @Html.Raw(string.Format("{0:##,### VND}", gallery.Price))
+                                                                </span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="text text-danger">Liên hệ</span>
+                                                            }
+                                                            @Html.Hidden("hddPrice", (gallery != null && gallery.Price != null) ? gallery.Price : 0)
                                                         }
-                                                        else
-                                                        {
-                                                            <span class="text text-danger">Liên hệ</span>
-                                                        }
-                                                        @Html.Hidden("hddPrice", (gallery != null && gallery.Price != null) ? gallery.Price : 0)
                                                     }
                                                     else
                                                     {

@@ -44,12 +44,15 @@ namespace App.Front
             routes.MapRoute(null, "tin-moi-nhat.html", new { controller = "Post", action = "GetPostLatest" }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "tin-theo-chu-de.html", new { controller = "News", action = "GetContentTabsNewsHome" }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "quan-huyen", new { controller = "Summary", action = "GetDistrictByProvinceId" }, new string[] { "App.Front.Controllers" });
-            routes.MapRoute(null, "tim-kiem", new { controller = "Menu", action = "Search" }, new string[] { "App.Front.Controllers" });
+            routes.MapRoute("tim-kiem", "tim-kiem", new { controller = "Menu", action = "Search" }, new string[] { "App.Front.Controllers" });
 
             routes.MapRoute(null, "cart", new { controller = "ShoppingCart", action = "Cart" }, new string[] { "App.Front.Controllers" });
-            
-            routes.MapRoute(null, "{seoUrl}-ctt.html", new { controller = "News", action = "NewsDetail", seoUrl = UrlParameter.Optional }, new string[] { "App.Front.Controllers" });
-            routes.MapRoute(null, "{seoUrl}-ctt.html", new { controller = "Post", action = "PostDetail", seoUrl = UrlParameter.Optional }, new string[] { "App.Front.Controllers" });
+
+            routes.MapRoute(null, "{seoUrl}-cttps.html", new { controller = "Post", action = "PostDetail", seoUrl = UrlParameter.Optional }, new string[] { "App.Front.Controllers" });
+
+            routes.MapRoute(null, "{seoUrl}-cttnws.html", new { controller = "News", action = "NewsDetail", seoUrl = UrlParameter.Optional }, new string[] { "App.Front.Controllers" });
+            routes.MapRoute(null, "tin-theo-chu-de.html", new { controller = "News", action = "GetContentTabsNewsHome" }, new string[] { "App.Front.Controllers" });
+           
             routes.MapRoute(null, "{menu}.html", new { controller = "Menu", action = "GetContent", menu = UrlParameter.Optional, page = 1 }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "{menu}/trang-{page}.html", new { controller = "Menu", action = "GetContent", menu = UrlParameter.Optional, page = UrlParameter.Optional }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "{catUrl}/{parameters}.html", new { controller = "Post", action = "SearchResult", catUrl = UrlParameter.Optional, parameters = UrlParameter.Optional, page = 1 }, new string[] { "App.Front.Controllers" });

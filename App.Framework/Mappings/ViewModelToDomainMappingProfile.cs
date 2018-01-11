@@ -159,7 +159,7 @@ namespace App.Framework.Mappings
                 .ForMember((AttributeValue x) => x.Attribute, map => map.Ignore())
                 .ForMember((AttributeValue x) => (object)x.Status, map => map.MapFrom<int>((AttributeValueViewModel vm) => vm.Status));
 
-            CreateMap<GalleryImageViewModel, GalleryImage>();
+            CreateMap<GalleryImageViewModel, GalleryImage>().ForAllMembers(_ => _.Ignore());
 
             CreateMap<PostViewModel, Post>()
                     .ForMember(dest => dest.Title, opt => opt.MapFrom<string>(src => src.Title))
@@ -219,11 +219,11 @@ namespace App.Framework.Mappings
                     .ForMember(dest => (object)dest.EndDate, opt
                     => opt.MapFrom<DateTime?>(src => src.EndDate))
 
-                    .ForMember(dest => dest.AttributeValues, opt => opt.Condition((PostViewModel source) => source.AttributeValues.IsAny<AttributeValueViewModel>()))
-
+                    //.ForMember(dest => dest.AttributeValues, opt => opt.Condition((PostViewModel source) => source.AttributeValues.IsAny<AttributeValueViewModel>()))
                     //.ForMember(dest => dest.PostGallerys, opt => opt.Condition((PostViewModel source) => source.PostGallerys.IsAny<PostGalleryViewModel>()))
-                    .ForMember(dest => dest.VirtualCategoryId, opt => opt.Condition((PostViewModel source) => !string.IsNullOrEmpty(source.VirtualCategoryId)))
 
+                    .ForMember(dest => dest.VirtualCategoryId, opt => opt.Condition((PostViewModel source) => !string.IsNullOrEmpty(source.VirtualCategoryId)))
+                    .ForMember(dest => dest.AttributeValues, opt => opt.Ignore())
                     .ForMember(dest => dest.GalleryImages, opt => opt.Ignore())
                     .ForMember(dest => dest.PostGallerys, opt => opt.Ignore())
                     .ForMember(dest => dest.MenuLink, opt => opt.Ignore());
@@ -362,9 +362,23 @@ namespace App.Framework.Mappings
                 .ForMember((Repair x) => x.SerialNumber, map => map.MapFrom<string>((RepairViewModel vm) => vm.SerialNumber))
                 .ForMember((Repair x) => (object)x.BrandId, map => map.MapFrom<int>((RepairViewModel vm) => vm.BrandId))
                 .ForMember((Repair x) => x.RepairCode, map => map.MapFrom<string>((RepairViewModel vm) => vm.RepairCode))
-                .ForMember((Repair x) => x.CustomerCode, map => map.Condition((RepairViewModel source) => !string.IsNullOrEmpty(source.CustomerCode))).ForMember((Repair x) => x.StoreName, map => map.Condition((RepairViewModel source) => !string.IsNullOrEmpty(source.StoreName))).ForMember((Repair x) => x.CustomerName, map => map.MapFrom<string>((RepairViewModel vm) => vm.CustomerName)).ForMember((Repair x) => x.PhoneNumber, map => map.MapFrom<string>((RepairViewModel vm) => vm.PhoneNumber)).ForMember((Repair x) => x.CustomerIdNumber, map => map.MapFrom<string>((RepairViewModel vm) => vm.CustomerIdNumber)).ForMember((Repair x) => x.Address, map => map.MapFrom<string>((RepairViewModel vm) => vm.Address)).ForMember((Repair x) => x.Accessories, map => map.MapFrom<string>((RepairViewModel vm) => vm.Accessories)).ForMember((Repair x) => x.PasswordPhone, map => map.MapFrom<string>((RepairViewModel vm) => vm.PasswordPhone)).ForMember((Repair x) => x.AppleId, map => map.MapFrom<string>((RepairViewModel vm) => vm.AppleId)).ForMember((Repair x) => x.IcloudPassword, map => map.Condition((RepairViewModel source) => !string.IsNullOrEmpty(source.IcloudPassword))).ForMember((Repair x) => (object)x.OldWarranty, map => map.MapFrom<string>((RepairViewModel source) => source.OldWarranty)).ForMember((Repair x) => x.PhoneStatus, map => map.Condition((RepairViewModel source) => !string.IsNullOrEmpty(source.PhoneStatus))).ForMember((Repair x) => x.Note, map => map.MapFrom<string>((RepairViewModel vm) => vm.Note)).ForMember((Repair x) => x.RepairGalleries, map => map.Ignore()).ForMember((Repair x) => x.RepairItems, map => map.Ignore()).ForMember((Repair x) => x.Brand, map => map.Ignore());
+                .ForMember((Repair x) => x.CustomerCode, map => map.Condition((RepairViewModel source) => !string.IsNullOrEmpty(source.CustomerCode)))
+                .ForMember((Repair x) => x.StoreName, map => map.Condition((RepairViewModel source) => !string.IsNullOrEmpty(source.StoreName)))
+                .ForMember((Repair x) => x.CustomerName, map => map.MapFrom<string>((RepairViewModel vm) => vm.CustomerName))
+                .ForMember((Repair x) => x.PhoneNumber, map => map.MapFrom<string>((RepairViewModel vm) => vm.PhoneNumber))
+                .ForMember((Repair x) => x.CustomerIdNumber, map => map.MapFrom<string>((RepairViewModel vm) => vm.CustomerIdNumber))
+                .ForMember((Repair x) => x.Address, map => map.MapFrom<string>((RepairViewModel vm) => vm.Address))
+                .ForMember((Repair x) => x.Accessories, map => map.MapFrom<string>((RepairViewModel vm) => vm.Accessories))
+                .ForMember((Repair x) => x.PasswordPhone, map => map.MapFrom<string>((RepairViewModel vm) => vm.PasswordPhone))
+                .ForMember((Repair x) => x.AppleId, map => map.MapFrom<string>((RepairViewModel vm) => vm.AppleId))
+                .ForMember((Repair x) => x.IcloudPassword, map => map.Condition((RepairViewModel source) => !string.IsNullOrEmpty(source.IcloudPassword)))
+                .ForMember((Repair x) => (object)x.OldWarranty, map => map.MapFrom<string>((RepairViewModel source) => source.OldWarranty))
+                .ForMember((Repair x) => x.PhoneStatus, map => map.Condition((RepairViewModel source) => !string.IsNullOrEmpty(source.PhoneStatus)))
+                .ForMember((Repair x) => x.Note, map => map.MapFrom<string>((RepairViewModel vm) => vm.Note)).
+                ForMember((Repair x) => x.RepairGalleries, map => map.Ignore())
+                .ForMember((Repair x) => x.RepairItems, map => map.Ignore()).ForMember((Repair x) => x.Brand, map => map.Ignore());
 
-            CreateMap<RepairGalleryViewModel, RepairGallery>();
+            CreateMap<RepairGalleryViewModel, RepairGallery>().ForAllMembers(_ => _.Ignore());
 
             CreateMap<RepairItemViewModel, RepairItem>().ForMember((RepairItem x) => (object)x.Id, map => map.MapFrom<int>((RepairItemViewModel vm) => vm.Id)).ForMember((RepairItem x) => (object)x.RepairId, map => map.MapFrom<int>((RepairItemViewModel vm) => vm.RepairId)).ForMember((RepairItem x) => (object)x.FixedFee, map => map.MapFrom<decimal?>((RepairItemViewModel vm) => vm.FixedFee)).ForMember((RepairItem x) => (object)x.WarrantyFrom, map => map.MapFrom<DateTime?>((RepairItemViewModel vm) => vm.WarrantyFrom))
                 .ForMember((RepairItem x) => x.Repair, map => map.Ignore()).ForMember((RepairItem x) => (object)x.WarrantyTo, map => map.MapFrom<DateTime?>((RepairItemViewModel vm) => vm.WarrantyTo));
