@@ -100,6 +100,27 @@ namespace App.Admin.Controllers
             return action;
         }
 
+        [RequiredPermisson(Roles = "DeleteOrder")]
+        public ActionResult Delete(string[] ids)
+        {
+            try
+            {
+                if (ids.Length != 0)
+                {
+                    IEnumerable<Order> order =
+                        from id in ids
+                        select _orderService.GetById(int.Parse(id));
+
+                    _orderService.BatchDelete(order);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExtentionUtils.Log(string.Concat("Order.Delete: ", ex.Message));
+            }
+            return base.RedirectToAction("Index");
+        }
+
         public ActionResult Index(int page = 1, string keywords = "")
         {
             ((dynamic)base.ViewBag).Keywords = keywords;

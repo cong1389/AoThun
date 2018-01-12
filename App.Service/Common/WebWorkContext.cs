@@ -130,7 +130,7 @@ namespace App.Service.Common
             }
 
             //Load customer đã có 
-            customer = _customerService.GetByGuid(customerGuid);
+            customer = _customerService.GetByGuid(customerGuid, isCache:false);
 
             if (customer == null || customer.Deleted || !customer.Active)
             {
@@ -147,7 +147,7 @@ namespace App.Service.Common
                 _customerService.Create(customerObj);
 
                 //Get lai customer
-                customer = _customerService.GetByGuid(customerGuid);
+                customer = _customerService.GetByGuid(customerGuid, isCache: false);
             }
 
             return customer;

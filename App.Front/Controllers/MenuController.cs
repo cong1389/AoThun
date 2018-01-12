@@ -61,10 +61,9 @@ namespace App.Front.Controllers
 
             MenuLink menuLink = _menuLinkService.GetBySeoUrl(seoUrl: menu, @readonly: false);
 
-            var menuLinkLocalized = menuLink.ToModel();
-
-            if (menuLinkLocalized != null)
+            if (menuLink != null)
             {
+                var menuLinkLocalized = menuLink.ToModel();
 
                 ((dynamic)base.ViewBag).Title = menuLinkLocalized.MetaTitle ?? menuLinkLocalized.MenuName;
                 ((dynamic)base.ViewBag).MetaKeyWords = menuLinkLocalized.MetaKeywords;
@@ -84,7 +83,7 @@ namespace App.Front.Controllers
                     //IMenuLinkService menuLinkService = this._menuLinkService;
                     //viewBag.MenuList = _menuLinkService.FindBy((MenuLink x) => x.TemplateType == 1, false);
                 }
-            }
+
 
             ((dynamic)base.ViewBag).ParentId = menuLink.ParentId;
             ((dynamic)base.ViewBag).Attrs = base.Request["attribute"];
@@ -96,11 +95,12 @@ namespace App.Front.Controllers
             ((dynamic)base.ViewBag).ProductOld = base.Request["productold"];
             ((dynamic)base.ViewBag).ProductNew = base.Request["productnew"];
 
-            ((dynamic)base.ViewBag).TemplateType = menuLink.TemplateType;
-            ((dynamic)base.ViewBag).MenuId = menuLink.Id;
-            ((dynamic)base.ViewBag).ImgePath = menuLink.ImageUrl;
-            ((dynamic)base.ViewBag).PageNumber = page;
-            ((dynamic)base.ViewBag).VirtualId = menuLink.VirtualId;
+                ((dynamic)base.ViewBag).TemplateType = menuLink.TemplateType;
+                ((dynamic)base.ViewBag).MenuId = menuLink.Id;
+                ((dynamic)base.ViewBag).ImgePath = menuLink.ImageUrl;
+                ((dynamic)base.ViewBag).PageNumber = page;
+                ((dynamic)base.ViewBag).VirtualId = menuLink.VirtualId;
+            }
 
             return base.View();
         }
@@ -174,7 +174,6 @@ namespace App.Front.Controllers
                 Current = true,
                 Title = title
             });
-
             ((dynamic)base.ViewBag).BreadCrumb = breadCrumbs;
             StaticContent staticContent = this._staticContentService.Get((StaticContent x) => x.MenuId == MenuId, true);
             if (staticContent != null)

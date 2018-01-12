@@ -10,7 +10,7 @@ namespace Domain.Entities.Customers
 {
     public class Customer : AuditableEntity<int>
     {
-
+        
 
         public Guid CustomerGuid
         {
@@ -89,7 +89,14 @@ namespace Domain.Entities.Customers
         //    get; set;
         //}
 
-        public virtual ICollection<ShoppingCartItem> ShoppingCartItems { get; set; }
+        private ICollection<ShoppingCartItem> _shoppingCartItems;
+        public virtual ICollection<ShoppingCartItem> ShoppingCartItems
+        {
+            get { return _shoppingCartItems ?? (_shoppingCartItems = new HashSet<ShoppingCartItem>()); }
+            protected set { _shoppingCartItems = value; }
+        }
+
+        //public virtual ICollection<ShoppingCartItem> ShoppingCartItems { get; set; }
 
         private ICollection<Address> _addresses;
         public virtual ICollection<Address> Addresses

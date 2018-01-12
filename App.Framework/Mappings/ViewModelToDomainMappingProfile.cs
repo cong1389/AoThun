@@ -159,7 +159,7 @@ namespace App.Framework.Mappings
                 .ForMember((AttributeValue x) => x.Attribute, map => map.Ignore())
                 .ForMember((AttributeValue x) => (object)x.Status, map => map.MapFrom<int>((AttributeValueViewModel vm) => vm.Status));
 
-            CreateMap<GalleryImageViewModel, GalleryImage>().ForAllMembers(_ => _.Ignore());
+            CreateMap<GalleryImageViewModel, GalleryImage>();
 
             CreateMap<PostViewModel, Post>()
                     .ForMember(dest => dest.Title, opt => opt.MapFrom<string>(src => src.Title))
@@ -378,7 +378,7 @@ namespace App.Framework.Mappings
                 ForMember((Repair x) => x.RepairGalleries, map => map.Ignore())
                 .ForMember((Repair x) => x.RepairItems, map => map.Ignore()).ForMember((Repair x) => x.Brand, map => map.Ignore());
 
-            CreateMap<RepairGalleryViewModel, RepairGallery>().ForAllMembers(_ => _.Ignore());
+            CreateMap<RepairGalleryViewModel, RepairGallery>();
 
             CreateMap<RepairItemViewModel, RepairItem>().ForMember((RepairItem x) => (object)x.Id, map => map.MapFrom<int>((RepairItemViewModel vm) => vm.Id)).ForMember((RepairItem x) => (object)x.RepairId, map => map.MapFrom<int>((RepairItemViewModel vm) => vm.RepairId)).ForMember((RepairItem x) => (object)x.FixedFee, map => map.MapFrom<decimal?>((RepairItemViewModel vm) => vm.FixedFee)).ForMember((RepairItem x) => (object)x.WarrantyFrom, map => map.MapFrom<DateTime?>((RepairItemViewModel vm) => vm.WarrantyFrom))
                 .ForMember((RepairItem x) => x.Repair, map => map.Ignore()).ForMember((RepairItem x) => (object)x.WarrantyTo, map => map.MapFrom<DateTime?>((RepairItemViewModel vm) => vm.WarrantyTo));
@@ -423,10 +423,8 @@ namespace App.Framework.Mappings
                 => map.MapFrom<string>((GenericControlValueViewModel vm) => vm.Description))
                 .ForMember((GenericControlValue x) => (object)x.GenericControlId, map
                 => map.MapFrom<int>((GenericControlValueViewModel vm) => vm.GenericControlId))
-                .ForMember((GenericControlValue x) => x.GenericControl, map
-                => map.Ignore())
-                .ForMember((GenericControlValue x) => (object)x.Status, map
-                => map.MapFrom<int>((GenericControlValueViewModel vm) => vm.Status))
+                .ForMember((GenericControlValue x) => x.GenericControl, map=> map.Ignore())
+                .ForMember((GenericControlValue x) => (object)x.Status, map=> map.MapFrom<int>((GenericControlValueViewModel vm) => vm.Status))
                 .ForMember((GenericControlValue x) => (object)x.EntityId, map
                 => map.MapFrom<int>((GenericControlValueViewModel vm) => vm.EntityId));
 

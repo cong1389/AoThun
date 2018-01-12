@@ -34,36 +34,64 @@ namespace App.Service.Customers
             _cacheManager = cacheManager;
         }
 
-        public Customer GetById(int id)
+        public Customer GetById(int id, bool isCache = true)
         {
-            StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CACHE_CUSTOMER_KEY, "GetById");
-            sbKey.Append(id);
+            Customer customer;
+            if (isCache)
+            {
+                StringBuilder sbKey = new StringBuilder();
+                sbKey.AppendFormat(CACHE_CUSTOMER_KEY, "GetById");
+                sbKey.Append(id);
 
-            string key = sbKey.ToString();
-            Customer customer = _cacheManager.Get<Customer>(key);
-            if (customer == null)
+                string key = sbKey.ToString();
+                customer = _cacheManager.Get<Customer>(key);
+                if (customer == null)
+                {
+                    customer = _customerRepository.GetById(id);
+                    _cacheManager.Put(key, customer);
+                }
+            }
+            else
             {
                 customer = _customerRepository.GetById(id);
-                _cacheManager.Put(key, customer);
             }
 
             return customer;
         }
 
-        public Customer GetByGuid(Guid guid)
+        public Customer GetByGuid(Guid guid, bool isCache = true)
         {
-            StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CACHE_CUSTOMER_KEY, "GetByGuid");
-            sbKey.Append(guid);
+            Customer customer;
+            if (isCache)
+            {
+                StringBuilder sbKey = new StringBuilder();
+                sbKey.AppendFormat(CACHE_CUSTOMER_KEY, "GetByGuid");
+                sbKey.Append(guid);
 
-            string key = sbKey.ToString();
-            Customer customer = _cacheManager.Get<Customer>(key);
-            if (customer == null)
+                string key = sbKey.ToString();
+                customer = _cacheManager.Get<Customer>(key);
+                if (customer == null)
+                {
+                    customer = _customerRepository.Get((Customer x) => x.CustomerGuid == guid, false);
+                    _cacheManager.Put(key, customer);
+                }
+            }
+            else
             {
                 customer = _customerRepository.Get((Customer x) => x.CustomerGuid == guid, false);
-                _cacheManager.Put(key, customer);
             }
+
+            //StringBuilder sbKey = new StringBuilder();
+            //sbKey.AppendFormat(CACHE_CUSTOMER_KEY, "GetByGuid");
+            //sbKey.Append(guid);
+
+            //string key = sbKey.ToString();
+            //Customer customer = _cacheManager.Get<Customer>(key);
+            //if (customer == null)
+            //{
+            //    customer = _customerRepository.Get((Customer x) => x.CustomerGuid == guid, false);
+            //    _cacheManager.Put(key, customer);
+            //}
 
             return customer;
         }

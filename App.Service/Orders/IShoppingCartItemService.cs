@@ -10,9 +10,9 @@ namespace App.Service.Orders
     {
         void AddToCart(AddToCartContext ctx);
 
-        ShoppingCartItem GetById(int Id);
+        ShoppingCartItem GetById(int id, bool isCache = true);
 
-        IEnumerable<ShoppingCartItem> GetByPostId(int postId);
+        IEnumerable<ShoppingCartItem> GetByPostId(int postId, bool isCache = true);
 
         IEnumerable<ShoppingCartItem> PagedList(SortingPagingBuilder sortBuider, Paging page);
 

@@ -27,19 +27,39 @@ namespace App.Service.Orders
 
         }
 
-		public Order GetById(int id)
-		{
-            StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CACHE_ORDER_KEY, "GetById");
-            sbKey.Append(id);
+		public Order GetById(int id, bool isCache = true)
+        {
+            Order order;
+            if (isCache)
+            {
+                StringBuilder sbKey = new StringBuilder();
+                sbKey.AppendFormat(CACHE_ORDER_KEY, "GetById");
+                sbKey.Append(id);
 
-            string key = sbKey.ToString();
-            Order order = _cacheManager.Get<Order>(key);
-            if (order == null)
+                string key = sbKey.ToString();
+                order = _cacheManager.Get<Order>(key);
+                if (order == null)
+                {
+                    order = _orderRepository.GetById(id);
+                    _cacheManager.Put(key, order);
+                }
+            }
+            else
             {
                 order = _orderRepository.GetById(id);
-                _cacheManager.Put(key, order);
             }
+
+            //StringBuilder sbKey = new StringBuilder();
+            //sbKey.AppendFormat(CACHE_ORDER_KEY, "GetById");
+            //sbKey.Append(id);
+
+            //string key = sbKey.ToString();
+            //Order order = _cacheManager.Get<Order>(key);
+            //if (order == null)
+            //{
+            //    order = _orderRepository.GetById(id);
+            //    _cacheManager.Put(key, order);
+            //}
 
             return order;
 		}

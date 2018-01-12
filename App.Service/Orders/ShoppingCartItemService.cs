@@ -41,46 +41,23 @@ namespace App.Service.Orders
 
         public void AddToCart(AddToCartContext ctx)
         {
-            var customer = ctx.Customers ?? _workContext.CurrentCustomer;
-            int storeId = 1;
-
-            IEnumerable<ShoppingCartItem> ieShoppingCart = _workContext.CurrentCustomer.ShoppingCartItems;
-
-            ShoppingCartItem objNew = new ShoppingCartItem
+            try
             {
-                PostId = ctx.Post.Id,
-                CustomerId = customer.Id,
-                CustomerEnteredPrice = ctx.Price,
-                StoreId = storeId
-            };
+                var customer = ctx.Customers ?? _workContext.CurrentCustomer;
+                int storeId = 1;
 
-            //Customer chua co trong ShoppingCartItem
-            if (ieShoppingCart == null || ieShoppingCart.Count() == 0)
-            {
-                objNew.Quantity = ctx.Quantity <= 0 ? 1 : ctx.Quantity;
-                objNew.CustomerEnteredPrice = ctx.Price;
+                IEnumerable<ShoppingCartItem> ieShoppingCart = _workContext.CurrentCustomer.ShoppingCartItems;
 
-                //Create cart
-                this.Create(objNew);
-            }
-            //Customer da co trong ShoppingCartItem
-            else
-            {
-                //Kiem tra PostId cua customer nay co trong ShoppingCartItem chua
-                ShoppingCartItem objOld = ieShoppingCart.Where(x => x.PostId == ctx.Post.Id).FirstOrDefault();
-
-                // int quantityOld = ieShoppingCart.Where(x => x.PostId == ctx.Post.Id && x.CustomerId == customer.Id).FirstOrDefault().Quantity;
-                if (objOld != null)
+                ShoppingCartItem objNew = new ShoppingCartItem
                 {
-                    //Update và cộng dồn số lượng
-                    objOld.Quantity = ctx.Quantity;
-                    objOld.CustomerEnteredPrice = ctx.Price;
+                    PostId = ctx.Post.Id,
+                    CustomerId = customer.Id,
+                    CustomerEnteredPrice = ctx.Price,
+                    StoreId = storeId
+                };
 
-                    //objOld.Quantity = objOld.Quantity + ctx.Quantity;
-                    this.Update(objOld);
-                }
-                //Cutomer, postId da co trong ShoppingCartItem
-                else
+                //Customer chua co trong ShoppingCartItem
+                if (ieShoppingCart == null || ieShoppingCart.Count() == 0)
                 {
                     objNew.Quantity = ctx.Quantity <= 0 ? 1 : ctx.Quantity;
                     objNew.CustomerEnteredPrice = ctx.Price;
@@ -88,40 +65,110 @@ namespace App.Service.Orders
                     //Create cart
                     this.Create(objNew);
                 }
+                //Customer da co trong ShoppingCartItem
+                else
+                {
+                    //Kiem tra PostId cua customer nay co trong ShoppingCartItem chua
+                    ShoppingCartItem objOld = ieShoppingCart.Where(x => x.PostId == ctx.Post.Id).FirstOrDefault();
+
+                    // int quantityOld = ieShoppingCart.Where(x => x.PostId == ctx.Post.Id && x.CustomerId == customer.Id).FirstOrDefault().Quantity;
+                    if (objOld != null)
+                    {
+                        //Update và cộng dồn số lượng
+                        objOld.Quantity = ctx.Quantity;
+                        objOld.CustomerEnteredPrice = ctx.Price;
+
+                        //objOld.Quantity = objOld.Quantity + ctx.Quantity;
+                        this.Update(objOld);
+                    }
+                    //Cutomer, postId da co trong ShoppingCartItem
+                    else
+                    {
+                        objNew.Quantity = ctx.Quantity <= 0 ? 1 : ctx.Quantity;
+                        objNew.CustomerEnteredPrice = ctx.Price;
+
+                        //Create cart
+                        this.Create(objNew);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
             }
         }
 
-        public ShoppingCartItem GetById(int id)
+        public ShoppingCartItem GetById(int id, bool isCache = true)
         {
-            StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CACHE_SHOPPINGCARTITEM_KEY, "GetById");
-            sbKey.Append(id);
+            ShoppingCartItem shoppingCartItem;
+            if (isCache)
+            {
+                StringBuilder sbKey = new StringBuilder();
+                sbKey.AppendFormat(CACHE_SHOPPINGCARTITEM_KEY, "GetById");
+                sbKey.Append(id);
 
-            string key = sbKey.ToString();
-            ShoppingCartItem shoppingCartItem = _cacheManager.Get<ShoppingCartItem>(key);
-            if (shoppingCartItem == null)
+                string key = sbKey.ToString();
+                shoppingCartItem = _cacheManager.Get<ShoppingCartItem>(key);
+                if (shoppingCartItem == null)
+                {
+                    shoppingCartItem = _shoppingCartItemRepository.GetById(id);
+                    _cacheManager.Put(key, shoppingCartItem);
+                }
+            }
+            else
             {
                 shoppingCartItem = _shoppingCartItemRepository.GetById(id);
-                _cacheManager.Put(key, shoppingCartItem);
             }
+
+            //StringBuilder sbKey = new StringBuilder();
+            //sbKey.AppendFormat(CACHE_SHOPPINGCARTITEM_KEY, "GetById");
+            //sbKey.Append(id);
+
+            //string key = sbKey.ToString();
+            //ShoppingCartItem shoppingCartItem = _cacheManager.Get<ShoppingCartItem>(key);
+            //if (shoppingCartItem == null)
+            //{
+            //    shoppingCartItem = _shoppingCartItemRepository.GetById(id);
+            //    _cacheManager.Put(key, shoppingCartItem);
+            //}
 
             return shoppingCartItem;
         }
 
-        public IEnumerable<ShoppingCartItem> GetByPostId(int postId)
+        public IEnumerable<ShoppingCartItem> GetByPostId(int postId, bool isCache = true)
         {
-            StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CACHE_SHOPPINGCARTITEM_KEY, "GetByPostId");
+            IEnumerable<ShoppingCartItem> shoppingCartItem;
+            if (isCache)
+            {
+                StringBuilder sbKey = new StringBuilder();
+                sbKey.AppendFormat(CACHE_SHOPPINGCARTITEM_KEY, "GetByPostId");
+                sbKey.Append(postId);
 
-            sbKey.AppendFormat("-{0}", postId);
-
-            string key = sbKey.ToString();
-            IEnumerable<ShoppingCartItem> shoppingCartItem = _cacheManager.GetCollection<ShoppingCartItem>(key);
-            if (shoppingCartItem == null)
+                string key = sbKey.ToString();
+                shoppingCartItem = _cacheManager.GetCollection<ShoppingCartItem>(key);
+                if (shoppingCartItem == null)
+                {
+                    shoppingCartItem = _shoppingCartItemRepository.FindBy((ShoppingCartItem x) => x.PostId == postId, false);
+                    _cacheManager.Put(key, shoppingCartItem);
+                }
+            }
+            else
             {
                 shoppingCartItem = _shoppingCartItemRepository.FindBy((ShoppingCartItem x) => x.PostId == postId, false);
-                _cacheManager.Put(key, shoppingCartItem);
             }
+
+            //StringBuilder sbKey = new StringBuilder();
+            //sbKey.AppendFormat(CACHE_SHOPPINGCARTITEM_KEY, "GetByPostId");
+
+            //sbKey.AppendFormat("-{0}", postId);
+
+            //string key = sbKey.ToString();
+            //IEnumerable<ShoppingCartItem> shoppingCartItem = _cacheManager.GetCollection<ShoppingCartItem>(key);
+            //if (shoppingCartItem == null)
+            //{
+            //    shoppingCartItem = _shoppingCartItemRepository.FindBy((ShoppingCartItem x) => x.PostId == postId, false);
+            //    _cacheManager.Put(key, shoppingCartItem);
+            //}
 
             //IEnumerable<ShoppingCartItem> posts = this._shoppingCartItemRepository.FindBy((ShoppingCartItem x) => x.PostId == postId, false);
             return shoppingCartItem;

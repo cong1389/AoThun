@@ -45,7 +45,7 @@ namespace App.Service.Orders
 
             try
             {
-                var customer = _customerService.GetById(processPaymentRequest.CustomerId);
+                var customer = _customerService.GetById(processPaymentRequest.CustomerId, isCache: false);
                 var cart = customer.GetCartItems();
 
                 //Order total 

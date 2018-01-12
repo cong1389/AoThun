@@ -7,7 +7,7 @@ namespace App.Service.Orders
 {
     public interface IOrderService : IBaseService<Order>, IService
 	{
-		Order GetById(int Id);
+		Order GetById(int id, bool isCache = true);
 
 		IEnumerable<Order> PagedList(SortingPagingBuilder sortBuider, Paging page);
 	}

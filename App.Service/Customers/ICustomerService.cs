@@ -8,9 +8,9 @@ namespace App.Service.Customers
 {
     public interface ICustomerService : IBaseService<Customer>, IService
 	{
-		Customer GetById(int Id);
+		Customer GetById(int id, bool isCache = true);
 
-        Customer GetByGuid(Guid guid);
+        Customer GetByGuid(Guid guid, bool isCache = true);
 
         Customer InsertGuestCusomter(Guid? customerGuid = null);
 
