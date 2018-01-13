@@ -41,7 +41,7 @@
                                 }
                                 else
                                 {
-                                    @Html.Raw("Liên hệ")
+                                    @T("LienHeDatHang.Lable")
                                 }
                             </span>
                             <span class="top-cart-item-quantity">x @Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().Quantity</span>

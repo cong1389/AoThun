@@ -56,36 +56,53 @@
 
                                         </div>
                                         <div class='pd_sale_wrapper clearfix'>
-                                            <!-- Product Single - Price
-                                            ============================================= -->
-                                            <div class="product-price">
-                                                <ins>
-                                                    @if (Model.GalleryImages.IsAny())
-                                                    {
-                                                        var attrid = Model.AttributeValues.FirstOrDefault();
-                                                        if (attrid != null)
-                                                        {
-                                                            var gallery = Model.GalleryImages.FirstOrDefault(x => x.AttributeValueId == attrid.Id);
-                                                            if (gallery != null && gallery.Price != null)
+                                            @if (Model.GalleryImages.IsAny())
+                                            {
+                                                var attrid = Model.AttributeValues.FirstOrDefault();
+                                                if (attrid != null)
+                                                {
+                                                    var gallery = Model.GalleryImages.FirstOrDefault(x => x.AttributeValueId == attrid.Id);
+                                                    <div class="product-price">
+                                                        <ins>
+                                                            @if (gallery != null && gallery.Price != null)
                                                             {
-                                                                <span>
+                                                                if (Model.Price.HasValue && Model.Discount.HasValue)
+                                                                {
+                                                                    @Html.Raw(string.Format("{0:##,### VND}", gallery.Price - gallery.Price * Model.Discount / 100))
+                                                                }
+                                                                else if (Model.Price.HasValue && !Model.Discount.HasValue)
+                                                                {
                                                                     @Html.Raw(string.Format("{0:##,### VND}", gallery.Price))
-                                                                </span>
+                                                                }
                                                             }
                                                             else
                                                             {
-                                                                <span class="text text-danger">Liên hệ</span>
+                                                                <span class="text text-danger">@T("LienHeDatHang.Lable")</span>
                                                             }
                                                             @Html.Hidden("hddPrice", (gallery != null && gallery.Price != null) ? gallery.Price : 0)
+                                                        </ins>
+                                                        @if (Model.Price.HasValue && Model.Discount.HasValue)
+                                                        {
+                                                            <div style="" class="saleoff-price-item">
+                                                                <span class="price-label">Tiết kiệm:</span>
+                                                                <span id="product-discount" class="product-discount">@Model.Discount%</span>
+                                                                <span id="span-saving-price">( @Html.Raw(string.Format("{0:##,### VND}", gallery.Price * Model.Discount / 100)))</span>
+                                                            </div>
+                                                            <div class="old-price-item">
+                                                                <span class="price-label">Giá thị trường:</span>
+                                                                <span id="span-list-price"> @Html.Raw(string.Format("{0:##,### VND}", gallery.Price))</span>
+                                                            </div>
                                                         }
-                                                    }
-                                                    else
-                                                    {
-                                                        <span class="text text-danger">Liên hệ</span>
-                                                    }
-                                                </ins>
 
-                                            </div><!-- Product Single - Price End -->
+                                                    </div>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span class="text text-danger">@T("LienHeDatHang.Lable")</span>
+                                            }
+
+
                                             <!-- Product Single - Rating
                                             ============================================= -->
                                             <div class="clear"></div>
@@ -352,12 +369,12 @@
                                                     }
                                                     else
                                                     {
-                                                        <span class="text text-danger">Liên hệ</span>
+                                                        <span class="text text-danger">@T("LienHeDatHang.Lable")</span>
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    <span class="text text-danger">Liên hệ</span>
+                                                    <span class="text text-danger">@T("LienHeDatHang.Lable")</span>
                                                 }
                                             </ins>
                                         </label>
@@ -393,7 +410,7 @@
                                                 <input required type="hidden" id="name" name="contact[name]" class="form-control input-lg" placeholder="Tên của bạn" autocapitalize="words" value="">
                                                 <input id="phone" name="contact[phone]" type="text" class="form-control input-lg" placeholder="Số điện thoại" required="required" />
                                                 <input type="hidden" id="email" name="contact[email]" class="form-control input-lg" placeholder="Nhập email của bạn" value="aosomihanquoc99@gmail.com" required="required" />
-                                                <input class="input-text-1" type="hidden" id="message" name="contact[body]" value="Khách hàng liên hệ" />
+                                                <input class="input-text-1" type="hidden" id="message" name="contact[body]" value="Khách hàng @T("LienHeDatHang.Lable")" />
                                                 <input type="submit" class="btn btn-lg btn-black btn-block" value="Gửi">
                                             </p>
                                         </form>*@

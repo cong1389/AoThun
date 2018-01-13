@@ -7,8 +7,8 @@
 
     <section id="page-title">
         <div class="container clearfix">
-            <ol class="breadcrumb col-md-6 col-sm-6">
-                <li><a href="@Url.Action("Index", "Home", new {area = ""})"><i class="icon_home"></i></a></li>
+            <ol class="breadcrumb col-md-12 col-sm-12">
+                <li><a href="@Url.Action("Index", "Home", new {area = ""})"><i class="icon_home"></i>@T("TrangChu")</a></li>
                 @if (breadCrumbs.IsAny())
                 {
                     foreach (var item in breadCrumbs)

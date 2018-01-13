@@ -197,6 +197,39 @@
         overflow-y: hidden;
     }
 }
+/*****************************************Product******************************************/
+.pd_desc_wrapper .product-price ins, #product-pop-up .product-price ins {
+    color: #ed4545;
+    padding-left: 0;
+    font-size: 20px !important;
+    font-weight: 300;
+    display: block;
+    margin-bottom: 5px !important;
+    line-height: 1;
+}
+.saleoff-price-item, .old-price-item {
+    font-size: 13px;
+    margin: 4px 0;
+    font-weight: 300;
+    color: #9b9b9b;
+}
+
+.price-regular {
+    font-size: 11px;
+    color: #a2a2a2;
+    text-decoration: line-through;
+    text-align: left;
+    font-weight: 300;
+}
+
+.product-discount {
+    color: #ff3b26;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 2px;
+}
+
 
 #divHomeProduct .product-image img {
     width: 263px;
@@ -2773,7 +2806,7 @@ span.line-strike {
 
     .conten-attr .item.active .size span {
         border-color: #e42127 !important;
-        background-image: url(../images/product_detail/bg-selected.png);
+        background-image: url(../images/bg-selected.png);
         background-repeat: no-repeat;
         background-position: bottom right;
         top: 0px;
@@ -2809,7 +2842,7 @@ span.line-strike {
 
     .conten-attr .item.active .select-item .bg {
         border: #e42127 solid 3px;
-        background-image: url(../images/product_detail/bg-selected.png);
+        background-image: url(../images/bg-selected.png);
         background-repeat: no-repeat;
         background-position: bottom right;
     }
@@ -3827,4 +3860,9 @@ h2.title, h2.title-box {
 
 .breadcrumb > li + li:before {
     content: "" !important;
+}
+
+
+.breadcrumb > li {
+    display: inline !important;
 }

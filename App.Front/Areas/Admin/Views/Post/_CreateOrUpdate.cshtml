@@ -221,14 +221,6 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Locales[i].Description, new { @class = "col-md-1 control-label" })
                                             <div class="col-md-11">
-                                                @Html.TextAreaFor(model => model.Locales[i].TechInfo, new { @class = "form-control ckeditor" })
-                                                @Html.ValidationMessageFor(model => model.Locales[i].TechInfo, "", new { @class = "help-block" })
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Locales[i].Description, new { @class = "col-md-1 control-label" })
-                                            <div class="col-md-11">
                                                 @Html.TextAreaFor(model => model.Locales[i].Description, new { @class = "form-control ckeditor" })
                                                 @Html.ValidationMessageFor(model => model.Locales[i].Description, "", new { @class = "help-block" })
                                             </div>

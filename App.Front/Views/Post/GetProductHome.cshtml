@@ -60,16 +60,15 @@
                                                 }
                                                 else
                                                 {
-                                                    @Html.Raw("Liên hệ")
-                                                }
-                                                @if (product.Discount.HasValue)
-                                                {
-                                                    <span class="product-discount">
-                                                        @Html.Raw(product.Discount.ToString() + "%")
-                                                    </span>
+                                                    @Html.Raw("LienHeDatHang.Lable")
                                                 }
                                             </ins>
 
+                                            @if (product.Discount.HasValue)
+                                            {
+                                                <span class="price-regular">@Html.Raw(string.Format("{0:##,### VND}", product.Price)) </span>
+                                                <span class="product-discount">@Html.Raw(product.Discount.ToString() + "%")</span>
+                                            }
                                         </div>
                                     </div>
 
@@ -84,10 +83,10 @@
         <div class='clear'></div>
     }
 }
- else
-                            {
-                                <p class="text-danger">
-                                    Nội dung đang cập nhật
-                                </p>
-                            }
+else
+{
+    <p class="text-danger">
+        Nội dung đang cập nhật
+    </p>
+}
 <!----/GetProductHome-->

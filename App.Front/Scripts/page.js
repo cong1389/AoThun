@@ -2,34 +2,50 @@
 
 
     $("#ProductDetailsForm .product-attr .item input")
-      .click(function () {
-          $(".conten-attr .item input").parents(".item").removeClass("active");
-          $(".conten-attr .item input").removeAttr('checked');
-          $(this).parents(".item").toggleClass("active");
-          $(this).attr('checked', 'checked');
-          var value = this.value;
+        .click(function () {
+            $(".conten-attr .item input").parents(".item").removeClass("active");
+            $(".conten-attr .item input").removeAttr('checked');
+            $(this).parents(".item").toggleClass("active");
+            $(this).attr('checked', 'checked');
+            var value = this.value;
 
-          $.post("/gallery-images.html",
-              { postId: $(this).attr("data-post"), typeId: value },
-              function (response) {
-                  if (response.success) {
-                      $("#gallery").data('royalSlider').destroy();
-                      $("#gallery").html(response.data);
-                      initGallery();
-                  }
-              });
-          $.post("/getprice.html",
-              { proId: $(this).attr("data-post"), at: value },
-              function (response) {
-                  debugger;
-                  var x = 1000;
-                  x = x.toLocaleString('vi', { style: 'currency', currency: 'VND' });
-                 //var price = Haravan.formatMoney(response, EGA.options.money_format);
-                  $("#ProductDetailsForm .product-price ins span").html(response + ' VND');
-                  $("#detail-two .variant-price ins span ").html(response + ' VND');
-                  $("#ProductDetailsForm #hddPrice").val(response);
-              });
-      });
+            $.post("/gallery-images.html",
+                { postId: $(this).attr("data-post"), typeId: value },
+                function (response) {
+                    if (response.success) {
+                        $("#gallery").data('royalSlider').destroy();
+                        $("#gallery").html(response.data);
+                        initGallery();
+                    }
+                });
+
+            $.post("/getprice.html",
+                { productId: $(this).attr("data-post"), attributeId: value },
+                function (response) {
+
+                    if (response === parseInt(response, 10)) {
+                        //var pricce = response.toLocaleString('vi', { style: 'currency', currency: 'VND' });
+                        var priceOriginal = Haravan.formatMoney(response, EGA.options.money_format);
+
+                        $("#ProductDetailsForm .product-price #span-list-price").html(priceOriginal);
+                        $("#detail-two .variant-price ins span ").html(priceOriginal);
+                        $("#ProductDetailsForm #hddPrice").val(priceOriginal);
+                        
+                        //product-discount
+                        var discount = $('#product-discount').html();
+                        var priceDiscount = response * parseInt(discount) / 100;
+                        var pricePromotion = Haravan.formatMoney((response - priceDiscount), EGA.options.money_format);
+
+                        $('#span-saving-price').html(Haravan.formatMoney(priceDiscount, EGA.options.money_format));
+                        $("#ProductDetailsForm .product-price ins").html(pricePromotion);
+                    }
+                    else {
+                        $("#ProductDetailsForm .product-price ins").html(response);
+                    }
+
+                });
+
+        });
 });
 
 jQuery(document).ready(function () {

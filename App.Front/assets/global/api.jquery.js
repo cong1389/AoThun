@@ -93,7 +93,7 @@ Haravan.onProduct = function(product) {
 
 
 Haravan.formatMoney = function (cents, format) {
-  cents = cents / 100;
+  //cents = cents / 100;
   if (typeof cents == 'string') cents = cents.replace(Haravan.format.thousands, '');
   var value = '';
   var patt = /\{\{\s*(\w+)\s*\}\}/;

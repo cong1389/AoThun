@@ -105,7 +105,7 @@ namespace App.Front.Controllers
 
         public ActionResult GetGallery(int postId, int typeId)
         {
-            IEnumerable<GalleryImage> galleryImages = _galleryService.GetByOption(attributeValueId: typeId, postId:postId);
+            IEnumerable<GalleryImage> galleryImages = _galleryService.GetByOption(attributeValueId: typeId, postId: postId);
 
             //IEnumerable<GalleryImage> galleryImages = _galleryService.FindBy((GalleryImage x) => x.AttributeValueId == typeId && x.PostId == postId, false);
             if (!galleryImages.IsAny())
@@ -456,17 +456,14 @@ namespace App.Front.Controllers
         }
 
         [PartialCache("Medium")]
-        public ActionResult GetPriceProduct(int proId, int at)
+        public ActionResult GetPriceProduct(int productId, int attributeId)
         {
-            GalleryImage galleryImage = this._galleryService.Get((GalleryImage x) => x.PostId == proId && x.AttributeValueId == at, false);
-            if (galleryImage == null)
+            GalleryImage galleryImage = this._galleryService.Get((GalleryImage x) => x.PostId == productId && x.AttributeValueId == attributeId, false);
+            if (galleryImage == null || !galleryImage.Price.HasValue)
             {
                 return base.Json("Liên hệ");
             }
-            if (!galleryImage.Price.HasValue)
-            {
-                return base.Json("Liên hệ");
-            }
+
             return base.Json(galleryImage.Price);
             //return base.Json(string.Format("{0:##,###0 VND}", galleryImage.Price));
         }
@@ -700,7 +697,7 @@ namespace App.Front.Controllers
             JsonResult jsonResult = Json(new { success = true, list = this.RenderRazorViewToString("_PostDetail.Attribute", genericControls1) }, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
-        
+
         //Hien thi san pham footer
         [PartialCache("Medium")]
         public async Task<JsonResult> GetProductOutOfStock()
