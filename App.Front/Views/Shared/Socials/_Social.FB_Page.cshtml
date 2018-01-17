@@ -2,25 +2,15 @@
 
 <div id="divFBFanPage" class="scroller" data-always-visible="1" data-rail-visible="0"></div>
 
-
-
 <script>
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '333261973802232',
-            xfbml: true,
-            version: 'v2.10'
-        });
-        FB.AppEvents.logPageView();
-    };
 
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) { return; }
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+    //(function (d, s, id) {
+    //    var js, fjs = d.getElementsByTagName(s)[0];
+    //    if (d.getElementById(id)) return;
+    //    js = d.createElement(s); js.id = id;
+    //    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=202388200323611';
+    //    fjs.parentNode.insertBefore(js, fjs);
+    //}(document, 'script', 'facebook-jssdk'))
 
     jQuery(function () {
         'use strict';
@@ -33,7 +23,7 @@
 
                     jQuery("#divFBFanPage").html(code);
                 }
-                
+
                     });
         })
 

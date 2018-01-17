@@ -213,17 +213,18 @@ select x.ErrorMessage).ToArray<string>())
         [OutputCache(CacheProfile = "Medium")]
         public ActionResult Index()
         {
-            //SystemSetting systemSetting = this._systemSettingService.Get((SystemSetting x) => x.Status == 1, true);
-            //if (systemSetting != null)
-            //{
-            //    ((dynamic)base.ViewBag).Title = systemSetting.Title;
-            //    ((dynamic)base.ViewBag).KeyWords = systemSetting.MetaKeywords;
-            //    ((dynamic)base.ViewBag).SiteUrl = base.Url.Action("Index", "Home", new { area = "" });
-            //    ((dynamic)base.ViewBag).Description = systemSetting.Description;
-            //    ((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", systemSetting.LogoImage));
-            //    ((dynamic)base.ViewBag).Favicon = base.Url.Content(string.Concat("~/", systemSetting.FaviconImage));
-            //}
-            //dynamic viewBag = base.ViewBag;
+            SystemSetting systemSetting = this._systemSettingService.Get((SystemSetting x) => x.Status == 1, true);
+            if (systemSetting != null)
+            {
+                ((dynamic)base.ViewBag).Title = systemSetting.MetaTitle ?? systemSetting.Title;
+                ((dynamic)base.ViewBag).KeyWords = systemSetting.MetaKeywords;
+                ((dynamic)base.ViewBag).SiteUrl = base.Url.Action("Index", "Home", new { area = "" });
+                ((dynamic)base.ViewBag).Description = systemSetting.Description;
+                ((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", systemSetting.LogoImage));
+                ((dynamic)base.ViewBag).Favicon = base.Url.Content(string.Concat("~/", systemSetting.FaviconImage));
+            }
+            dynamic viewBag = base.ViewBag;
+
             //IProvinceService provinceService = this._province;
             //viewBag.Provinces = provinceService.FindBy((Province x) => x.Status == 1, false);
             return base.View();

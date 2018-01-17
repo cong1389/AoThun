@@ -26,6 +26,12 @@
                     $("#Title").val(name);
                 }
             });
+            $("#Locales_0__Address").change(function () {
+                var address = $("#Locales_0__Address").val();
+                if (address != "") {
+                    $("#Address").val(address);
+                }
+            });
         }
 
         $(function () {

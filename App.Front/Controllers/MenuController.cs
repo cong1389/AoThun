@@ -261,23 +261,8 @@ namespace App.Front.Controllers
             return base.PartialView(menuLinks);
         }
 
-        public ActionResult SearchMenu()
-        {
-            SeachConditions seachConditions = new SeachConditions();
-
-            return PartialView(seachConditions);
-        }
-
-        public ActionResult SearchMenuMobile()
-        {
-            SeachConditions seachConditions = new SeachConditions();
-
-            return PartialView(seachConditions);
-        }
-
         public ActionResult Search(SeachConditions conditions)
         {
-            //Province province;
             string str = JsonConvert.SerializeObject(conditions);
             HttpCookie cookie = new HttpCookie("system_search", str);
             cookie.Expires = DateTime.Now.AddDays(1.0);
@@ -291,29 +276,7 @@ namespace App.Front.Controllers
                 byId = menuLinks.FirstOrDefault();
             }
 
-            //if (conditions.CategoryId.HasValue)
-            //{
-            //    byId = this._menuLinkService.GetById(conditions.CategoryId.Value);
-            //}
-            //else
-            //{
-            //    ParameterExpression expression= null;
-            //    ParameterExpression[] parameters = new ParameterExpression[] { expression };
-            //    byId = this._menuLinkService.FindBy(Expression.Lambda<Func<MenuLink, bool>>(Expression.AndAlso(Expression.Equal(Expression.Property(expression = Expression.Parameter(typeof(MenuLink), "x"), (MethodInfo)methodof(MenuLink.get_Status)), Expression.Constant(1, typeof(int))), Expression.Equal(Expression.Property(expression, (MethodInfo)methodof(MenuLink.get_TemplateType)), Expression.Constant(2, typeof(int)))), parameters), false).FirstOrDefault<MenuLink>();
-            //}
-            //conditions.CategoryId = new int?(byId.Id);
-            //if (conditions.ProvinceId.HasValue)
-            //{
-            //    //province = this._provinceService.GetById(conditions.ProvinceId.Value);
-            //    if (conditions.DistrictId.HasValue)
-            //    {
-            //        //District district = this._isDistrictService.GetById(conditions.DistrictId.Value);
-            //        string str2 = string.Format("{0}-{1}", district.Name.NonAccent(), province.Name.NonAccent());
-            //        return base.Json(new { url = base.Url.Action("SearchResult", "Post", new { catUrl = byId.SeoUrl, parameters = str2, area = "" }) });
-            //    }
-            //}
             return RedirectToAction("SearchResult", "Post", new { catUrl = byId.SeoUrl, parameters = conditions.Keywords.NonAccent(), area = "" });
-            //return base.Json(new { url = base.Url.Action("SearchResult", "Post", new { catUrl = byId.SeoUrl, parameters = conditions.Keywords.NonAccent(), area = "" }) },JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace App.Admin.Models
+namespace App.FakeEntity.GenericControl
 {
     public class GenericControlValueResponse
     {

@@ -438,6 +438,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\SearchBox\SearchMenuMobile.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -528,7 +529,7 @@
     <Content Include="Views\SaleOff\GetSaleOffByCategory.cshtml" />
     <Content Include="Views\SearchBox\GetAttributeSearchBox.cshtml" />
     <Content Include="Views\SearchBox\SearchBoxSideBar.cshtml" />
-    <Content Include="Views\SearchBox\SearchHome.cshtml" />
+    <Content Include="Views\SearchBox\SearchMenu.cshtml" />
     <Content Include="Views\Shared\ChoiceTemplates\Choice.CheckRadio.cshtml" />
     <Content Include="Views\Shared\ChoiceTemplates\Choice.cshtml" />
     <Content Include="Views\Shared\ChoiceTemplates\Choice.TextBox.cshtml" />

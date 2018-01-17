@@ -15,6 +15,7 @@
     }
     if (!string.IsNullOrEmpty(Model.FbAppId))
     {
-        @Html.Raw(Model.FbAppId)
+        <meta property="fb:app_id" content="@Model.FbAppId" />
+
     }
 }

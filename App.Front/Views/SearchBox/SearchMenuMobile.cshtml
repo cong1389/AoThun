@@ -1,0 +1,15 @@
+﻿<!---SearchMenuMobile-->
+@model App.Front.Models.SeachConditions
+
+<div class='header_search fleft'>
+    @using (Html.BeginForm("Search", "Menu", FormMethod.Get))
+    {
+        <input type="hidden" name="type" value="product" />
+        @Html.TextBoxFor(model => model.Keywords, new { @class = "form-control noboxshadow noradius", @placeholder = T("Search.PlaceHolder") })
+
+        @*<input type="text" name="q" class="form-control noboxshadow noradius" placeholder="Bạn muốn tìm gì...">*@
+        <button class='button nomargin'><i class='glyphicon glyphicon-search'></i></button>
+    }
+</div>
+
+<!---/SearchMenuMobile-->

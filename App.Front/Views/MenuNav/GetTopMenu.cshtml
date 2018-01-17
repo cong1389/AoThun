@@ -23,22 +23,8 @@
         </div>
         <div id="top-cart" class='top-cart-block'></div>
 
+        @{Html.RenderAction("SearchMenu", "SearchBox", new { area = "" });}
 
-        <!-- Top Search
-        ============================================= -->
-        <div class='header_search fleft'>
-            <a href='#'><i class='glyphicon glyphicon-search'></i></a>
-            <form action="http://mazzola.vn/search" class='nomargin'>
-                <input type="hidden" name="type" value="product" />
-                <input type="text" name="q" class="form-control noboxshadow noradius" placeholder="Bạn muốn tìm gì...">
-                <button class='button nomargin'>Tìm kiếm</button>
-            </form>
-        </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                EGA.search.headerSearch();
-            })
-        </script>
     </div>
 
     <div class='primary_menu_wrap fright hidden-sm hidden-xs'>
@@ -77,7 +63,7 @@
 
         <!-- #primary-menu end -->
     </div>
-}
+            }
 
 <script>
 

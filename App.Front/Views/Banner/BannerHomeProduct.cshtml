@@ -1,8 +1,63 @@
-﻿@using App.Aplication
+﻿<!----BannerHomeProduct-->
+
+@using App.Aplication
 @model IEnumerable<App.Domain.Entities.Ads.Banner>
-@if (Model.IsAny())
-{
-    <div class="items-show">
+@*@if (Model.IsAny())
+{*@
+    <div class='index_banner_wrap'>
+        <div class='row'>
+            <div class='index_banner_item col-xs-4'>
+                <div class='interactive_banner style_1'>
+                    <a href='/ao-so-mi.html'>
+                        <div class='interactive_img'>
+                            <img src='/assets/lib/index_banner_1677f.jpg?v=226' />
+                        </div>
+                        <div class='interactive_overlay'>
+                            <div class='interactive_content'>
+                                <h2></h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class='index_banner_item col-xs-4'>
+                <div class='interactive_banner style_1'>
+                    <a href='/ao-so-mi.html'>
+                        <div class='interactive_img'>
+                            <img src='/assets/lib/index_banner_2677f.jpg?v=226' />
+                        </div>
+                        <div class='interactive_overlay'>
+                            <div class='interactive_content'>
+                                <h2></h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+
+
+
+            <div class='index_banner_item col-xs-4'>
+                <div class='interactive_banner style_1'>
+                    <a href='/ao-so-mi.html'>
+                        <div class='interactive_img'>
+                            <img src='/assets/lib/index_banner_3677f.jpg?v=226' />
+                        </div>
+                        <div class='interactive_overlay'>
+                            <div class='interactive_content'>
+                                <h2></h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @*<div class="items-show">
         <div class="container">
             <div class="row">
                 @foreach (var item in Model)
@@ -21,6 +76,7 @@
                 } 
             </div>
         </div>
-    </div>
+    </div>*@
 
-}
+@* } *@
+<!----/BannerHomeProduct-->

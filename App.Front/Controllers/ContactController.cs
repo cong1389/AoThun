@@ -3,59 +3,60 @@ using App.Domain.Entities.GlobalSetting;
 using App.Domain.Entities.Menu;
 using App.Domain.Interfaces.Services;
 using App.Extensions;
+using App.Front.Models;
 using App.Service.Common;
 using App.Service.ContactInformation;
 using App.Service.Language;
 using App.Service.Menu;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
-	public class ContactController : FrontBaseController
-	{
-		private readonly IContactInfoService _contactInfoService;
-		private readonly IMenuLinkService _menuLinkService;
+    public class ContactController : FrontBaseController
+    {
+        private readonly IContactInfoService _contactInfoService;
+        private readonly IMenuLinkService _menuLinkService;
 
         public ContactController(IContactInfoService contactInfoService, IMenuLinkService menuLinkService)
-		{
-			this._contactInfoService = contactInfoService;
-			this._menuLinkService = menuLinkService;
+        {
+            this._contactInfoService = contactInfoService;
+            this._menuLinkService = menuLinkService;
         }
 
-		[ChildActionOnly]
-		public ActionResult ContactUs(int Id)
-		{
-            MenuLink menuLink = this._menuLinkService.Get((MenuLink x) => x.Id == Id, true);
+        [ChildActionOnly]
+        public ActionResult ContactUs(int id, string title)
+        {
+            MenuLink menuLink = this._menuLinkService.GetById(Id: id);
 
-			ContactInformation contactInformation = this._contactInfoService.Get((ContactInformation x) => x.Type == 1 && x.Status == 1, true);
+            ContactInformation contactInformation = this._contactInfoService.Get((ContactInformation x) => x.Type == 1 && x.Status == 1, true);
+
             if (contactInformation == null)
                 return HttpNotFound();
 
             ContactInformation contactInformationLocalize = contactInformation.ToModel();
 
-            //ContactInformation contactInformationLocalize = new ContactInformation
-            //{
-            //    Lag = contactInformation.Lag,
-            //    Lat = contactInformation.Lat,
-            //    Type = contactInformation.Type,
-            //    Status = contactInformation.Status,
-            //    Email = contactInformation.Email,
-            //    Hotline = contactInformation.Hotline,
-            //    MobilePhone = contactInformation.MobilePhone,
-            //    Fax = contactInformation.Fax,
-            //    NumberOfStore = contactInformation.NumberOfStore,
-            //    ProvinceId = contactInformation.ProvinceId,
-            //    Title = contactInformation.GetLocalizedByLocaleKey(contactInformation.Title, contactInformation.Id, languageId, "ContactInformation", "Title"),
-            //    Address = contactInformation.GetLocalizedByLocaleKey(contactInformation.Address, contactInformation.Id, languageId, "ContactInformation", "Address"),
+            List<BreadCrumb> breadCrumbs = new List<BreadCrumb>();
+            if (menuLink != null)
+            {
 
-            //};
+                breadCrumbs.Add(new BreadCrumb()
+                {
+                    Title = menuLink.GetLocalized(m => m.MenuName, menuLink.Id),
+                    Current = false,
+                    Url = base.Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
+                });               
+                ((dynamic)base.ViewBag).MenuId = menuLink.Id;
+            }
+            ((dynamic)base.ViewBag).BreadCrumb = breadCrumbs;
 
-            ((dynamic)base.ViewBag).Contact = contactInformationLocalize;
+            ((dynamic)base.ViewBag).Title = title;
+            ((dynamic)base.ViewBag).Contact = contactInformationLocalize;          
 
-			return base.PartialView(menuLink);
-		}
-	}
+            return base.PartialView(menuLink);
+        }
+    }
 }

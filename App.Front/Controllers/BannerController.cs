@@ -31,7 +31,7 @@ namespace App.Front.Controllers
 		{
 			IEnumerable<Banner> banners = this._bannerService.FindBy((Banner x) => x.MenuId == menuId && x.Status == 1 && x.PageBanner.Position == 1 && (!x.FromDate.HasValue || DbFunctions.DiffHours((TimeSpan?)x.ToDate.Value, (TimeSpan?)DateTimeOffset.UtcNow.Offset) >= (int?)0) && (!x.ToDate.HasValue || DbFunctions.DiffHours((TimeSpan?)x.ToDate.Value, (TimeSpan?)DateTimeOffset.UtcNow.Offset) <= (int?)0), false);
 
-            ((dynamic)base.ViewBag).PostTitle = title;
+            ((dynamic)base.ViewBag).Title = title;
 
             return base.PartialView(banners);
 		}

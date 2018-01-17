@@ -1,10 +1,6 @@
-using App.Domain.Entities.Attribute;
-using App.Domain.Interfaces.Services;
+using App.Front.Models;
 using App.Service.Attribute;
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using System.Web.Mvc;
 
 namespace App.Front.Controllers
@@ -18,16 +14,27 @@ namespace App.Front.Controllers
             this._attributeService = attributeService;
         }
 
-        public ActionResult SearchHome()
+        public ActionResult SearchMenu()
         {
-            return base.PartialView();
+            SeachConditions seachConditions = new SeachConditions();
+
+            return PartialView(seachConditions);
+        }
+
+        public ActionResult SearchMenuMobile()
+        {
+            SeachConditions seachConditions = new SeachConditions();
+
+            return PartialView(seachConditions);
         }
 
         public ActionResult GetAttributeSearchBox(List<int> attributes = null)
         {
             ((dynamic)base.ViewBag).Attributes = attributes;
-            IEnumerable<App.Domain.Entities.Attribute.Attribute> attributes1 = this._attributeService.FindBy((App.Domain.Entities.Attribute.Attribute x) => x.Status == 1, false);
-            return base.PartialView(attributes1);
+
+            IEnumerable<App.Domain.Entities.Attribute.Attribute> ieAttributes = this._attributeService.FindBy((App.Domain.Entities.Attribute.Attribute x) => x.Status == 1, false);
+
+            return base.PartialView(ieAttributes);
         }
 
         public ActionResult SearchBoxSideBar(int? productOld, int? productNew, List<int> attributes = null, List<double> prices = null, List<int> proids = null)

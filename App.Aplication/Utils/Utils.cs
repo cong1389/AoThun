@@ -124,17 +124,17 @@ namespace App.Aplication
             return txt.ToLower();
         }
 
-        public static string SplitWords(int lenght, string words)
+        public static string SplitWords(int length, string words)
         {
             if (string.IsNullOrEmpty(words))
             {
                 return string.Empty;
             }
-            if (words.Length < lenght)
+            if (words.Length < length)
             {
                 return words;
             }
-            return string.Concat(words.Substring(0, lenght), "...");
+            return string.Concat(words.Substring(0, length), "...");
         }
 
         /// <summary>

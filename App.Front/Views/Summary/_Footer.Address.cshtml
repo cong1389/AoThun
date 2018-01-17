@@ -4,18 +4,15 @@
     <div class="prefooter_two col-xs-12">
         <div class="widget widget_links clearfix">
             <div class="title-company">
-                @Model.FirstOrDefault().Address;
+
                 @{
                     var contact = Model.Where(x => x.Type == 1).SingleOrDefault();
                 }
                 <strong> @contact.Title</strong>
                 <br /><i class="fa fa-map-marker"></i> @T("Address.Lable") : @contact.Address
-                <br /> <i class="fa fa-phone"></i>  @T("DienThoai.Lable"):  @contact.Hotline
+                <br /> <i class="fa fa-phone"></i>  @T("DienThoai.Lable"):  @contact.MobilePhone
+                <br /> <i class="fa fa-phone"></i>  @T("Hotline.Lable"):  @contact.Hotline
                 <br /> <i class="fa fa-envelope"></i> Email:  @contact.Email
-
-
-
-
             </div>
             <h4 class='widget_trigger'><i class="fa fa-map-signs"></i> Hệ thống cửa hàng Mazzola</h4>
             <div class="widget_content">

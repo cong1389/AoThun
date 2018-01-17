@@ -1,24 +1,24 @@
 ﻿
-@Html.Action("GetSlideShow", "SlideShow", new { area = "" })
+@{Html.RenderAction("GetSlideShow", "SlideShow", new { area = "" }); }
 <div class='clear'></div>
 <!-- Content
 ============================================= -->
 <section id="content">
 
-    @Html.Action("GetSlogan", "StaticContent", new { MenuId = 16, area = "" })
+    @{Html.RenderAction("GetSlogan", "StaticContent", new { MenuId = 16, area = "" }); }
 
     <div class="container clearfix">
 
-        @Html.Action("SearchHome", "SearchBox", new { area = "" })
+        @{Html.RenderAction("BannerHomeProduct", "Banner", new { area = "" }); }
 
         <!-- collection group -->
 
-        @Html.Action("GetProductHome", "Post", new { MenuId = 15, area = "" })
+        @{Html.RenderAction("GetProductHome", "Post", new { MenuId = 15, area = "" });}
 
         <!-- end collection group -->
         <!-- popular brand -->
 
-        @Html.Action("FlowStepHome", "FlowStep", new { area = "" })
+        @{Html.RenderAction("FlowStepHome", "FlowStep", new { area = "" }); }
 
     </div>
     <!-- #content end -->

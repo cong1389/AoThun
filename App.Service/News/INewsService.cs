@@ -15,5 +15,11 @@ namespace App.Service.News
         IEnumerable<App.Domain.Entities.Data.News> PagedList(SortingPagingBuilder sortBuider, Paging page);
 
         IEnumerable<App.Domain.Entities.Data.News> PagedListByMenu(SortingPagingBuilder sortBuider, Paging page);
+
+        IEnumerable<App.Domain.Entities.Data.News> GetByOption(string virtualCategoryId = null
+            , bool? isDisplayHomePage = null
+           , bool? isVideo = null
+           , int status = 1
+           , bool isCache = true);
     }
 }

@@ -1,5 +1,4 @@
-﻿using App.Admin.Models;
-using App.Core.Caching;
+﻿using App.Core.Caching;
 using App.Domain.Entities.GenericControl;
 using App.Framework.Ultis;
 using App.Service.GenericControl;
@@ -11,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using App.FakeEntity.GenericControl;
 
 namespace App.Admin.Controllers
 {

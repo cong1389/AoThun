@@ -146,7 +146,7 @@ namespace App.Service.Post
                 expression = expression.And((Domain.Entities.Data.Post x) => x.ShowOnHomePage == isDisplayHomePage);
             }
            
-            if (true)
+            if (isCache)
             {
                
 

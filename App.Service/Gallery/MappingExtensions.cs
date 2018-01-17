@@ -103,6 +103,10 @@ namespace App.Extensions
                 PostType = entity.PostType,
                 OldOrNew = entity.OldOrNew,
                 MenuLink = entity.MenuLink,
+                CreatedDate=entity.CreatedDate,
+                UpdatedDate=entity.UpdatedDate,
+                UpdatedBy=entity.UpdatedBy,
+                CreatedBy=entity.CreatedBy,
 
                 PostGallerys = entity.PostGallerys,
                 GalleryImages = entity.GalleryImages,

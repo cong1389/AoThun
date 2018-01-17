@@ -97,5 +97,53 @@ namespace App.Service.News
         {
             return this._newsRepository.PagedSearchListByMenu(sortBuider, page);
         }
+
+        public IEnumerable<App.Domain.Entities.Data.News> GetByOption(string virtualCategoryId = null
+           , bool? isDisplayHomePage = null
+           , bool? isVideo = null
+           , int status = 1
+           , bool isCache = true)
+        {
+            IEnumerable<App.Domain.Entities.Data.News> news;
+            StringBuilder sbKey = new StringBuilder();
+            sbKey.AppendFormat(CACHE_NEWS_KEY, "GetByOption");
+
+            Expression<Func<App.Domain.Entities.Data.News, bool>> expression = PredicateBuilder.True<App.Domain.Entities.Data.News>();
+            sbKey.AppendFormat("-{0}", status);
+            expression = expression.And((App.Domain.Entities.Data.News x) => x.Status == status);
+
+            if (virtualCategoryId.HasValue())
+            {
+                sbKey.AppendFormat("-{0}", virtualCategoryId);
+                expression = expression.And((App.Domain.Entities.Data.News x) => x.VirtualCategoryId.Contains(virtualCategoryId));
+            }
+            if (isDisplayHomePage != null)
+            {
+                sbKey.AppendFormat("-{0}", isDisplayHomePage);
+                expression = expression.And((App.Domain.Entities.Data.News x) => x.HomeDisplay == isDisplayHomePage);
+            }
+            if (isVideo != null)
+            {
+                sbKey.AppendFormat("-{0}", isVideo);
+                expression = expression.And((App.Domain.Entities.Data.News x) => x.Video == isVideo);
+            }
+
+            if (isCache)
+            {
+                string key = sbKey.ToString();
+                news = _cacheManager.GetCollection<App.Domain.Entities.Data.News>(key);
+                if (news == null)
+                {
+                    news = FindBy(expression, false);
+                    _cacheManager.Put(key, news);
+                }
+            }
+            else
+            {
+                news = FindBy(expression, false);
+            }
+
+            return news;
+        }
     }
 }

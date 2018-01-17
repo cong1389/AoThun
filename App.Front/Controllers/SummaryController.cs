@@ -22,6 +22,7 @@ namespace App.Front.Controllers
 {
     public class SummaryController : FrontBaseController
     {
+        private const string CACHE_SETTINGSYSTEM_KEY = "db.SettingSystem.{0}";
         private const string CACHE_SETTINGSEOGLOBAL_KEY = "db.SettingSeoGlobal.{0}";
         private readonly ICacheManager _cacheManager;
         private readonly IMenuLinkService _menuLinkService;
@@ -186,7 +187,7 @@ namespace App.Front.Controllers
 
         public ActionResult GetLogo()
         {
-            SystemSetting systemSetting = this._systemSettingService.Get((SystemSetting x) => x.Status == 1, false);
+            SystemSetting systemSetting = GetSystemSettingData();
 
             var systemSettingLocalized = systemSetting.ToModel();
 
@@ -206,13 +207,23 @@ namespace App.Front.Controllers
         {
             SystemSetting systemSetting = _systemSettingService.Get((SystemSetting x) => x.Status == 1, true);
 
+            if (systemSetting == null)
+                return HttpNotFound();
+
             var systemSettingLocalized = systemSetting.ToModel();
 
-            ((dynamic)base.ViewBag).Title = systemSettingLocalized.Title;
-            ((dynamic)base.ViewBag).KeyWords = systemSettingLocalized.MetaKeywords;
-            ((dynamic)base.ViewBag).SiteUrl = base.Url.Action("Index", "Home", new { area = "" });
-            ((dynamic)base.ViewBag).Description = systemSettingLocalized.Description;
-            ((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", systemSettingLocalized.LogoImage));
+            string controller = Request.RequestContext.RouteData.Values["Controller"].ToString();
+            string action = Request.RequestContext.RouteData.Values["Action"].ToString();
+
+            if (controller.Equals("Home") && action.Equals("Index"))
+            {
+                ((dynamic)base.ViewBag).Title = systemSettingLocalized.Title;
+                ((dynamic)base.ViewBag).KeyWords = systemSettingLocalized.MetaKeywords;
+                ((dynamic)base.ViewBag).SiteUrl = base.Url.Action("Index", "Home", new { area = "" });
+                ((dynamic)base.ViewBag).Description = systemSettingLocalized.Description;
+                ((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", systemSettingLocalized.LogoImage));
+            }
+
             ((dynamic)base.ViewBag).Favicon = base.Url.Content(string.Concat("~/", systemSettingLocalized.FaviconImage));
 
             return base.PartialView(systemSettingLocalized);
@@ -260,8 +271,6 @@ namespace App.Front.Controllers
 
         }
 
-
-
         [PartialCache("Long")]
         public async Task<JsonResult> GetFooterLogo()
         {
@@ -288,6 +297,53 @@ namespace App.Front.Controllers
 
         }
 
+        #region Social
+
+        public async Task<JsonResult> GetSettingSeo()
+        {
+            SettingSeoGlobal settingSeoGlobal = await Task.FromResult(GetSettingSeoData());
+
+            JsonResult jsonResult = Json(new { success = true, response = settingSeoGlobal }, JsonRequestBehavior.AllowGet);
+
+            return jsonResult;
+        }
+
+        #endregion
+
+        #region System Setting
+
+        [PartialCache("Long")]
+        public async Task<JsonResult> GetLogoMobile()
+        {
+            SystemSetting systemSetting = GetSystemSettingData();
+
+            var systemSettingLocalize = systemSetting.ToModel();
+
+            JsonResult jsonResult = Json(new { success = true, list = systemSettingLocalize }, JsonRequestBehavior.AllowGet);
+
+            return jsonResult;
+        }
+
+        private SystemSetting GetSystemSettingData()
+        {
+            StringBuilder sbKey = new StringBuilder();
+            sbKey.AppendFormat(CACHE_SETTINGSYSTEM_KEY, "GetSystemSettingData");
+
+            string key = sbKey.ToString();
+            SystemSetting systemSetting = _cacheManager.Get<SystemSetting>(key);
+            if (systemSetting == null)
+            {
+                systemSetting = _systemSettingService.Get((SystemSetting x) => x.Status == 1, false);
+                _cacheManager.Put(key, systemSetting);
+            }
+
+            return systemSetting;
+        }
+
+        #endregion
+
+        #region Setting Seo
+
         private SettingSeoGlobal GetSettingSeoData()
         {
             StringBuilder sbKey = new StringBuilder();
@@ -302,17 +358,6 @@ namespace App.Front.Controllers
             }
 
             return settingSeoGlobal;
-        }
-
-        #region Social
-
-        public async Task<JsonResult> GetSettingSeo()
-        {
-            SettingSeoGlobal settingSeoGlobal = await Task.FromResult(GetSettingSeoData());
-
-            JsonResult jsonResult = Json(new { success = true, response = settingSeoGlobal }, JsonRequestBehavior.AllowGet);
-
-            return jsonResult;
         }
 
         #endregion

@@ -35,32 +35,12 @@ namespace App.Front.Controllers
         [ChildActionOnly]
         public ActionResult GetSlogan(int MenuId)
         {
-            //    int languageId = _workContext.WorkingLanguage.Id;
-
             StaticContent staticContent = this._staticContentService.Get((StaticContent x) => x.Id == MenuId, true);
 
             if (staticContent == null)
                 return HttpNotFound();
 
             StaticContent staticContentLocalized = staticContent.ToModel();
-            
-            //StaticContent staticContentLocalized = new StaticContent
-            //{
-            //    Id = staticContent.Id,
-            //    MenuId = staticContent.MenuId,
-            //    VirtualCategoryId = staticContent.VirtualCategoryId,
-            //    Language = staticContent.Language,
-            //    Status = staticContent.Status,
-            //    SeoUrl = staticContent.SeoUrl,
-            //    ImagePath = staticContent.ImagePath,
-
-            //    Title = staticContent.GetLocalizedByLocaleKey(staticContent.Title, staticContent.Id, languageId, "StaticContent", "Title"),
-            //    ShortDesc = staticContent.GetLocalizedByLocaleKey(staticContent.ShortDesc, staticContent.Id, languageId, "StaticContent", "ShortDesc"),
-            //    Description = staticContent.GetLocalizedByLocaleKey(staticContent.Description, staticContent.Id, languageId, "StaticContent", "Description"),
-            //    MetaTitle = staticContent.GetLocalizedByLocaleKey(staticContent.MetaTitle, staticContent.Id, languageId, "StaticContent", "MetaTitle"),
-            //    MetaKeywords = staticContent.GetLocalizedByLocaleKey(staticContent.MetaKeywords, staticContent.Id, languageId, "StaticContent", "MetaKeywords"),
-            //    MetaDescription = staticContent.GetLocalizedByLocaleKey(staticContent.MetaDescription, staticContent.Id, languageId, "StaticContent", "MetaDescription")
-            //};
 
             return base.PartialView(staticContentLocalized);
         }
@@ -68,32 +48,12 @@ namespace App.Front.Controllers
         [ChildActionOnly]
         public ActionResult PostDetailPolices(int MenuId)
         {
-            //int languageId = _workContext.WorkingLanguage.Id;
-
             StaticContent staticContent = this._staticContentService.Get((StaticContent x) => x.Id == MenuId, true);
 
             if (staticContent == null)
                 return HttpNotFound();
 
             StaticContent staticContentLocalized = staticContent.ToModel();
-
-            //StaticContent staticContentLocalized = new StaticContent
-            //{
-            //    Id = staticContent.Id,
-            //    MenuId = staticContent.MenuId,
-            //    VirtualCategoryId = staticContent.VirtualCategoryId,
-            //    Language = staticContent.Language,
-            //    Status = staticContent.Status,
-            //    SeoUrl = staticContent.SeoUrl,
-            //    ImagePath = staticContent.ImagePath,
-
-            //    Title = staticContent.GetLocalizedByLocaleKey(staticContent.Title, staticContent.Id, languageId, "StaticContent", "Title"),
-            //    ShortDesc = staticContent.GetLocalizedByLocaleKey(staticContent.ShortDesc, staticContent.Id, languageId, "StaticContent", "ShortDesc"),
-            //    Description = staticContent.GetLocalizedByLocaleKey(staticContent.Description, staticContent.Id, languageId, "StaticContent", "Description"),
-            //    MetaTitle = staticContent.GetLocalizedByLocaleKey(staticContent.MetaTitle, staticContent.Id, languageId, "StaticContent", "MetaTitle"),
-            //    MetaKeywords = staticContent.GetLocalizedByLocaleKey(staticContent.MetaKeywords, staticContent.Id, languageId, "StaticContent", "MetaKeywords"),
-            //    MetaDescription = staticContent.GetLocalizedByLocaleKey(staticContent.MetaDescription, staticContent.Id, languageId, "StaticContent", "MetaDescription")
-            //};
 
             return base.PartialView(staticContentLocalized);
         }
@@ -101,32 +61,12 @@ namespace App.Front.Controllers
         [ChildActionOnly]
         public ActionResult GetHomeIntro(int MenuId)
         {
-            //int languageId = _workContext.WorkingLanguage.Id;
-
-            StaticContent staticContent = this._staticContentService.Get((StaticContent x) => x.Id == MenuId, true);
+            StaticContent staticContent = _staticContentService.Get((StaticContent x) => x.Id == MenuId, true);
 
             if (staticContent == null)
                 return HttpNotFound();
 
             StaticContent staticContentLocalized = staticContent.ToModel();
-
-            //StaticContent staticContentLocalized = new StaticContent
-            //{
-            //    Id = staticContent.Id,
-            //    MenuId = staticContent.MenuId,
-            //    VirtualCategoryId = staticContent.VirtualCategoryId,
-            //    Language = staticContent.Language,
-            //    Status = staticContent.Status,
-            //    SeoUrl = staticContent.SeoUrl,
-            //    ImagePath = staticContent.ImagePath,
-
-            //    Title = staticContent.GetLocalizedByLocaleKey(staticContent.Title, staticContent.Id, languageId, "StaticContent", "Title"),
-            //    ShortDesc = staticContent.GetLocalizedByLocaleKey(staticContent.ShortDesc, staticContent.Id, languageId, "StaticContent", "ShortDesc"),
-            //    Description = staticContent.GetLocalizedByLocaleKey(staticContent.Description, staticContent.Id, languageId, "StaticContent", "Description"),
-            //    MetaTitle = staticContent.GetLocalizedByLocaleKey(staticContent.MetaTitle, staticContent.Id, languageId, "StaticContent", "MetaTitle"),
-            //    MetaKeywords = staticContent.GetLocalizedByLocaleKey(staticContent.MetaKeywords, staticContent.Id, languageId, "StaticContent", "MetaKeywords"),
-            //    MetaDescription = staticContent.GetLocalizedByLocaleKey(staticContent.MetaDescription, staticContent.Id, languageId, "StaticContent", "MetaDescription")
-            //};
 
             return base.PartialView(staticContentLocalized);
         }

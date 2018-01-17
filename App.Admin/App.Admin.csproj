@@ -210,7 +210,6 @@
     <Compile Include="Areas\Admin\Helpers\LandingPageExport.cs" />
     <Compile Include="Areas\Admin\Helpers\MenuNav.cs" />
     <Compile Include="Areas\Admin\Helpers\RequiredPermisson.cs" />
-    <Compile Include="Areas\Admin\Models\GenericControlValueResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -365,6 +364,9 @@
     <Content Include="Areas\Admin\Views\Utility\GoogleMap.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

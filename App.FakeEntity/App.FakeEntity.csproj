@@ -59,6 +59,7 @@
     <Compile Include="Common\AddressViewModel.cs" />
     <Compile Include="Customers\CutomerViewModel.cs" />
     <Compile Include="GenericControl\GenericControlValueItemViewModel.cs" />
+    <Compile Include="GenericControl\GenericControlValueResponse.cs" />
     <Compile Include="GenericControl\GenericControlValueViewModel.cs" />
     <Compile Include="GenericControl\GenericControlViewModel.cs" />
     <Compile Include="Brandes\BrandViewModel.cs" />

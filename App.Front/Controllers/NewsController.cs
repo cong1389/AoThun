@@ -1,8 +1,6 @@
-﻿using App.Core.Common;
-using App.Core.Utils;
+﻿using App.Core.Utils;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Menu;
-using App.Domain.Interfaces.Services;
 using App.Extensions;
 using App.Framework.Ultis;
 using App.Front.Models;
@@ -12,14 +10,11 @@ using App.Service.Menu;
 using App.Service.News;
 using App.Service.Static;
 using App.Aplication;
-using App.Aplication.MVCHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using System.Web.Mvc;
-using AutoMapper;
 
 namespace App.Front.Controllers
 {
@@ -87,30 +82,49 @@ namespace App.Front.Controllers
 
         [ChildActionOnly]
         [PartialCache("Short")]
-        public ActionResult GetHomeNews(int? Id)
+        public ActionResult GetNewsHome(int? Id)
         {
-            IEnumerable<News> top = _newsService.GetTop<DateTime>(4, (News x) => x.HomeDisplay == true && x.Status == 1 && x.VirtualCategoryId.Contains("34c7a8cc-5b53-4c8c-ab6c-22f2e2f5f57d"), (News x) => x.CreatedDate);
+            IEnumerable<News> iePost = null;
 
-            if (top == null)
-                return HttpNotFound();
+            //Get danh sách menu có DisplayOnHomePage ==true
+            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(isDisplayHomePage: true, template: new List<int> { 1 });
 
-            IEnumerable<News> ieNews = top.Select(x =>
+            //Convert to localized
+            menuLinks = menuLinks.Select(x =>
             {
                 return x.ToModel();
             });
 
-            return base.PartialView(ieNews);
+            if (menuLinks.IsAny())
+            {
+                ((dynamic)base.ViewBag).MenuLinkHome = menuLinks;
+
+                List<News> lstPost = new List<News>();
+
+                foreach (var item in menuLinks)
+                {
+                    iePost = _newsService.GetByOption(virtualCategoryId: item.CurrentVirtualId, isDisplayHomePage: true);
+
+                    if (iePost.IsAny())
+                    {
+                        iePost = iePost.Select(x =>
+                        {
+                            return x.ToModel();
+                        });
+
+                        lstPost.AddRange(iePost);
+                    }
+                }
+
+                iePost = from x in lstPost orderby x.OrderDisplay descending select x;
+            }
+
+            return PartialView(iePost);
         }
 
-        public ActionResult GetNewsByCategory(string virtualCategoryId, int? menuId, string title, int page)
+        public ActionResult GetNewsByCategory(string virtualCategoryId, int? menuId, string title, int page, int? month, int? year)
         {
-            int languageId = _workContext.WorkingLanguage.Id;
-
-
             dynamic viewBag = base.ViewBag;
-
-            Expression<Func<StaticContent, bool>> status = (StaticContent x) => x.Status == 1;
-            viewBag.fixItems = _staticContentService.GetTop<int>(3, status, (StaticContent x) => x.ViewCount);
 
             SortBuilder sortBuilder = new SortBuilder()
             {
@@ -124,10 +138,19 @@ namespace App.Front.Controllers
                 TotalRecord = 0
             };
 
-            IEnumerable<News> news = this._newsService.FindAndSort((News x) => !x.Video && x.Status == 1 && x.VirtualCategoryId.Contains(virtualCategoryId), sortBuilder, paging);
+            IEnumerable<News> news = this._newsService.FindAndSort((News x) => !x.Video && x.Status == 1 && x.VirtualCategoryId.Contains(virtualCategoryId)
+            , sortBuilder, paging);
 
             if (news == null)
                 return HttpNotFound();
+
+            Expression<Func<StaticContent, bool>> status = (StaticContent x) => x.Status == 1;
+            viewBag.fixItems = _staticContentService.GetTop<int>(3, status, (StaticContent x) => x.ViewCount);
+
+            if (month != null)            
+                news = news.Where(n => n.CreatedDate.Month == month);
+            if (year != null)
+                news = news.Where(n => n.CreatedDate.Year == year);
 
             IEnumerable<News> newsLocalized = news
                 .Select(x =>
@@ -147,17 +170,12 @@ namespace App.Front.Controllers
                 for (int i1 = 0; i1 < (int)strArrays2.Length; i1++)
                 {
                     string str = strArrays2[i1];
-                    //menuLink = this._menuLinkService.Get((MenuLink x) => x.CurrentVirtualId.Equals(str) && x.Id != menuId, false);
                     menuLink = _menuLinkService.GetByMenuName(str, title);
                     if (menuLink != null)
                     {
-                        ////Lấy bannerId từ post để hiển thị banner trên post
-                        //if (i1 == 0)
-                        //    ((dynamic)base.ViewBag).MenuId = menuLink.Id;
-
                         breadCrumbs.Add(new BreadCrumb()
                         {
-                            Title = menuLink.GetLocalizedByLocaleKey(menuLink.MenuName, menuLink.Id, languageId, "MenuLink", "MenuName"),
+                            Title = menuLink.GetLocalized(m => m.MenuName, menuLink.Id),
                             Current = false,
                             Url = base.Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
                         });
@@ -184,7 +202,7 @@ namespace App.Front.Controllers
         {
             List<News> news = new List<News>();
             IEnumerable<News> top = this._newsService.GetTop<int>(4, (News x) => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId) && x.Id != newsId && !x.Video, (News x) => x.ViewCount);
-            if (top.IsAny<News>())
+            if (top.IsAny())
             {
                 news.AddRange(top);
             }
@@ -214,6 +232,7 @@ namespace App.Front.Controllers
 
             List<BreadCrumb> breadCrumbs = new List<BreadCrumb>();
             News news = _newsService.Get((News x) => x.SeoUrl.Equals(seoUrl), true);
+
             if (news == null)
                 return HttpNotFound();
 
@@ -256,6 +275,28 @@ namespace App.Front.Controllers
             ((dynamic)base.ViewBag).SeoUrl = newsLocalized.MenuLink.SeoUrl;
 
             return base.View(newsLocalized);
+        }
+
+        /// <summary>
+        /// Lấy tất cả bài viết nhóm theo tháng, năm.
+        /// </summary>
+        /// <returns></returns>       
+        public ActionResult NewsTimeLine()
+        {
+            IEnumerable<News> ieNews = _newsService.GetAll();
+
+            if (ieNews == null)
+                return HttpNotFound();
+
+            IEnumerable<News> ieNewsGroup = ieNews.GroupBy(l => l.CreatedDate.Year + 12 + l.CreatedDate.Month)
+                .Select(g =>
+                {
+                    return g.First().ToModel();
+                }).ToList();
+
+            ((dynamic)base.ViewBag).NewsGroup = ieNewsGroup;
+
+            return PartialView(ieNewsGroup);
         }
     }
 }
