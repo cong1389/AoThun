@@ -1,6 +1,7 @@
 ﻿using App.Domain.Common;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.GlobalSetting;
+using App.Domain.Entities.Identity;
 using App.Domain.Entities.Menu;
 using App.Domain.Entities.Payments;
 using App.Domain.Entities.Slide;
@@ -10,6 +11,7 @@ using App.FakeEntity.Menu;
 using App.FakeEntity.Payments;
 using App.Service.Addresses;
 using App.Service.Language;
+using Domain.Entities.Customers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -376,7 +378,7 @@ namespace App.Aplication.Extensions
 
             destination.BillingAddress = model.BillingAddress;
             destination.ShippingAddress = model.ShippingAddress;
-            
+
 
             return destination;
         }
@@ -459,6 +461,25 @@ namespace App.Aplication.Extensions
 
                 Title = entity.GetLocalized(x => x.Title, entity.Id),
                 Description = entity.GetLocalized(x => x.Description, entity.Id),
+            };
+
+            return model;
+        }
+
+        public static Customer ToModel(this IdentityUser entity)
+        {
+            if (entity == null)
+                return null;
+           
+            var model = new Customer
+            {
+                Username = entity.UserName,
+                Email = entity.Email,
+                Password = entity.PasswordHash,
+                CreatedOnUtc = DateTime.UtcNow,
+                LastLoginDateUtc = DateTime.UtcNow,
+                LastActivityDateUtc = DateTime.UtcNow,
+
             };
 
             return model;

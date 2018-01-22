@@ -87,7 +87,7 @@
                                 @Model.OrderReviewData.BillingAddress.FirstName
                                 <br>
                                 @Model.OrderReviewData.BillingAddress.Address1
-                                <br>
+                                @*<br>
                                 @Model.OrderReviewData.BillingAddress.StateProvinceId
                                 <br>
                                 @Model.OrderReviewData.BillingAddress.City
@@ -95,7 +95,7 @@
                                 @Model.OrderReviewData.BillingAddress.CountryId
                                 <br>
                                 @Model.OrderReviewData.BillingAddress.PhoneNumber
-                                <br>
+                                <br>*@
                             </p>
 
                             <h3>Phương thức thanh toán</h3>
@@ -115,7 +115,7 @@
 
         <input type="submit" name="confirm" value="confirm" id="startconfirm" class="hidden" />
         <a class="step-footer-continue-btn btn" onclick="$('#startconfirm').trigger('click'); return false;">
-            <span class="btn-content">Tiếp tục mua hàng</span>
+            <span class="btn-content">Hoàn tất đơn hàng</span>
         </a>
 
         <p class="step-footer-info">
@@ -123,7 +123,7 @@
             <span>
 
 
-                Cần hỗ trợ? <a href="mailto:vy220693@gmail.com">Liên hệ chúng tôi</a>
+                Cần hỗ trợ? <a href="">Liên hệ chúng tôi</a>
             </span>
         </p>
     </div>

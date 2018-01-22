@@ -15,7 +15,7 @@ namespace App.FakeEntity.User
 			set;
 		}
 
-		[Display(Name="Tỉnh thành test fasdf ")]
+		[Display(Name="Tỉnh thành test")]
 		[MaxLength(200)] 
 		public string City
 		{

@@ -246,7 +246,7 @@ namespace App.Front.Controllers
         }
 
         [PartialCache("Long")]
-        public async Task<JsonResult> GetPostAddress()
+        public JsonResult GetPostAddress()
         {
             ContactInformation contactInformation = this._contactInfoService.Get((ContactInformation x) => x.Status == 1 && x.Type == 1, true);
 
@@ -259,9 +259,9 @@ namespace App.Front.Controllers
         }
 
         [PartialCache("Long")]
-        public async Task<JsonResult> GetFooterAddress()
+        public JsonResult GetFooterAddress()
         {
-            IEnumerable<ContactInformation> contactInformation = this._contactInfoService.FindBy((ContactInformation x) => x.Status == 1, true);
+            IEnumerable<ContactInformation> contactInformation = _contactInfoService.FindBy((ContactInformation x) => x.Status == 1, true);
 
             var contactInformationLocalize = contactInformation.Select(x => x.ToModel());
 
@@ -272,7 +272,7 @@ namespace App.Front.Controllers
         }
 
         [PartialCache("Long")]
-        public async Task<JsonResult> GetFooterLogo()
+        public JsonResult GetFooterLogo()
         {
             SystemSetting systemSetting = this._systemSettingService.Get((SystemSetting x) => x.Status == 1, false);
 
@@ -285,7 +285,7 @@ namespace App.Front.Controllers
         }
 
         [PartialCache("Long")]
-        public async Task<JsonResult> GetSystemSetting()
+        public JsonResult GetSystemSetting()
         {
             SystemSetting systemSetting = this._systemSettingService.Get((SystemSetting x) => x.Status == 1, false);
 

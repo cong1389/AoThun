@@ -251,7 +251,6 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
-    <Compile Include="Controllers\RequiredPermissonAttribute.cs" />
     <Compile Include="Controllers\SaleOffController.cs" />
     <Compile Include="Controllers\SearchBoxController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
@@ -272,7 +271,6 @@
     <Compile Include="Models\Checkout\CheckoutShippingMethodModel.cs" />
     <Compile Include="Models\ContactForm.cs" />
     <Compile Include="Models\FrontAuthorize.cs" />
-    <Compile Include="Models\FrontHelper.cs" />
     <Compile Include="Models\ImageSize.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PartialCacheAttribute.cs" />
@@ -439,6 +437,8 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\SearchBox\SearchMenuMobile.cshtml" />
+    <Content Include="Views\User\Registration.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -500,7 +500,6 @@
     <Content Include="Views\MenuNav\Header.cshtml" />
     <Content Include="Views\MenuNav\MenuNavLeft.cshtml" />
     <Content Include="Views\MenuNav\StickyBar.cshtml" />
-    <Content Include="Views\Menu\GetAccesssories.cshtml" />
     <Content Include="Views\Menu\GetContent.cshtml" />
     <Content Include="Views\Menu\GetProductTab.cshtml" />
     <Content Include="Views\Menu\GetStaticContent.cshtml" />

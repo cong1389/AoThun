@@ -3,18 +3,18 @@
 @using App.Aplication
 @model App.Front.Models.ShoppingCart.MiniShoppingCartModel
 
-<a href="cart.html" id="top-cart-trigger" class=''>
+<a href="@Url.Action("Cart","ShoppingCart")" id="top-cart-trigger" class=''>
     <i class='fa fa-shopping-cart'></i>
     <span class='top_cart_qty'>@(Model.Items.Count())</span>
 </a>
-<div class="top-cart-content">
+<div class="top-cart-content hidden">
 
     @if (!Model.Items.IsAny())
     {
         <div class="minicart-header">Chưa có sản phẩm trong giỏ!</div>
         <div class="minicart-footer">
             <div class="minicart-actions clearfix">
-                <a class="button" href="collections/all"><span class="text">VÀO CỬA HÀNG</span></a>
+                <a class="button" href="/"><span class="text">VÀO CỬA HÀNG</span></a>
             </div>
         </div>
     }
@@ -54,9 +54,9 @@
             }
         }
         <div class="top-cart-action clearfix ">
-            <span class="fleft top-checkout-price">@string.Format("{0:##,### VND}", Model.SubTotal)</span>
-        <button onclick="window.location.href=&quot;/cart&quot;" class="button button-small nomargin fright">Xem giỏ hàng</button>
-    </div>
+            <span class="fleft top-checkout-price">@string.Format("{0:##,### VND}", decimal.Parse(Model.SubTotal))</span>
+            <button onclick="window.location.href='@Url.Action("Cart","ShoppingCart")'" class="button button-small nomargin fright">Xem giỏ hàng</button>
+        </div>
     }
 </div>
 <!----/_Order.TopCart-->

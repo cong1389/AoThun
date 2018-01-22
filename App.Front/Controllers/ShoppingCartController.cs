@@ -44,7 +44,8 @@ namespace App.Front.Controllers
             _paymentMethodService = paymentMethodService;
         }
 
-        public async Task<JsonResult> AddProduct(int postId, int quantity, decimal price, FormCollection form)
+        [HttpPost]
+        public JsonResult AddProduct(int postId, int quantity, decimal price, FormCollection form)
         {
             var post = _postService.GetById(postId);
 
@@ -94,7 +95,8 @@ namespace App.Front.Controllers
             return model;
         }
 
-        public async Task<JsonResult> GetPopupCart()
+        [HttpPost]
+        public JsonResult GetPopupCart()
         {
             var model = PrepareMiniShoppingCartModel();
 

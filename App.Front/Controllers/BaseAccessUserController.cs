@@ -14,7 +14,7 @@ namespace App.Front.Controllers
 {
 	public class BaseAccessUserController : Controller
 	{
-		protected readonly UserManager<IdentityUser, Guid> UserManager;
+		protected readonly UserManager<IdentityUser, Guid> _userManager;
 
 		protected string XsrfKey = AccountUtils.XsrfKey;
 
@@ -32,22 +32,22 @@ namespace App.Front.Controllers
 
 		protected BaseAccessUserController(UserManager<IdentityUser, Guid> userManager)
 		{
-			this.UserManager = userManager;
+            _userManager = userManager;
 		}
 
 		protected void AddErrors(IdentityResult result)
 		{
 			foreach (string error in result.Errors)
 			{
-				base.ModelState.AddModelError("", error);
+                ModelState.AddModelError("", error);
 			}
 		}
 
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing && this.UserManager != null)
+			if (disposing && this._userManager != null)
 			{
-				this.UserManager.Dispose();
+				this._userManager.Dispose();
 			}
 			base.Dispose(disposing);
 		}
@@ -63,8 +63,8 @@ namespace App.Front.Controllers
 		{
 			return (
 				from auth in this.AuthenticationManager.GetAuthenticationTypes()
-				where userLogins.All<UserLoginInfo>((UserLoginInfo ul) => auth.AuthenticationType != ul.LoginProvider)
-				select auth).ToList<AuthenticationDescription>();
+				where userLogins.All((UserLoginInfo ul) => auth.AuthenticationType != ul.LoginProvider)
+				select auth).ToList();
 		}
 	}
 }

@@ -6,6 +6,10 @@ using System;
 using System.Web;
 using System.Net;
 using App.Core.Extensions;
+using Microsoft.AspNet.Identity;
+using App.Domain.Entities.Identity;
+using App.Aplication.Extensions;
+using App.Domain.Common;
 
 namespace App.Service.Common
 {
@@ -25,13 +29,17 @@ namespace App.Service.Common
 
         private Customer _cachedCustomer;
 
+        protected readonly UserManager<IdentityUser, Guid> _userManager;
+
         public WebWorkContext(IGenericAttributeService genericAttributeService, ILanguageService languageService, ICustomerService customerService
+            , UserManager<IdentityUser, Guid> userManager
         )
         {
             _genericAttributeService = genericAttributeService;
             _languageService = languageService;
             _customerService = customerService;
             _httpContextBase = new HttpContextWrapper(HttpContext.Current);
+            _userManager = userManager;
         }
 
         public App.Domain.Entities.Language.Language WorkingLanguage
@@ -96,9 +104,45 @@ namespace App.Service.Common
 
                 Customer customer = null;
 
-                //Load guest customer
-                if (customer == null || !customer.Deleted || customer.Active)
+                //Get user registered
+                if (_httpContextBase.User.Identity.IsAuthenticated)
                 {
+                    string userId = _httpContextBase.User.Identity.GetUserId();
+
+                    //Kiểm tra nếu chưa có user trong table Customer thì create new customer
+                    //Load customer đã có 
+                    Customer customerExsist = _customerService.GetByGuid(Guid.Parse(userId), isCache: false);
+                    if (customerExsist == null || !customerExsist.Active)
+                    {
+                        IdentityUser objUser = _userManager.FindById(Guid.Parse(userId));
+                        customerExsist = objUser.ToModel();
+                        customerExsist.CustomerGuid = Guid.Parse(userId);                       
+                        customerExsist.Active = true;
+                        customerExsist.Deleted = false;
+
+                        _customerService.Create(customerExsist);
+
+                        //Create address and BillingAddress
+                        var objAddress = new Address
+                        {
+                            Email = objUser.Email,
+                            FirstName = objUser.FirstName,
+                            LastName = objUser.LastName,
+
+                        };
+
+                        customerExsist.Addresses.Add(objAddress);
+                        customerExsist.BillingAddress = objAddress;
+
+                        _customerService.Update(customerExsist);
+
+                    }
+
+                    customer = customerExsist;
+                }
+                else
+                {
+                    //Load guest customer
                     customer = GetGuestCustomer();
                 }
 
@@ -130,11 +174,11 @@ namespace App.Service.Common
             }
 
             //Load customer đã có 
-            customer = _customerService.GetByGuid(customerGuid, isCache:false);
+            customer = _customerService.GetByGuid(customerGuid, isCache: false);
 
             if (customer == null || customer.Deleted || !customer.Active)
             {
-                var customerObj = new Customer
+                var objCustomer = new Customer
                 {
                     CustomerGuid = customerGuid == null ? Guid.NewGuid() : customerGuid,
                     Active = true,
@@ -144,7 +188,7 @@ namespace App.Service.Common
                 };
 
                 //Create customer
-                _customerService.Create(customerObj);
+                _customerService.Create(objCustomer);
 
                 //Get lai customer
                 customer = _customerService.GetByGuid(customerGuid, isCache: false);

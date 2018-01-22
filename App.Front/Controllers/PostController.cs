@@ -186,10 +186,10 @@ namespace App.Front.Controllers
         public ActionResult GetPostAccessory(string virtualId)
         {
             List<Post> posts = new List<Post>();
-            IEnumerable<Post> top = this._postService.GetTop<DateTime?>(4, (Post x) => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId)
+            IEnumerable<Post> top = _postService.GetTop(4, (Post x) => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId)
             , (Post x) => x.UpdatedDate);
 
-            if (top.IsAny<Post>())
+            if (top.IsAny())
             {
                 posts.AddRange(top);
             }
@@ -200,9 +200,8 @@ namespace App.Front.Controllers
         public ActionResult GetPostByCategory(string virtualCategoryId, int page, string title, string attrs, string prices, string proattrs, string keywords
             , int? productOld, int? productNew)
         {
-            List<BreadCrumb> breadCrumbs = new List<BreadCrumb>();
             Expression<Func<Post, bool>> expression = PredicateBuilder.True<Post>();
-            expression = expression.And<Post>((Post x) => x.Status == 1);
+            expression = expression.And((Post x) => x.Status == 1);
             SortBuilder sortBuilder = new SortBuilder()
             {
                 ColumnName = "CreatedDate",
@@ -211,23 +210,23 @@ namespace App.Front.Controllers
             Paging paging = new Paging()
             {
                 PageNumber = page,
-                PageSize = base._pageSize,
+                PageSize = _pageSize,
                 TotalRecord = 0
             };
             if (page == 1)
             {
-                dynamic viewBag = base.ViewBag;
-                IPostService postService = this._postService;
+                dynamic viewBag = ViewBag;
+                IPostService postService = _postService;
                 Expression<Func<Post, bool>> productNews = (Post x) => x.ProductNew && x.Status == 1;
-                viewBag.HotCard = postService.GetTop<DateTime>(3, productNews, (Post x) => x.CreatedDate).ToList<Post>();
+                viewBag.HotCard = postService.GetTop(3, productNews, (Post x) => x.CreatedDate).ToList();
             }
             if (!string.IsNullOrEmpty(attrs))
             {
                 string[] strArrays = attrs.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 List<int> list = (
                     from s in strArrays
-                    select int.Parse(s)).ToList<int>();
-                expression = expression.And<Post>((Post x) => x.AttributeValues.Count<AttributeValue>((AttributeValue a) => list.Contains(a.Id)) > 0);
+                    select int.Parse(s)).ToList();
+                expression = expression.And((Post x) => x.AttributeValues.Count((AttributeValue a) => list.Contains(a.Id)) > 0);
                 ((dynamic)base.ViewBag).Attributes = list;
             }
             if (!string.IsNullOrEmpty(prices))
@@ -278,8 +277,9 @@ namespace App.Front.Controllers
             //Get menu category filter
             IEnumerable<MenuLink> menuCategoryFilter = _menuLinkService.GetByOption(virtualId: virtualCategoryId);
 
-            if (menuCategoryFilter.IsAny<MenuLink>())
+            if (menuCategoryFilter.IsAny())
             {
+                List<BreadCrumb> lstBreadCrumb = new List<BreadCrumb>();
                 ((dynamic)base.ViewBag).MenuCategoryFilter = menuCategoryFilter;
 
                 //Lấy bannerId từ post để hiển thị banner trên post
@@ -297,7 +297,7 @@ namespace App.Front.Controllers
                         if (i1 == 0)
                             ((dynamic)base.ViewBag).BannerId = menuLink.Id;
 
-                        breadCrumbs.Add(new BreadCrumb()
+                        lstBreadCrumb.Add(new BreadCrumb()
                         {
                             Title = menuLink.GetLocalized(m => m.MenuName, menuLink.Id),
                             Current = false,
@@ -305,12 +305,12 @@ namespace App.Front.Controllers
                         });
                     }
                 }
-                breadCrumbs.Add(new BreadCrumb()
+                lstBreadCrumb.Add(new BreadCrumb()
                 {
                     Current = true,
                     Title = title
                 });
-                ((dynamic)base.ViewBag).BreadCrumb = breadCrumbs;
+                ((dynamic)base.ViewBag).BreadCrumb = lstBreadCrumb;
             }
 
             IEnumerable<Post> postLocalized = null;

@@ -98,7 +98,7 @@ namespace App.Front.Controllers
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {                
             }
 

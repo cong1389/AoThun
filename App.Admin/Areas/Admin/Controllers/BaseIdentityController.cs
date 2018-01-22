@@ -1,14 +1,11 @@
 using App.Domain.Entities.Identity;
 using App.Aplication;
 using Microsoft.AspNet.Identity;
-using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Web;
-using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {

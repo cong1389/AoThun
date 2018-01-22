@@ -1,16 +1,13 @@
-using App.FakeEntity.Language;
 using App.Service.Language;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
-using System.Text;
 using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
-	public class BaseAdminController : Controller
+    public class BaseAdminController : Controller
 	{
         protected virtual void AddLocales<TLocalizedPropertyViewModelLocal>(ILanguageService languageService, IList<TLocalizedPropertyViewModelLocal> locales) where TLocalizedPropertyViewModelLocal : ILocalizedModelLocal
         {
@@ -48,19 +45,20 @@ namespace App.Admin.Controllers
 			string str=string.Empty;
             try
             {
-                base.ViewData.Model = model;
+                ViewData.Model = model;
                 using (StringWriter stringWriter = new StringWriter())
                 {
-                    ViewEngineResult viewEngineResult = ViewEngines.Engines.FindPartialView(base.ControllerContext, viewName);
-                    ViewContext viewContext = new ViewContext(base.ControllerContext, viewEngineResult.View, base.ViewData, base.TempData, stringWriter);
+                    ViewEngineResult viewEngineResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                    ViewContext viewContext = new ViewContext(ControllerContext, viewEngineResult.View, ViewData, TempData, stringWriter);
                     viewEngineResult.View.Render(viewContext, stringWriter);
-                    viewEngineResult.ViewEngine.ReleaseView(base.ControllerContext, viewEngineResult.View);
+                    viewEngineResult.ViewEngine.ReleaseView(ControllerContext, viewEngineResult.View);
                     str = stringWriter.GetStringBuilder().ToString();
                 }
             }
-            catch (Exception ex)
+            catch
             {
             }
+
 			return str;
 		}
 	}

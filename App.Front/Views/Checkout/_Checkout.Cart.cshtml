@@ -1,4 +1,4 @@
-﻿o<!---_Checkout.Cart-->
+﻿<!---_Checkout.Cart-->
 @model App.Front.Models.ShoppingCart.MiniShoppingCartModel
 
 @if (Model != null)
@@ -115,7 +115,7 @@
                                 </td>
                                 <td class="total-line-name payment-due">
                                     <span class="payment-due-price" data-checkout-payment-due-target="120000000">
-                                        @Html.Raw(string.Format("{0:##,### VND}", Model.SubTotal))
+                                        @Html.Raw(string.Format("{0:##,### VND}", decimal.Parse(Model.SubTotal)))
                                     </span>
                                 </td>
                             </tr>

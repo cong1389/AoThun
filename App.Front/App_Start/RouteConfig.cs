@@ -27,11 +27,14 @@ namespace App.Front
             routes.MapRoute(null, "danh-sach-cua-hang.html", new { controller = "StoreList", action = "GetStoreListByProvince" }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "ban-do/{Id}.html", new { controller = "GoogleMap", action = "ShowGoogleMap", Id = UrlParameter.Optional }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "gui-lien-he.html", new { controller = "Home", action = "SendContact" }, new string[] { "App.Front.Controllers" });
+
             routes.MapRoute(null, "thanh-vien/dang-ky.html", new { controller = "User", action = "Registration" }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "thanh-vien/dang-tin-rao.html", new { controller = "Account", action = "CreatePost" }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "thanh-vien/thay-doi-thong-tin-ca-nhan.html", new { controller = "Account", action = "ChangeInfo" }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "thanh-vien/sua-tin-rao/{Id}.html", new { controller = "Account", action = "EditPost", Id = 1 }, new string[] { "App.Front.Controllers" });
+
             routes.MapRoute(null, "filter.html", new { controller = "Post", action = "FillterProduct" }, new string[] { "App.Front.Controllers" });
+
             routes.MapRoute(null, "thanh-vien/quan-ly-tin-rao/trang-{page}.html", new { controller = "Account", action = "PostManagement", page = UrlParameter.Optional }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "thanh-vien/tim-tin-rao.html", new { controller = "Account", action = "SearchPost" }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "thanh-vien/thoat.html", new { controller = "Account", action = "LogOff" }, new string[] { "App.Front.Controllers" });
@@ -40,6 +43,7 @@ namespace App.Front
             routes.MapRoute(null, "callmeback.html", new { controller = "Home", action = "SendSMS" }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "404.html", new { controller = "Home", action = "Error" }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "dang-nhap.html", new { controller = "User", action = "Login" }, new string[] { "App.Front.Controllers" });
+
             routes.MapRoute(null, "tin-cho-ban.html", new { controller = "Post", action = "GetPostForYou" }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "tin-moi-nhat.html", new { controller = "Post", action = "GetPostLatest" }, new string[] { "App.Front.Controllers" });
             routes.MapRoute(null, "tin-theo-chu-de.html", new { controller = "News", action = "GetContentTabsNewsHome" }, new string[] { "App.Front.Controllers" });

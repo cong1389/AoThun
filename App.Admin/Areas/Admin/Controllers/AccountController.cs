@@ -20,12 +20,14 @@ namespace App.Admin.Controllers
     {
         private readonly IUserService _userService;
 
-        private readonly RoleManager<IdentityRole, Guid> _roleManager;
+        private readonly RoleManager<IdentityRole, Guid> _roleManager;       
 
-        public AccountController(IUserService userService, UserManager<IdentityUser, Guid> userManager, RoleManager<IdentityRole, Guid> roleManager) : base(userManager)
+        public AccountController(IUserService userService, UserManager<IdentityUser, Guid> userManager
+            , RoleManager<IdentityRole, Guid> roleManager
+            ) : base(userManager)
         {
-            this._userService = userService;
-            this._roleManager = roleManager;
+            _userService = userService;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -100,7 +102,7 @@ namespace App.Admin.Controllers
         public async Task<ActionResult> Edit(string Id)
         {
             Guid guid = this.GetGuid(Id);
-            IdentityUser identityUser = await this._userManager.FindByIdAsync(guid);
+            IdentityUser identityUser = await _userManager.FindByIdAsync(guid);
             return this.View(Mapper.Map<RegisterFormViewModel>(identityUser));
         }
 
@@ -114,7 +116,7 @@ namespace App.Admin.Controllers
                 IdentityUser identityUser = _userManager.FindById(model.Id);
                 identityUser = Mapper.Map(model, identityUser);
                 IdentityResult identityResult = await this._userManager.UpdateAsync(identityUser);
-                if (identityResult.Succeeded)   
+                if (identityResult.Succeeded)
                 {
                     if (model.IsSuperAdmin)
                     {
@@ -126,8 +128,8 @@ namespace App.Admin.Controllers
                         string item = this.Request["roles"];
                         if (!string.IsNullOrEmpty(item))
                         {
-                            IList<string> strs = this._userManager.GetRoles(model.Id);
-                            this._userManager.RemoveFromRoles(model.Id, strs.ToArray<string>());
+                            IList<string> lstUserRole = this._userManager.GetRoles(model.Id);
+                            _userManager.RemoveFromRoles(model.Id, lstUserRole.ToArray());
                             string[] strArrays = item.Split(new char[] { ',' });
                             this._userManager.AddToRoles(model.Id, strArrays);
                         }
@@ -158,6 +160,35 @@ namespace App.Admin.Controllers
             }
             action = this.View();
             return action;
+        }
+
+        [RequiredPermisson(Roles = "DeleteAccount")]
+        public ActionResult Delete(string[] ids)
+        {
+            try
+            {
+                if (ids.Length != 0)
+                {
+                    foreach (string id in ids)
+                    {
+                        Guid userId = Guid.Parse(id);
+                        IdentityUser objUser = (from user in ids select _userManager.FindById(userId)).FirstOrDefault();
+                        
+                        //Task<IList<UserLoginInfo>> loginInfo = _userLoginStore.GetLoginsAsync(objUser);
+                        //_userLoginStore.RemoveLoginAsync(objUser, loginInfo);
+
+                        IList<string> lstUserRole = _userManager.GetRoles(userId);
+                        _userManager.RemoveFromRoles(userId, lstUserRole.ToArray());
+                        _userManager.Update(objUser);
+                        _userManager.Delete(objUser);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ExtentionUtils.Log(string.Concat("Post.Delete: ", ex.Message));
+            }
+            return base.RedirectToAction("Index");
         }
 
         [RequiredPermisson(Roles = "ViewAccount")]
