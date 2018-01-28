@@ -62,7 +62,7 @@ namespace App.Framework.Ultis
 				flag = true;
 				return flag;
 			}
-			catch (Exception exception)
+			catch
 			{
 			}
 			flag = false;

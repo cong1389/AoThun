@@ -1,0 +1,92 @@
+﻿<!---Details--->
+@model App.FakeEntity.Orders.OrderViewModel
+
+<section id="page-title">
+    <div class="container clearfix">
+        <ol class="breadcrumb col-md-6 col-sm-6">
+            <li><a href="/">Trang chủ</a></li>
+
+            <li><a href="/account">Tài khoản</a></li>
+
+            <li class="active">Đơn hàng #100494</li>
+        </ol>
+    </div>
+</section>
+
+<section id="content">
+    <div class="container clearfix">
+        <div class="fancy-title">
+            <h3>Đơn hàng: #@Model.Id</h3>
+            <p>
+                Ngày đặt: @string.Format("{0: dd/MM/yyyy hh:mm:ss}", Model.CreatedOnUtc)
+                <a class="back-to-account pull-right" href="@Url.Action("ChangeInfo","Account")">
+                    <i class="fa fa-reply"></i> Quay lại
+                </a>
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-8">
+                <div class="user_box">
+                    <table class="table">
+                        <thead>
+                            <tr class="">
+                                <th>Sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Tổng cộng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="/products/sm-6872" title="">@item.PostName </a><br>
+
+                                    </td>
+                                    <td>@item.UnitPriceInclTax</td>
+                                    <td> @item.Quantity</td>
+                                    <td>@item.SubTotalInclTax</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <div class="user_box account-detail">
+                    <h4>ĐỊA CHỈ NGƯỜI NHẬN</h4>                  
+                   
+                    <div class="order-customer-address">
+                        <p> @Model.CustomerName</p>
+                        <p></p>
+                        <p>-</p>
+                        <p></p>
+                       
+                        <p>Vietnam</p>
+                        <p>12222222</p>
+                    </div>
+                </div>
+
+                <div class="user_box account-detail">
+                    <h4>Địa chỉ gửi hàng</h4>
+
+                    <p><span>Vận chuyển:</span> <span class="status_not fulfilled">Đóng gói xong - Sẵn sàng giao hàng</span></p>
+                    <div class="order-customer-address account-detail">
+                        <p>cc t</p>
+                        <p></p>
+                        <p>-</p>
+                        <p></p>
+                        <p> Cao Bằng</p>
+                        <p>Vietnam</p>
+                        <p>12222222</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- #content end -->
+</section>
+<!---/Details--->

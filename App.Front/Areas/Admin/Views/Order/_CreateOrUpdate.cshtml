@@ -1,9 +1,5 @@
 ﻿<!---_CreateOrUpdate--->
-@using App.Domain.Common
-@using App.Framework.Ultis
-@using Resources
-@using App.Service.Language
-@model App.Domain.Orders.OrderViewModel
+@model App.FakeEntity.Orders.OrderViewModel
 
 <div class="form-horizontal">
     <div class="form-body">
@@ -42,7 +38,7 @@
                                     <div class="row static-info">
                                         <div class="col-md-5 name"> Order Status </div>
                                         <div class="col-md-7 value">
-                                            <span class="label label-success">@string.Format("{0: dd/MM/yyyy hh:mm:ss}", Model.OrderStatus)</span>
+                                            <span class="label label-success">@Model.OrderStatus</span>
                                         </div>
                                     </div>
 

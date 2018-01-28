@@ -104,22 +104,26 @@ namespace Domain.Entities.Customers
             get { return _addresses ?? (_addresses = new HashSet<Address>()); }
             protected set { _addresses = value; }
         }
-
-        private Address _billingAddress;
         [DataMember]
-        public virtual Address BillingAddress
-        {
-            get { return _billingAddress ?? (_billingAddress = new Address()); }
-            set { _billingAddress = value; }
-        }
-
-        private Address _shippingAddress;
+        public virtual Address BillingAddress { get; set; }
         [DataMember]
-        public virtual Address ShippingAddress
-        {
-            get { return _shippingAddress ?? (_shippingAddress = new Address()); }
-             set { _shippingAddress = value; }
-        }
+        public virtual Address ShippingAddress { get; set; }
+
+        //private Address _billingAddress;
+        //[DataMember]
+        //public virtual Address BillingAddress
+        //{
+        //    get { return _billingAddress ?? (_billingAddress = new Address()); }
+        //    set { _billingAddress = value; }
+        //}
+
+        //private Address _shippingAddress;
+        //[DataMember]
+        //public virtual Address ShippingAddress
+        //{
+        //    get { return _shippingAddress ?? (_shippingAddress = new Address()); }
+        //     set { _shippingAddress = value; }
+        //}
 
         private ICollection<Order> _orders;
         [DataMember]

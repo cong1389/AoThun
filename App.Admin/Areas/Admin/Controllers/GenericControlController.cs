@@ -3,8 +3,6 @@ using App.Core.Utils;
 using App.Domain.Entities.GenericControl;
 using App.Domain.Entities.Language;
 using App.Domain.Entities.Menu;
-using App.Domain.Interfaces.Services;
-using App.Extensions;
 using App.FakeEntity.GenericControl;
 using App.FakeEntity.Menu;
 using App.Framework.Ultis;
@@ -14,16 +12,14 @@ using App.Service.LocalizedProperty;
 using App.Service.Menu;
 using App.Aplication;
 using AutoMapper;
-using Newtonsoft.Json;
 using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using App.Core.Caching;
+using App.Aplication.Extensions;
 
 namespace App.Admin.Controllers
 {
@@ -270,7 +266,7 @@ namespace App.Admin.Controllers
         }
 
 
-        public async Task<JsonResult> GetGenericControlByMenuId(int menuId)
+        public JsonResult GetGenericControlByMenuId(int menuId)
         {
             IEnumerable<GenericControl> ieGenericControls = null;
             try
@@ -285,7 +281,7 @@ namespace App.Admin.Controllers
                 //genericControlValue = _genericControlValueService.FindBy((GenericControlValue x) => x.GenericControlId == genericControlId && x.Status == 1, false);
 
             }
-            catch (Exception ex)
+            catch 
             {
 
             }

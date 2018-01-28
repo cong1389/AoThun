@@ -2,7 +2,6 @@ using App.Core.Caching;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Entities.Location;
 using App.Domain.Entities.Menu;
-using App.Extensions;
 using App.FakeEntity.Menu;
 using App.Front.Models;
 using App.Service.Common;
@@ -17,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using App.Aplication.Extensions;
 
 namespace App.Front.Controllers
 {
@@ -313,7 +313,7 @@ namespace App.Front.Controllers
         #region System Setting
 
         [PartialCache("Long")]
-        public async Task<JsonResult> GetLogoMobile()
+        public JsonResult GetLogoMobile()
         {
             SystemSetting systemSetting = GetSystemSettingData();
 

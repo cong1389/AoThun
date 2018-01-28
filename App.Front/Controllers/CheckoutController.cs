@@ -2,7 +2,6 @@
 using App.Core.Extensions;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Orders;
-using App.Extensions;
 using App.FakeEntity.Common;
 using App.Front.Models.Checkout;
 using App.Front.Models.ShoppingCart;
@@ -20,8 +19,8 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
+using App.Aplication.Extensions;
 
 namespace App.Front.Controllers
 {
@@ -66,7 +65,7 @@ namespace App.Front.Controllers
         }
 
         #region Billing Address
-        
+
         public ActionResult BillingAddress()
         {
             var cart = _workContext.CurrentCustomer.GetCartItems();
@@ -87,33 +86,32 @@ namespace App.Front.Controllers
             var model = new CheckoutBillingAddressModel();
             try
             {
-                model.NewAddress = new AddressViewModel();
-
                 var billAddress = _workContext.CurrentCustomer.Addresses;
                 if (billAddress.Count != 0 && billAddress.Any())
                 {
+                    model.NewAddress = new AddressViewModel();
                     foreach (var address in billAddress)
                     {
-                        model.NewAddress = Mapper.Map<AddressViewModel>(address);
+                        model.ExistingAddresses.Add(Mapper.Map<AddressViewModel>(address));
                     }
                 }
             }
             catch
-            {                
+            {
             }
 
             return model;
         }
-        
+
         [HttpPost, ActionName("BillingAddress")]
         [FormValueRequired("nextstep")]
         public ActionResult NewBillingAddress(CheckoutBillingAddressModel model)
         {
             var addresses = _workContext.CurrentCustomer.Addresses;
 
-            if (addresses.Count == 0 || !addresses.Any())
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                if (addresses.Count == 0 || !addresses.Any())
                 {
                     var address = model.NewAddress.ToEntity();
 
@@ -129,21 +127,22 @@ namespace App.Front.Controllers
 
                     _customerService.Update(_workContext.CurrentCustomer);
 
-                    return RedirectToAction("PaymentMethod");
+                    //return RedirectToAction("PaymentMethod");
                 }
-            }
-            else
-            {
-                var objAddress = addresses.FirstOrDefault();
+                else
+                {
+                    //var objAddress = addresses.FirstOrDefault();
+                    var add = model.NewAddress.ToEntity();
+                    var objAddress = model.NewAddress.ToEntity();
+                    objAddress.FirstName = model.NewAddress.FirstName;
+                    objAddress.Email = model.NewAddress.Email;
+                    objAddress.PhoneNumber = model.NewAddress.PhoneNumber;
+                    objAddress.Address1 = model.NewAddress.Address1;
 
-                objAddress.FirstName = model.NewAddress.FirstName;
-                objAddress.Email = model.NewAddress.Email;
-                objAddress.PhoneNumber = model.NewAddress.PhoneNumber;
-                objAddress.Address1 = model.NewAddress.Address1;
+                    _addressService.Create(objAddress);
 
-                _addressService.Update(objAddress);
-
-                return RedirectToAction("PaymentMethod");
+                    //return RedirectToAction("PaymentMethod");
+                }
             }
 
             //If we got this far, something failed, redisplay form
@@ -155,7 +154,7 @@ namespace App.Front.Controllers
         #endregion
 
         #region Payment method
-        
+
         public ActionResult PaymentMethod()
         {
             var cart = _workContext.CurrentCustomer.GetCartItems();
@@ -351,7 +350,7 @@ namespace App.Front.Controllers
         /// Ajax show sản phẩm bên trái khi checkout
         /// </summary>
         /// <returns></returns>
-        public async Task<JsonResult> CartByCustomer()
+        public JsonResult CartByCustomer()
         {
             var miniCart = GetCartByCustomer();
 
@@ -398,8 +397,8 @@ namespace App.Front.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-           
-            MiniShoppingCartModel miniShoppingCartModelm = HttpContext.Session["OrderPaymentInfo"] as MiniShoppingCartModel;
+
+            MiniShoppingCartModel miniShoppingCartModel = HttpContext.Session["OrderPaymentInfo"] as MiniShoppingCartModel;
 
             PlaceOrderResult placeOrderResult = null;
 

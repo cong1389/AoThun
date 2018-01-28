@@ -38,7 +38,7 @@ namespace App.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> GetByMenuId(int menuId, int entityId)
+        public JsonResult GetByMenuId(int menuId, int entityId)
         {
             IEnumerable<GenericControlValueItem> genericControlValueItem = null;
 
@@ -62,7 +62,7 @@ namespace App.Admin.Controllers
 
 
         [HttpPost]
-        public async Task<JsonResult> Insert(string param, int entityId)
+        public JsonResult Insert(string param, int entityId)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace App.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Update(string param)
+        public JsonResult Update(string param)
         {
             try
             {

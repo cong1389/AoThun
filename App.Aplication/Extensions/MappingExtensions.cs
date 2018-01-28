@@ -8,6 +8,7 @@ using App.Domain.Entities.Slide;
 using App.Domain.Orders;
 using App.FakeEntity.Common;
 using App.FakeEntity.Menu;
+using App.FakeEntity.Orders;
 using App.FakeEntity.Payments;
 using App.Service.Addresses;
 using App.Service.Language;
@@ -63,6 +64,10 @@ namespace App.Aplication.Extensions
                 ImageMediumSize = entity.ImageMediumSize,
                 ImageSmallSize = entity.ImageSmallSize,
                 CreatedDate = entity.CreatedDate,
+                MenuLink = entity.MenuLink,
+                OrderDisplay= entity.OrderDisplay,
+                OtherLink= entity.OtherLink,
+                SpecialDisplay= entity.SpecialDisplay,
 
                 Title = entity.GetLocalized(x => x.Title, entity.Id),
                 ShortDesc = entity.GetLocalized(x => x.ShortDesc, entity.Id),
@@ -101,6 +106,10 @@ namespace App.Aplication.Extensions
                 PostType = entity.PostType,
                 OldOrNew = entity.OldOrNew,
                 MenuLink = entity.MenuLink,
+                CreatedDate=entity.CreatedDate,
+                UpdatedDate=entity.UpdatedDate,
+                UpdatedBy=entity.UpdatedBy,
+                CreatedBy=entity.CreatedBy,
 
                 PostGallerys = entity.PostGallerys,
                 GalleryImages = entity.GalleryImages,

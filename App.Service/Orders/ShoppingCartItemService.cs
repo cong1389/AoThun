@@ -92,7 +92,7 @@ namespace App.Service.Orders
                     }
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 
             }

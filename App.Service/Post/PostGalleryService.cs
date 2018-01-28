@@ -31,7 +31,7 @@ namespace App.Service.Post
         {
             PostGallery postGallery;
 
-            if (true)
+            if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
                 sbKey.AppendFormat(CACHE_POSTGALLERY_KEY, "GetById");

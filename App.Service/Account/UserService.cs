@@ -71,12 +71,12 @@ namespace App.Service.Account
 			throw new NotImplementedException();
 		}
 
-		public IEnumerable<User> GetTop(int take, Expression<Func<User, bool>> whereClause)
+		public new IEnumerable<User> GetTop(int take, Expression<Func<User, bool>> whereClause)
 		{
 			throw new NotImplementedException();
 		}
 
-		public IEnumerable<User> GetTop<TKey>(int take, Expression<Func<User, bool>> whereClause, Expression<Func<User, TKey>> orderByClause)
+		public new IEnumerable<User> GetTop<TKey>(int take, Expression<Func<User, bool>> whereClause, Expression<Func<User, TKey>> orderByClause)
 		{
 			throw new NotImplementedException();
 		}

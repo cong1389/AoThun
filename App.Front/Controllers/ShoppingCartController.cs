@@ -9,14 +9,12 @@ using App.Service.GenericAttribute;
 using App.Service.Orders;
 using App.Service.PaymentMethodes;
 using App.Service.Post;
-
 using App.Aplication.MVCHelper;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using App.Aplication;
 
@@ -105,7 +103,7 @@ namespace App.Front.Controllers
             return jsonResult;
         }
 
-        public async Task<JsonResult> DeleteProduct(int id)
+        public JsonResult DeleteProduct(int id)
         {
             var shppingCart = _shoppingCartItemService.GetById(id);
 
@@ -116,7 +114,7 @@ namespace App.Front.Controllers
             return jsonResult;
         }
 
-        public async Task<JsonResult> OrderNotification()
+        public JsonResult OrderNotification()
         {
             var model = new MiniShoppingCartModel();
 
@@ -188,7 +186,7 @@ namespace App.Front.Controllers
         /// <param name="quantity"></param>
         /// <param name="price"></param>
         /// <returns>IEnumber tất cả sản phẩm của khách hàng</returns>
-        public async Task<JsonResult> UpdateCartItem(int postId, int quantity, decimal price)
+        public JsonResult UpdateCartItem(int postId, int quantity, decimal price)
         {
             //Update cart theo số lượng mới
             var post = _postService.GetById(postId);
@@ -249,11 +247,11 @@ namespace App.Front.Controllers
                 }
             }
 
-            ////Payment method
-            //var selectedPaymentMethodSystemName = _workContext.CurrentCustomer.GetAttribute("Customer",App.Service.Common.Contains.SelectedPaymentMethod
-            //    , _genericAttributeService);
+            //Payment method
+            var selectedPaymentMethodSystemName = _workContext.CurrentCustomer.GetAttribute("Customer", Contains.SelectedPaymentMethod
+                , _genericAttributeService);
 
-            //model.OrderReviewData.PaymentMethod = selectedPaymentMethodSystemName;
+            model.OrderReviewData.PaymentMethod = selectedPaymentMethodSystemName;
 
 
         }

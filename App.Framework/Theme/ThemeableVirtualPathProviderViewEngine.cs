@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -34,12 +33,12 @@ namespace App.Framework.Theme
         {
         }
 
-        protected virtual new string AppendDisplayModeToCacheKey(string cacheKey, string displayMode)
+        private string AppendDisplayModeToCacheKey(string cacheKey, string displayMode)
         {
             return string.Concat(cacheKey, displayMode, ":");
         }
 
-        protected virtual new string CreateCacheKey(string prefix, string name, string controllerName, string areaName)
+        private string CreateCacheKey(string prefix, string name, string controllerName, string areaName)
         {
             return string.Format(CultureInfo.InvariantCulture, ":ViewCacheEntry:{0}:{1}:{2}:{3}:{4}:", new object[] { base.GetType().AssemblyQualifiedName, prefix, name, controllerName, areaName });
         }

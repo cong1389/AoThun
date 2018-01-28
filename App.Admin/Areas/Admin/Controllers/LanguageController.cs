@@ -45,6 +45,7 @@ namespace App.Admin.Controllers
         public ActionResult Create(LanguageFormViewModel model, string returnUrl)
         {
             ActionResult action;
+
             try
             {
                 if (!base.ModelState.IsValid)
@@ -87,12 +88,12 @@ namespace App.Admin.Controllers
                 base.ModelState.AddModelError("", MessageUI.ErrorMessage);
                 return base.View(model);
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                Exception exception = exception1;
-                ExtentionUtils.Log(string.Concat("Language.Create: ", exception.Message));
-                return base.View(model);
+                ExtentionUtils.Log(string.Concat("Language.Create: ", ex.Message));
+                return View(model);
             }
+
             return action;
         }
 

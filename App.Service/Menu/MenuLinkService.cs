@@ -320,7 +320,7 @@ namespace App.Service.Menu
             }
 
             IEnumerable<MenuLink> menuLinks;
-            if (true)
+            if (isCache)
             {
 
                 string key = sbKey.ToString();

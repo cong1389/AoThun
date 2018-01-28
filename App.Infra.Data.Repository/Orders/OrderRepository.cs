@@ -18,8 +18,14 @@ namespace App.Infra.Data.Repository.Orderes
 
         public Order GetById(int id)
         {
-            Order province = this.FindBy((Order x) => x.Id == id, false).FirstOrDefault<Order>();
-            return province;
+            Order order = FindBy((Order x) => x.Id == id, false).FirstOrDefault();
+            return order;
+        }
+
+        public IEnumerable<Order> GetByCustomerId(int customerId)
+        {
+            IEnumerable<Order> order = FindBy((Order x) => x.CustomerId == customerId, false);
+            return order;
         }
 
         protected override IOrderedQueryable<Order> GetDefaultOrder(IQueryable<Order> query)

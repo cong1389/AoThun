@@ -79,7 +79,6 @@
     <Compile Include="Addresses\AddressExtensions.cs" />
     <Compile Include="Addresses\AddressService.cs" />
     <Compile Include="Addresses\IAddressService.cs" />
-    <Compile Include="Gallery\MappingExtensions.cs" />
     <Compile Include="GenericControl\GenericControlValueItemService.cs" />
     <Compile Include="GenericControl\GenericControlValueExtension.cs" />
     <Compile Include="GenericControl\IGenericControlValueItemService.cs" />

@@ -4,7 +4,6 @@ using App.Domain.Entities.Attribute;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.GenericControl;
 using App.Domain.Entities.Menu;
-using App.Extensions;
 using App.Framework.Ultis;
 using App.Front.Models;
 using App.Service.Common;
@@ -24,6 +23,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using App.FakeEntity.GenericControl;
+using App.Aplication.Extensions;
 
 namespace App.Front.Controllers
 {
@@ -627,7 +627,7 @@ namespace App.Front.Controllers
 
         //Hien thi san pham footer
         [PartialCache("Medium")]
-        public async Task<JsonResult> GetProductOutOfStock()
+        public JsonResult GetProductOutOfStock()
         {
             IEnumerable<Post> post = this._postService.GetTop(6, (Post x) => x.Status == 1 && x.OutOfStock);
 
@@ -639,7 +639,7 @@ namespace App.Front.Controllers
         #region Attribute
 
         [HttpPost]
-        public async Task<JsonResult> GetByMenuId(int menuId, int entityId)
+        public JsonResult GetByMenuId(int menuId, int entityId)
         {
             List<ControlValueItemResponse> lstValueResponse = new List<ControlValueItemResponse>();
 

@@ -118,9 +118,7 @@ namespace App.Service.Common
                         customerExsist = objUser.ToModel();
                         customerExsist.CustomerGuid = Guid.Parse(userId);                       
                         customerExsist.Active = true;
-                        customerExsist.Deleted = false;
-
-                        _customerService.Create(customerExsist);
+                        customerExsist.Deleted = false;                       
 
                         //Create address and BillingAddress
                         var objAddress = new Address
@@ -128,12 +126,15 @@ namespace App.Service.Common
                             Email = objUser.Email,
                             FirstName = objUser.FirstName,
                             LastName = objUser.LastName,
-
+                            Address1 = objUser.Address,
+                            PhoneNumber=objUser.Phone,
+                            City=objUser.City
                         };
 
                         customerExsist.Addresses.Add(objAddress);
                         customerExsist.BillingAddress = objAddress;
-
+                        
+                        _customerService.Create(customerExsist);
                         _customerService.Update(customerExsist);
 
                     }

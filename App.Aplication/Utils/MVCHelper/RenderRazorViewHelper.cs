@@ -6,11 +6,11 @@ using System.Web.Mvc;
 
 namespace App.Aplication.MVCHelper
 {
-	public static class RenderRazorViewHelper
-	{
-		public static string RenderRazorViewToString(this Controller controller, string viewName, object model)
-		{
-			string str=string.Empty;			
+    public static class RenderRazorViewHelper
+    {
+        public static string RenderRazorViewToString(this Controller controller, string viewName, object model)
+        {
+            string str = string.Empty;
             try
             {
                 controller.ViewData.Model = model;
@@ -25,10 +25,9 @@ namespace App.Aplication.MVCHelper
             }
             catch (Exception ex)
             {
-
-                //throw;
+                string msg = ex.Message;
             }
-			return str;
-		}
-	}
+            return str;
+        }
+    }
 }

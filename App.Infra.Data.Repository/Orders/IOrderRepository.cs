@@ -9,7 +9,9 @@ namespace App.Infra.Data.Repository.Orderes
 	{
 		Order GetById(int id);
 
-		IEnumerable<Order> PagedList(Paging page);
+        IEnumerable<Order> GetByCustomerId(int customerId);
+
+        IEnumerable<Order> PagedList(Paging page);
 
 		IEnumerable<Order> PagedSearchList(SortingPagingBuilder sortBuider, Paging page);
 	}

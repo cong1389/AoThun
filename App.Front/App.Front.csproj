@@ -249,6 +249,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\SaleOffController.cs" />
@@ -439,6 +440,10 @@
     <Content Include="Views\SearchBox\SearchMenuMobile.cshtml" />
     <Content Include="Views\User\Registration.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Shared\Messages\_MessageEmtyData.cshtml" />
+    <Content Include="Views\Account\ChangeInfo.cshtml" />
+    <Content Include="Views\Account\_Account.Order.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -565,7 +570,6 @@
     <Content Include="Views\StaticContent\GetHomeIntro.cshtml" />
     <Content Include="Views\StaticContent\GetHomeProduct.cshtml" />
     <Content Include="Views\StaticContent\GetSlogan.cshtml" />
-    <Content Include="Views\StaticContent\Index.cshtml" />
     <Content Include="Views\StaticContent\PostDetailPolices.cshtml" />
     <Content Include="Views\Summary\Footer.cshtml" />
     <Content Include="Views\Summary\GetAddressInfo.cshtml" />

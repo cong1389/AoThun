@@ -1,0 +1,70 @@
+﻿<!---ChangeInfo-->
+@model App.FakeEntity.User.RegisterFormViewModel
+
+<section id="page-title">
+    <div class="container clearfix">
+        <ol class="breadcrumb col-md-6 col-sm-6">
+            <li><a href="/">Trang chủ</a></li>
+
+            <li><a href="/account">Tài khoản</a></li>
+
+        </ol>
+    </div>
+</section>
+
+<section id="content">
+    <div class="container clearfix">
+        <div class="fancy-title title-bottom-border">
+            <h3>Tài khoản của bạn</h3>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8">
+
+                <div id="divAccount_Order" class="scroller"></div>
+
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <div class="account-detail user_box">
+                    @if (Model != null)
+                    {
+                        if (Model.UserName != null)
+                        {
+                            <p><strong>Họ tên: </strong> @Model.UserName </p>
+                        }
+
+                        if (Model.Email != null)
+                        {
+                            <p><strong>Email: </strong>@Model.Email</p>
+                        }
+
+                        if (Model.Address != null)
+                        {
+                            <p><strong>Đường: </strong> @Model.Address </p>
+                        }
+                        if (Model.Phone != null)
+                        {
+                            <p><strong>Điện thoại: </strong>@Model.Phone </p>
+                        }
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #content end -->
+</section>
+
+<script>
+    jQuery(function () {
+
+        jQuery.post('@Url.Action("AccountOrder", "Account")')
+          .done(function (data) {
+              jQuery("#divAccount_Order").html(data.list);
+          });
+    })
+
+</script>
+
+
+<!---/ChangeInfo-->

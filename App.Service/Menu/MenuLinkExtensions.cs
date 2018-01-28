@@ -33,10 +33,10 @@ namespace App.Service.Menu
                 }
 
             }
-            catch (System.Exception ex)
+            catch 
             {
                 return false;
-                throw;
+               
             }
 
             return result;

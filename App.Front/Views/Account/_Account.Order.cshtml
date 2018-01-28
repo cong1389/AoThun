@@ -1,0 +1,33 @@
+﻿<!---_Account.Order-->
+@model IEnumerable<App.FakeEntity.Orders.OrderViewModel>
+
+<div class="table-responsive account-table user_box">
+
+    <table class="table nobottommargin">
+        <thead>
+            <tr class="">
+                <th>Mã đơn hàng</th>
+                <th>Ngày đặt</th>
+                <th>Trạng thái thanh toán</th>
+                <th>Vận chuyển</th>
+                <th>Tổng tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><a href="@Url.Action("Details", "Order", new { id = item.Id })" title="">@item.Id</a></td>
+                    <td>@string.Format("{0: dd/MM/yyyy hh:mm:ss}", item.CreatedOnUtc)</td>
+                    <td>@item.PaymentStatus</td>
+
+                    <td>@item.ShippingStatus</td>
+
+                    <td>@string.Format("{0:##,### VNĐ}", item.OrderTotal)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<!---/_Account.Order-->

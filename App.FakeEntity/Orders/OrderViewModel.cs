@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Domain.Orders
+namespace App.FakeEntity.Orders
 {
     public class OrderViewModel : AuditableEntity<int>
     {

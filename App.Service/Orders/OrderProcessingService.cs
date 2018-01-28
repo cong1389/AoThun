@@ -130,10 +130,9 @@ namespace App.Service.Orders
 
                 }
             }
-            catch (Exception ex)
+            catch
             {
-
-                throw;
+                
             }
 
             return result;

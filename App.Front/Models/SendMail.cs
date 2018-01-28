@@ -15,8 +15,6 @@ namespace App.Front.Models
 
 		private string Password;
 
-		private string ReplyTo;
-
 		private int SMTPPort;
 
 		private string UserID;
@@ -24,9 +22,7 @@ namespace App.Front.Models
 		private bool EnableSSL;
 
 		private string strSmtpClient;
-
-		private string strToAddress;
-
+        
 		public SendMail()
 		{
 		}
@@ -42,7 +38,7 @@ namespace App.Front.Models
 				this.SMTPPort = int.Parse(sMTPPort);
 				this.EnableSSL = enableSSL;
 			}
-			catch (Exception exception)
+			catch 
 			{
 			}
 		}

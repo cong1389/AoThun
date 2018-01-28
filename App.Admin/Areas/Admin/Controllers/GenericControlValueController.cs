@@ -195,7 +195,7 @@ namespace App.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> GetByMenuId(int menuId, int entityId)
+        public JsonResult GetByMenuId(int menuId, int entityId)
         {
             List<ControlValueItemResponse> lstValueResponse = new List<ControlValueItemResponse>();
 
@@ -214,7 +214,7 @@ namespace App.Admin.Controllers
                         foreach (var gcValue in gCVDefault)
                         {
                             ControlValueItemResponse objValueResponse = new ControlValueItemResponse();
-                            
+
                             objValueResponse.GenericControlValueId = gcValue.Id;
                             objValueResponse.Name = gcValue.ValueName;
                             objValueResponse.ValueName = gcValue.GetValueItem(entityId);
@@ -223,7 +223,7 @@ namespace App.Admin.Controllers
                         }
                     }
                 }
-            }            
+            }
 
             JsonResult jsonResult = Json(
                  new
@@ -235,6 +235,6 @@ namespace App.Admin.Controllers
 
             return jsonResult;
         }
-        
+
     }
 }

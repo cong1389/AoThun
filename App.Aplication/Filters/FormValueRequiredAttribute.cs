@@ -67,7 +67,7 @@ namespace App.Aplication.Filters
                 }
                 return isMatch;
             }
-            catch (Exception ex)
+            catch 
             {
                // Debug.WriteLine(ex.Message);
             }

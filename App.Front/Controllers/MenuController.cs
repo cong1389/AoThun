@@ -1,6 +1,5 @@
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Menu;
-using App.Extensions;
 using App.Front.Models;
 using App.Service.Common;
 using App.Service.Language;
@@ -15,6 +14,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using System.Web;
 using System;
+using App.Aplication.Extensions;
 
 namespace App.Front.Controllers
 {

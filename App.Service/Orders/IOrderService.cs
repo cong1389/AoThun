@@ -9,6 +9,8 @@ namespace App.Service.Orders
 	{
 		Order GetById(int id, bool isCache = true);
 
-		IEnumerable<Order> PagedList(SortingPagingBuilder sortBuider, Paging page);
+        IEnumerable<Order> GetByCustomerId(int customerId, bool isCache = true);
+
+        IEnumerable<Order> PagedList(SortingPagingBuilder sortBuider, Paging page);
 	}
 }

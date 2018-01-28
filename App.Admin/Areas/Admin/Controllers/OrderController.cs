@@ -1,8 +1,8 @@
-﻿using App.Admin.Controllers;
-using App.Admin.Helpers;
+﻿using App.Admin.Helpers;
+using App.Aplication.Extensions;
 using App.Core.Utils;
 using App.Domain.Orders;
-using App.Extensions;
+using App.FakeEntity.Orders;
 using App.Framework.Ultis;
 using App.Service.Orders;
 using AutoMapper;
@@ -24,9 +24,10 @@ namespace App.Admin.Controllers
             _orderService = orderService;
         }
 
-        public ActionResult Edit(int Id)
+        public ActionResult Edit(int id)
         {
-            var order = _orderService.GetById(Id);
+            var order = _orderService.GetById(id);
+
             if (order == null || order.Deleted)
                 return RedirectToAction("Index");
 
@@ -39,7 +40,7 @@ namespace App.Admin.Controllers
         }
 
         [NonAction]
-        protected void PrepareOrderDetailsModel(OrderViewModel model, Order order)
+        private void PrepareOrderDetailsModel(OrderViewModel model, Order order)
         {
             if (order == null)
                 throw new ArgumentNullException("order");
@@ -80,7 +81,9 @@ namespace App.Admin.Controllers
                 else
                 {
                     Order map = Mapper.Map<OrderViewModel, Order>(OrderView);
+
                     this._orderService.Update(map);
+
                     base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Order)));
                     if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
                     {

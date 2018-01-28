@@ -16,11 +16,24 @@
             </a>
             <ul class='header_login_content unstyled'>
 
-                <li><a href='@Url.Action("Login","User", new { area =""})'>Đăng nhập</a></li>
-                <li><a href='@Url.Action("Registration","User", new { area =""})'>Đăng ký</a></li>
+                @{
+                    if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li><a href='@Url.Action("ChangeInfo","Account", new { area =""})'><strong>@HttpContext.Current.User.Identity.Name </strong></a></li>
+                        <li><a href='@Url.Action("ChangeInfo","Account", new { area =""})'>Thông tin tài khoản</a></li>
+                        <li><a href='@Url.Action("LogOff","Account", new { area =""})'>Đăng xuất</a></li>
+                    }
+                    else
+                    {
+                        <li><a href='@Url.Action("Login", "User", new { area = "" })'>Đăng nhập</a></li>
+                        <li><a href='@Url.Action("Registration", "User", new { area = "" })'>Đăng ký</a></li>
+                    }
+                }
 
             </ul>
+
         </div>
+
         <div id="top-cart" class='top-cart-block'></div>
 
         @{Html.RenderAction("SearchMenu", "SearchBox", new { area = "" });}

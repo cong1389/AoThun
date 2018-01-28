@@ -1,24 +1,32 @@
 ﻿using App.Aplication;
+using App.Aplication.Extensions;
+using App.Aplication.MVCHelper;
 using App.Core.Utils;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Identity;
 using App.Domain.Entities.Menu;
+using App.Domain.Orders;
 using App.FakeEntity.Gallery;
+using App.FakeEntity.Orders;
 using App.FakeEntity.Post;
 using App.FakeEntity.User;
 using App.Framework.Ultis;
 using App.Front.Models;
+using App.Service.Common;
 using App.Service.Gallery;
 using App.Service.Locations;
 using App.Service.Menu;
+using App.Service.Orders;
 using App.Service.Post;
 using AutoMapper;
+using Domain.Entities.Customers;
 using Microsoft.AspNet.Identity;
 using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -39,33 +47,42 @@ namespace App.Front.Controllers
 
         private readonly IImagePlugin _imagePlugin;
 
-        public AccountController(UserManager<IdentityUser, Guid> userManager, IPostService postService, IGalleryService galleryService, IProvinceService provinceService, IMenuLinkService menuLinkService, IDistrictService districtService, IImagePlugin imagePlugin) : base(userManager)
+        private readonly IOrderService _orderService;
+        private readonly IWorkContext _workContext;
+
+        public AccountController(UserManager<IdentityUser, Guid> userManager
+            , IPostService postService, IGalleryService galleryService, IProvinceService provinceService, IMenuLinkService menuLinkService
+            , IDistrictService districtService, IImagePlugin imagePlugin
+            , IOrderService orderService
+            , IWorkContext workContext) : base(userManager)
         {
-            this._postService = postService;
-            this._galleryService = galleryService;
-            this._provinceService = provinceService;
-            this._menuLinkService = menuLinkService;
-            this._districtService = districtService;
-            this._imagePlugin = imagePlugin;
+            _postService = postService;
+            _galleryService = galleryService;
+            _provinceService = provinceService;
+            _menuLinkService = menuLinkService;
+            _districtService = districtService;
+            _imagePlugin = imagePlugin;
+            _orderService = orderService;
+            _workContext = workContext;
         }
 
         [HttpGet]
         public ActionResult ChangeInfo()
         {
-            RegisterFormViewModel registerFormViewModel = Mapper.Map<RegisterFormViewModel>(this._userManager.FindByName<IdentityUser, Guid>(base.HttpContext.User.Identity.Name));
-            return base.View(registerFormViewModel);
+            RegisterFormViewModel registerFormViewModel = Mapper.Map<RegisterFormViewModel>(_userManager.FindByName(HttpContext.User.Identity.Name));
+            return View(registerFormViewModel);
         }
 
         [HttpPost]
         public ActionResult ChangeInfo(RegisterFormViewModel model)
         {
-            return base.View(model);
+            return View(model);
         }
 
         [HttpGet]
         public ActionResult CreatePost()
         {
-            this._userManager.FindByName<IdentityUser, Guid>(base.HttpContext.User.Identity.Name);
+            this._userManager.FindByName(HttpContext.User.Identity.Name);
             return base.View(new PostViewModel());
         }
 
@@ -407,5 +424,64 @@ namespace App.Front.Controllers
             }
             return base.View("PostManagement", posts);
         }
+
+        #region Information account of customer
+
+        public JsonResult AccountOrder()
+        {
+            IEnumerable<OrderViewModel> model = PrepareCustomerOrderListModel(_workContext.CurrentCustomer);
+
+            JsonResult jsonResult = Json(
+                new
+                {
+                    success = true,
+                    list = this.RenderRazorViewToString("_Account.Order", model)
+                }, JsonRequestBehavior.AllowGet);
+
+            return jsonResult;
+        }
+
+        [NonAction]
+        protected IEnumerable<OrderViewModel> PrepareCustomerOrderListModel(Customer customer)
+        {
+            if (customer == null)
+                throw new ArgumentNullException("customer");
+
+            var ieOrder = _orderService.GetByCustomerId(customer.Id);
+
+            if (!ieOrder.IsAny())
+            {
+                return null;
+            }
+
+            ieOrder = ieOrder.OrderByDescending(m => m.Id);
+
+            OrderViewModel orderViewModel = new OrderViewModel();
+            IEnumerable<OrderViewModel> model = ieOrder
+                .Select(m =>
+                {
+                    foreach (var orderItem in m.OrderItems)
+                    {
+                        var orderItemModel = new OrderViewModel.OrderItemModel
+                        {
+                            Id = orderItem.Id,
+                            PostId = orderItem.PostId,
+                            PostName = orderItem.Post.Title,
+                            Quantity = orderItem.Quantity,
+                            UnitPriceInclTax = orderItem.UnitPriceInclTax,
+                            SubTotalInclTax = orderItem.PriceInclTax
+                        };
+
+                        orderViewModel.Items.Add(orderItemModel);
+                    }
+
+                    return m.ToModel(orderViewModel);
+                });
+
+            return model;
+
+        }
+
+        #endregion
     }
 }
