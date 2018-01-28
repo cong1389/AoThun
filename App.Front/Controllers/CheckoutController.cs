@@ -104,51 +104,81 @@ namespace App.Front.Controllers
         }
 
         [HttpPost, ActionName("BillingAddress")]
-        [FormValueRequired("nextstep")]
+        [FormValueRequired("saveAddress")]
         public ActionResult NewBillingAddress(CheckoutBillingAddressModel model)
         {
-            var addresses = _workContext.CurrentCustomer.Addresses;
+            //validation
+            var cart = _workContext.CurrentCustomer.GetCartItems();
+
+            if (cart.Count() == 0)
+                return RedirectToRoute("ShoppingCart");
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return new HttpUnauthorizedResult();
 
             if (ModelState.IsValid)
             {
-                if (addresses.Count == 0 || !addresses.Any())
-                {
-                    var address = model.NewAddress.ToEntity();
+                var address = model.NewAddress.ToEntity();                
 
-                    //some validation
-                    if (address.CountryId == 0)
-                        address.CountryId = null;
+                _workContext.CurrentCustomer.Addresses.Add(address);
+                _workContext.CurrentCustomer.BillingAddress = address;
 
-                    if (address.StateProvinceId == 0)
-                        address.StateProvinceId = null;
-
-                    _workContext.CurrentCustomer.Addresses.Add(address);
-                    _workContext.CurrentCustomer.BillingAddress = address;
-
-                    _customerService.Update(_workContext.CurrentCustomer);
-
-                    //return RedirectToAction("PaymentMethod");
-                }
-                else
-                {
-                    //var objAddress = addresses.FirstOrDefault();
-                    var add = model.NewAddress.ToEntity();
-                    var objAddress = model.NewAddress.ToEntity();
-                    objAddress.FirstName = model.NewAddress.FirstName;
-                    objAddress.Email = model.NewAddress.Email;
-                    objAddress.PhoneNumber = model.NewAddress.PhoneNumber;
-                    objAddress.Address1 = model.NewAddress.Address1;
-
-                    _addressService.Create(objAddress);
-
-                    //return RedirectToAction("PaymentMethod");
-                }
+                _customerService.Update(_workContext.CurrentCustomer);
             }
+
+            //var addresses = _workContext.CurrentCustomer.Addresses;
+
+            //if (ModelState.IsValid)
+            //{
+            //    if (addresses.Count == 0 || !addresses.Any())
+            //    {
+            //        var address = model.NewAddress.ToEntity();
+
+            //        //some validation
+            //        if (address.CountryId == 0)
+            //            address.CountryId = null;
+
+            //        if (address.StateProvinceId == 0)
+            //            address.StateProvinceId = null;
+
+            //        _workContext.CurrentCustomer.Addresses.Add(address);
+            //        _workContext.CurrentCustomer.BillingAddress = address;
+
+            //        _customerService.Update(_workContext.CurrentCustomer);
+
+            //        //return RedirectToAction("PaymentMethod");
+            //    }
+            //    else
+            //    {
+            //        //var objAddress = addresses.FirstOrDefault();
+
+            //        var objAddress = model.NewAddress.ToEntity();
+            //        objAddress.FirstName = model.NewAddress.FirstName;
+            //        objAddress.Email = model.NewAddress.Email;
+            //        objAddress.PhoneNumber = model.NewAddress.PhoneNumber;
+            //        objAddress.Address1 = model.NewAddress.Address1;
+            //        _customerService.Update(_workContext.CurrentCustomer);
+            //        _addressService.Create(objAddress);
+
+            //        //return RedirectToAction("PaymentMethod");
+            //    }
+            //}
 
             //If we got this far, something failed, redisplay form
             model = PrepareBillingAddressModel();
 
             return View(model);
+        }
+
+        public ActionResult SelectShippingAddress(int addressId)
+        {
+            var address = _workContext.CurrentCustomer.Addresses.Where(a => a.Id == addressId).FirstOrDefault();
+            if (address == null)
+                return RedirectToAction("PaymentMethod");
+
+            _workContext.CurrentCustomer.ShippingAddress = address;
+            _customerService.Update(_workContext.CurrentCustomer);
+            return RedirectToAction("PaymentMethod");
         }
 
         #endregion

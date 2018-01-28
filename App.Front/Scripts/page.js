@@ -1,5 +1,7 @@
 ﻿$(function () {
-
+    window.setLocation = function (url) {
+        window.location.href = url;
+    }
 
     $("#ProductDetailsForm .product-attr .item input")
         .click(function () {
@@ -46,6 +48,7 @@
                 });
 
         });
+
 });
 
 jQuery(document).ready(function () {
@@ -162,6 +165,7 @@ function handleError(msg) {
 function handleSuccess(msg) {
     $("#msg-success").html(msg).show();
 }
+
 $(function () {
     $("#CheckProduct").click(function (e) {
         var fromId = "#checking";
@@ -185,6 +189,7 @@ $(function () {
         return false;
     });
 });
+
 function formAjax(element) {
     var $form = $(element);
     var options = {

@@ -53,30 +53,33 @@
 
                                     @foreach (var item in Model.ExistingAddresses)
                                     {
-                                        <div class="section-content">
-
-                                            <div class="content-box">
-
-                                                <div class="content-box-row">
-                                                    <div class="fieldset">
-
-                                                        <div class="field">
-                                                            <div class="field-input-wrapper">
-                                                                <strong> @item.FirstName</strong>
-                                                            </div>
+                                        <div class="account-detail user_box">
+                                            <div class="content-box-row">
+                                                <div class="fieldset">
+                                                    <div class="field">
+                                                        <div class="field-input-wrapper">
+                                                            <strong> @item.FirstName</strong>
                                                         </div>
-                                                        <div class="field field-active">
-                                                            <div class="field-input-wrapper">
-                                                                <strong>Địa chỉ:</strong> @item.Address1
-                                                            </div>
+                                                    </div>
+                                                    <div class="field field-active">
+                                                        <div class="field-input-wrapper">
+                                                            <strong>Địa chỉ:</strong> @item.Address1
                                                         </div>
-                                                        <div class="field field-active">
-                                                            <div class="field-input-wrapper">
-                                                                <strong>Số điện thoại:</strong> @item.PhoneNumber
-                                                            </div>
+                                                    </div>
+                                                    <div class="field field-active">
+                                                        <div class="field-input-wrapper">
+                                                            <strong>Số điện thoại:</strong> @item.PhoneNumber
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <button class="step-footer-continue-btn btn" onclick="setLocation('@Url.Action("SelectShippingAddress", new { addressId = item.Id })')">
+                                                    <span class="btn-content">Giao đến địa chỉ này</span>
+                                                    <i class="btn-spinner icon icon-button-spinner"></i>
+                                                </button>
+                                                   <button class="step-footer-continue-btn btn" onclick="setLocation('@Url.Action("SelectShippingAddress", new { addressId = item.Id })')">
+                                                    <span class="btn-content">Sửa</span>
+                                                    <i class="btn-spinner icon icon-button-spinner"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     }
@@ -133,8 +136,6 @@
                                     </div>
                                 </div>
                                 <div id="change_pick_location_or_shipping">
-
-
                                 </div>
                             </div>
                         </div>
@@ -218,20 +219,12 @@
                                 </div>
                                 <div class="step-footer">
 
-                                    <input type="submit" id="nextstep" name="nextstep" class="hidden" />
+                                    <input type="submit" id="saveAddress" name="saveAddress" class="hidden" />
 
-                                    <button class="step-footer-continue-btn btn" onclick="$('#nextstep').trigger('click');return false;">
-                                        <span class="btn-content">Tiếp tục đến phương thức thanh toán</span>
+                                    <button class="step-footer-continue-btn btn" onclick="$('#saveAddress').trigger('click');return false;">
+                                        <span class="btn-content">Lưu</span>
                                         <i class="btn-spinner icon icon-button-spinner"></i>
                                     </button>
-
-                                    <a class="step-footer-previous-link" href="@Url.Action("cart","ShoppingCart")">
-                                        <svg class="previous-link-icon icon-chevron icon" xmlns="http://www.w3.org/2000/svg" width="6.7" height="11.3" viewBox="0 0 6.7 11.3">
-                                            <path d="M6.7 1.1l-1-1.1-4.6 4.6-1.1 1.1 1.1 1 4.6 4.6 1-1-4.6-4.6z"></path>
-                                        </svg>
-                                        Giỏ hàng
-                                    </a>
-
 
                                 </div>
                             </div>
