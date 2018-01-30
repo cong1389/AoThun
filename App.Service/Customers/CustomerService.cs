@@ -1,4 +1,3 @@
-using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Interfaces.Services;
@@ -6,7 +5,6 @@ using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Customers;
 using App.Infra.Data.UOW.Interfaces;
 using App.Service.GenericAttribute;
-//using App.app;
 using Domain.Entities.Customers;
 using System;
 using System.Collections.Generic;
@@ -135,5 +133,14 @@ namespace App.Service.Customers
 
             Update(customer);
         }
+
+        public virtual void UpdateCustomer(Customer customer)
+        {
+            if (customer == null)
+                throw new ArgumentNullException("customer");
+
+            _customerRepository.Update(customer);
+        }
+
     }
 }

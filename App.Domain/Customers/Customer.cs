@@ -133,19 +133,19 @@ namespace Domain.Entities.Customers
             set { _orders = value; }
         }
 
-        //#region Addresses
+        #region Addresses
 
-        //public virtual void RemoveAddress(Address address)
-        //{
-        //    if (this.Addresses.Contains(address))
-        //    {
-        //        if (this.BillingAddress == address) this.BillingAddress = null;
-        //        if (this.ShippingAddress == address) this.ShippingAddress = null;
+        public virtual void RemoveAddress(Address address)
+        {
+            if (this.Addresses.Contains(address))
+            {
+                if (this.BillingAddress == address) this.BillingAddress = null;
+                if (this.ShippingAddress == address) this.ShippingAddress = null;
 
-        //        this.Addresses.Remove(address);
-        //    }
-        //}
+                this.Addresses.Remove(address);
+            }
+        }
 
-        //#endregion
+        #endregion
     }
 }

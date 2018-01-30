@@ -86,6 +86,7 @@ namespace App.Front.Controllers
             var model = new CheckoutBillingAddressModel();
             try
             {
+                
                 var billAddress = _workContext.CurrentCustomer.Addresses;
                 if (billAddress.Count != 0 && billAddress.Any())
                 {
@@ -94,6 +95,12 @@ namespace App.Front.Controllers
                     {
                         model.ExistingAddresses.Add(Mapper.Map<AddressViewModel>(address));
                     }
+                }
+
+                var customer = _workContext.CurrentCustomer;
+                if (customer != null)
+                {
+                    model.CustomerInfoModel.ShippingAddress_Id = customer.ShippingAddress.Id;
                 }
             }
             catch
@@ -118,7 +125,7 @@ namespace App.Front.Controllers
 
             if (ModelState.IsValid)
             {
-                var address = model.NewAddress.ToEntity();                
+                var address = model.NewAddress.ToEntity();
 
                 _workContext.CurrentCustomer.Addresses.Add(address);
                 _workContext.CurrentCustomer.BillingAddress = address;
@@ -203,9 +210,6 @@ namespace App.Front.Controllers
         protected CheckoutPaymentMethodModel PreparePaymentMethodModel(IOrderedEnumerable<ShoppingCartItem> cart)
         {
             var model = new CheckoutPaymentMethodModel();
-            var customer = _workContext.CurrentCustomer;
-
-            // var paymentTypes = new PaymentMethodType[] { PaymentMethodType.Standard, PaymentMethodType.Redirection, PaymentMethodType.StandardAndRedirection };
 
             var payment = _paymentMethodService.GetAll();
 
@@ -445,6 +449,24 @@ namespace App.Front.Controllers
         }
 
         #endregion
+
+        public ActionResult AddressDelete(int addressId)
+        {
+            if (addressId < 1)
+            {
+                return HttpNotFound();
+            }
+
+            var customer = _workContext.CurrentCustomer;
+
+            var address = customer.Addresses.Where(a => a.Id == addressId).FirstOrDefault();
+
+            customer.RemoveAddress(address);
+            _customerService.UpdateCustomer(customer);
+            _addressService.Update(address);
+
+            return RedirectToAction("BillingAddress");
+        }
 
     }
 }

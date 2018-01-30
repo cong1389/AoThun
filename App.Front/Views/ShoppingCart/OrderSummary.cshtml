@@ -5,71 +5,16 @@
     <div class="section">
         <div class="section-header os-header">
 
-            <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000" stroke-width="2" class="hanging-icon checkmark"><path class="checkmark_circle" d="M25 49c13.255 0 24-10.745 24-24S38.255 1 25 1 1 11.745 1 25s10.745 24 24 24z"></path><path class="checkmark_check" d="M15 24.51l7.307 7.308L35.125 19"></path></svg>
-
             <div class="os-header-heading">
                 <h2 class="os-header-title">
-
                     Đặt hàng thành công
-
-                </h2>
-                <span class="os-order-number">
-                    Mã đơn hàng #100436
-                </span>
-
+                </h2>                
                 <span class="os-description">
                     Cám ơn bạn đã mua hàng!
                 </span>
 
             </div>
         </div>
-    </div>
-
-    <div class="thank-you-additional-content">
-        <!-- Google Code for Successful checkout Page -->
-        <script>
-            if (typeof ga != 'undefined') {
-                ga('require', 'ecommerce');
-
-                ga('ecommerce:addItem', {
-                    'id': '1007014572', // Transaction ID. Required.
-                    'name': 'QCR - 32', // Product name. Required.
-                    'sku': '', // SKU/code.
-                    'category': 'QTJ45', // Category or variation.
-                    'price': '320000', // Unit price.
-                    'quantity': '1' // Quantity.
-                });
-
-                ga('ecommerce:addItem', {
-                    'id': '1007014504', // Transaction ID. Required.
-                    'name': 'QCR - 32', // Product name. Required.
-                    'sku': '', // SKU/code.
-                    'category': 'Sơ Mi Mazzola', // Category or variation.
-                    'price': '1920000', // Unit price.
-                    'quantity': '6' // Quantity.
-                });
-
-                ga('ecommerce:addItem', {
-                    'id': '1007014496', // Transaction ID. Required.
-                    'name': 'QCR - 32', // Product name. Required.
-                    'sku': '', // SKU/code.
-                    'category': 'Sơ Mi Mazzola', // Category or variation.
-                    'price': '320000', // Unit price.
-                    'quantity': '1' // Quantity.
-                });
-
-
-                ga('ecommerce:addTransaction', {
-                    'id': '#100436',
-                    'affiliation': '',
-                    'revenue': '2560000',
-                    'shipping': '',
-                    'tax': '',
-                    'currency': 'VND'  // local currency code.
-                });
-                ga('ecommerce:send');
-            }
-        </script>
     </div>
 
     <div class="section thank-you-checkout-info">
@@ -82,27 +27,17 @@
                     <div class="section-content">
                         <div class="section-content-column">
 
+                            <h3>Thông tin khách hàng</h3>
+                            <div>
+                                @RenderAddress(Model.OrderReviewData.BillingAddress)
+                            </div>
+
                             <h3>Thông tin giao hàng</h3>
-                            <p>
-                                @Model.OrderReviewData.BillingAddress.FirstName
-                                <br>
-                                @Model.OrderReviewData.BillingAddress.Address1
-                                @*<br>
-                                @Model.OrderReviewData.BillingAddress.StateProvinceId
-                                <br>
-                                @Model.OrderReviewData.BillingAddress.City
-                                <br>
-                                @Model.OrderReviewData.BillingAddress.CountryId
-                                <br>
-                                @Model.OrderReviewData.BillingAddress.PhoneNumber
-                                <br>*@
-                            </p>
+                              @RenderAddress(Model.OrderReviewData.ShippingAddress)                            
 
                             <h3>Phương thức thanh toán</h3>
                             <p>
-
                                 @Model.OrderReviewData.PaymentMethod
-
                             </p>
 
                         </div>
@@ -128,5 +63,19 @@
         </p>
     </div>
 </div>
-
+@helper RenderAddress(App.FakeEntity.Common.AddressViewModel address)
+{
+if (address.FirstName != null)
+{
+        <strong>@Model.OrderReviewData.BillingAddress.FirstName</strong>
+}
+if (address.Address1 != null)
+{
+        <p> @address.Address1</p>
+}
+if (address.PhoneNumber != null)
+{
+        <p>Điện thoại: @address.PhoneNumber</p>
+}
+}
 <!---/_OrderSummary-->

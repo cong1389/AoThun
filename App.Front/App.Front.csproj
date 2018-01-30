@@ -271,6 +271,7 @@
     <Compile Include="Models\Checkout\CheckoutPaymentMethodModel.cs" />
     <Compile Include="Models\Checkout\CheckoutShippingMethodModel.cs" />
     <Compile Include="Models\ContactForm.cs" />
+    <Compile Include="Models\Customer\CustomerInfoModel.cs" />
     <Compile Include="Models\FrontAuthorize.cs" />
     <Compile Include="Models\ImageSize.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

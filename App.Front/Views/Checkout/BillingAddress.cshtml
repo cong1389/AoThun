@@ -1,5 +1,4 @@
 ﻿<!----BillingAddress-->
-@using App.Aplication
 @model App.Front.Models.Checkout.CheckoutBillingAddressModel
 
 <section id="page-title">
@@ -37,7 +36,7 @@
                         <div class="step-sections " step="1">
                             <div class="section">
                                 <div class="section-header">
-                                    <h2 class="section-title">Thông tin giao hàng mặc định</h2>
+                                    <h2 class="section-title">Chọn địa chỉ giao hàng có sẵn bên dưới:</h2>
                                 </div>
                                 <div class="section-content section-customer-information ">
 
@@ -59,6 +58,11 @@
                                                     <div class="field">
                                                         <div class="field-input-wrapper">
                                                             <strong> @item.FirstName</strong>
+                                                            @if (item.Id==Model.CustomerInfoModel.ShippingAddress_Id)
+                                                            {
+                                                                <div>Mặc định</div>
+                                                            }
+                                                          
                                                         </div>
                                                     </div>
                                                     <div class="field field-active">
@@ -76,8 +80,8 @@
                                                     <span class="btn-content">Giao đến địa chỉ này</span>
                                                     <i class="btn-spinner icon icon-button-spinner"></i>
                                                 </button>
-                                                   <button class="step-footer-continue-btn btn" onclick="setLocation('@Url.Action("SelectShippingAddress", new { addressId = item.Id })')">
-                                                    <span class="btn-content">Sửa</span>
+                                                   <button class="step-footer-continue-btn btn" onclick="setLocation('@Url.Action("AddressDelete", new { addressId = item.Id })')">
+                                                    <span class="btn-content">Xóa</span>
                                                     <i class="btn-spinner icon icon-button-spinner"></i>
                                                 </button>
                                             </div>

@@ -7,8 +7,8 @@ using System.Collections.Generic;
 namespace App.Service.Customers
 {
     public interface ICustomerService : IBaseService<Customer>, IService
-	{
-		Customer GetById(int id, bool isCache = true);
+    {
+        Customer GetById(int id, bool isCache = true);
 
         Customer GetByGuid(Guid guid, bool isCache = true);
 
@@ -20,5 +20,8 @@ namespace App.Service.Customers
             bool clearCouponCodes = false, bool clearCheckoutAttributes = false,
             bool clearRewardPoints = true, bool clearShippingMethod = true,
             bool clearPaymentMethod = true);
+
+        void UpdateCustomer(Customer customer);
+
     }
 }

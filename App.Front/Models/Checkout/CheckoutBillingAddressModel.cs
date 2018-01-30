@@ -1,11 +1,7 @@
-﻿using App.Domain.Common;
-using App.Domain.Entities.Orders;
-using App.FakeEntity.Common;
+﻿using App.FakeEntity.Common;
+using App.Front.Models.Customer;
 using App.Front.Models.ShoppingCart;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace App.Front.Models.Checkout
 {
@@ -14,12 +10,15 @@ namespace App.Front.Models.Checkout
         public CheckoutBillingAddressModel()
         {
             ExistingAddresses = new List<AddressViewModel>();
-            NewAddress = new FakeEntity.Common.AddressViewModel();
+            NewAddress = new AddressViewModel();
+            CustomerInfoModel = new CustomerInfoModel();
         }
 
-        public IList<FakeEntity.Common.AddressViewModel> ExistingAddresses { get; set; }
+        public IList<AddressViewModel> ExistingAddresses { get; set; }
 
         public AddressViewModel NewAddress { get; set; }
+
+        public CustomerInfoModel CustomerInfoModel { get; set; }
 
         public MiniShoppingCartModel MiniShoppingCart { get; set; }
 

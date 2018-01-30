@@ -236,7 +236,7 @@ namespace App.Front.Controllers
 
         protected void PrepareShoppingCartModel(ShoppingCartModel model, IOrderedEnumerable<ShoppingCartItem> cart)
         {
-            //Shipping address
+            //billing info
             var billAddress = _workContext.CurrentCustomer.Addresses;
             if (billAddress.IsAny())
             {
@@ -245,6 +245,14 @@ namespace App.Front.Controllers
                     var map = Mapper.Map<AddressViewModel>(address);
                     model.OrderReviewData.BillingAddress = map;
                 }
+            }
+
+            //Shipping info
+            var shippingAddress = _workContext.CurrentCustomer.ShippingAddress;
+            if (shippingAddress != null)
+            {
+                var mapShipping = Mapper.Map<AddressViewModel>(shippingAddress);
+                model.OrderReviewData.ShippingAddress = mapShipping;
             }
 
             //Payment method
