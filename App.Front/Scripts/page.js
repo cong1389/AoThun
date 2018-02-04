@@ -23,26 +23,29 @@
 
             $.post("/getprice.html",
                 { productId: $(this).attr("data-post"), attributeId: value },
-                function (response) {
+                function (price) {
 
-                    if (response === parseInt(response, 10)) {
-                        //var pricce = response.toLocaleString('vi', { style: 'currency', currency: 'VND' });
-                        var priceOriginal = Haravan.formatMoney(response, EGA.options.money_format);
+                    if (price === parseInt(price, 10)) {
+                      
+                        var priceOriginalUnit = Haravan.formatMoney(price, EGA.options.money_format);
 
-                        $("#ProductDetailsForm .product-price #span-list-price").html(priceOriginal);
-                        $("#detail-two .variant-price ins span ").html(priceOriginal);
-                        $("#ProductDetailsForm #hddPrice").val(priceOriginal);
+                        //Gía nguyên thủy
+                        $("#ProductDetailsForm .product-price #span-list-price").html(priceOriginalUnit);
+                        $("#detail-two .variant-price ins span ").html(priceOriginalUnit);
                         
                         //product-discount
                         var discount = $('#product-discount').html();
-                        var priceDiscount = response * parseInt(discount) / 100;
-                        var pricePromotion = Haravan.formatMoney((response - priceDiscount), EGA.options.money_format);
+                        var priceDiscount = price * parseInt(discount) / 100;//Số tiền được giảm
+                        var priceAfterDicount = price - priceDiscount;//Giá đã trừ tiền giảm
+                        var pricePromotionUnit = Haravan.formatMoney(priceAfterDicount, EGA.options.money_format);
 
-                        $('#span-saving-price').html(Haravan.formatMoney(priceDiscount, EGA.options.money_format));
-                        $("#ProductDetailsForm .product-price ins").html(pricePromotion);
+                        $('#span-saving-price').html('(' + Haravan.formatMoney(priceDiscount, EGA.options.money_format) + ')');
+                        $("#ProductDetailsForm .product-price ins").html(pricePromotionUnit);
+
+                        $("#ProductDetailsForm #hddPrice").val(priceAfterDicount);
                     }
                     else {
-                        $("#ProductDetailsForm .product-price ins").html(response);
+                        $("#ProductDetailsForm .product-price ins").html(price);
                     }
 
                 });

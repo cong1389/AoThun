@@ -170,7 +170,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
 
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
@@ -190,9 +190,9 @@
                                         <table class="table table-hover table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th> Product </th>                                                                                                
+                                                    <th> Product </th>
                                                     <th> Price </th>
-                                                    <th> Quantity </th>                                                   
+                                                    <th> Quantity </th>
                                                     <th> Discount Amount </th>
                                                     <th> Total </th>
                                                 </tr>
@@ -200,16 +200,16 @@
                                             <tbody>
                                                 @foreach (var item in Model.Items)
                                                 {
-                                                <tr>
-                                                    <td>
-                                                        <a href="javascript:;"> @item.PostName </a>
-                                                    </td>                                                                                                      
-                                                    <td> @item.UnitPriceInclTax </td>
-                                                    <td> @item.Quantity </td>
-                                                   
-                                                    <td> 0</td>
-                                                    <td> @item.SubTotalInclTax</td>
-                                                </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="javascript:;"> @item.PostName </a>
+                                                        </td>
+                                                        <td> @item.UnitPriceInclTax </td>
+                                                        <td> @item.Quantity </td>
+
+                                                        <td> 0</td>
+                                                        <td> @item.SubTotalInclTax</td>
+                                                    </tr>
                                                 }
                                             </tbody>
                                         </table>
@@ -231,7 +231,7 @@
                                     <div class="col-md-8 name"> Shipping: </div>
                                     <div class="col-md-3 value"> 0 </div>
                                 </div>
-                              
+
                                 <div class="row static-info align-reverse">
                                     <div class="col-md-8 name"> Total Due: </div>
                                     <div class="col-md-3 value">  @string.Format("{0:##,### VNĐ}", Model.OrderTotal) </div>

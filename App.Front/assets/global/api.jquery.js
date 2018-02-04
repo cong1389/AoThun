@@ -151,25 +151,27 @@ Haravan.addItem = function(variant_id, quantity, callback) {
   jQuery.ajax(params);
 };
 
-Haravan.addItemFromForm = function(form_id, callback) {
-    var params = {
-      type: 'POST',
-      url: '/ShoppingCart/AddProduct',
-      data: jQuery('#' + form_id).serialize(),
-      dataType: 'json',
-      success: function(line_item) { 
-        if ((typeof callback) === 'function') {
-          callback(line_item);
-        }
-        else {
-          Haravan.onItemAdded(line_item);
-        }
-      },
-      error: function(XMLHttpRequest, textStatus) {
-        Haravan.onError(XMLHttpRequest, textStatus);
-      }
-    };
-    jQuery.ajax(params);
+Haravan.addItemFromForm = function (form_id, callback) {
+    //debugger;
+    //var params = {
+    //  type: 'POST',
+    //  url: '/ShoppingCart/AddProduct',
+    //  data: jQuery('#' + form_id).serialize(),
+    //  dataType: 'json',
+    //  success: function (line_item) { 
+    //      debugger;
+    //    if ((typeof callback) === 'function') {
+    //      callback(line_item);
+    //    }
+    //    else {
+    //      Haravan.onItemAdded(line_item);
+    //    }
+    //  },
+    //  error: function(XMLHttpRequest, textStatus) {
+    //    Haravan.onError(XMLHttpRequest, textStatus);
+    //  }
+    //};
+    //jQuery.ajax(params);
 };
 
 Haravan.getCart = function(callback) {

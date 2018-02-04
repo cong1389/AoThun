@@ -26,6 +26,12 @@ namespace App.Front
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/Themes").Include(
+                     "~/Themes/Basic/Content/theme.min.css"));
+
+            // Code removed for clarity.
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

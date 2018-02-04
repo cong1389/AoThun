@@ -431,6 +431,22 @@
     <Content Include="Scripts\validation\jquery.validate.min.js" />
     <Content Include="Scripts\validation\jquery.validate.unobtrusive.bootstrap.min.js" />
     <Content Include="Scripts\validation\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Themes\Basic\Content\theme.css">
+      <DependentUpon>theme.scss</DependentUpon>
+    </Content>
+    <Content Include="Themes\Basic\Content\theme.min.css">
+      <DependentUpon>theme.css</DependentUpon>
+    </Content>
+    <Content Include="Themes\Basic\Content\_social.css">
+      <DependentUpon>_social.scss</DependentUpon>
+    </Content>
+    <Content Include="Themes\Basic\Content\_social.min.css">
+      <DependentUpon>_social.css</DependentUpon>
+    </Content>
+    <Content Include="Themes\Basic\Content\_social.min.min.css">
+      <DependentUpon>_social.min.css</DependentUpon>
+    </Content>
+    <Content Include="Themes\Basic\Content\_social.scss" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -445,6 +461,12 @@
     <Content Include="Views\Account\ChangeInfo.cshtml" />
     <Content Include="Views\Account\_Account.Order.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Themes\Basic\Content\theme.scss" />
+    <None Include="bundleconfig.json" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

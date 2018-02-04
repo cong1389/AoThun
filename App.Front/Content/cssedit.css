@@ -206,13 +206,23 @@
     display: block;
     margin-bottom: 5px !important;
     line-height: 1;
+    float: left;
 }
+
 .saleoff-price-item, .old-price-item {
     font-size: 13px;
     margin: 4px 0;
     font-weight: 300;
     color: #9b9b9b;
 }
+
+.product-price .vat {
+    font-size: 13px;
+    margin: 4px 0;
+    font-weight: 300;
+    color: #9b9b9b;
+}
+
 
 .price-regular {
     font-size: 11px;

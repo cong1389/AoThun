@@ -10,7 +10,7 @@
             .done(function (data) {
                 var youtubeLink = data.response.YoutubeLink;
                 if (youtubeLink != null) {
-                    var code = '<a href="' + youtubeLink + '" class=""><i class="fa fa-youtube-square"></i></a>';
+                    var code = '<a href="' + youtubeLink + '" class="si-youtube social-icon si-dark si-colored"><i class="fa fa-youtube"></i><i class="fa fa-youtube"></i></a>';
 
                     jQuery("#divYoutubeLink").html(code);
                 }

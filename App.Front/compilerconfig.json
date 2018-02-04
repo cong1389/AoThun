@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Themes/Basic/Content/theme.css",
+    "inputFile": "Themes/Basic/Content/theme.scss"
+  },
+  {
+    "outputFile": "Themes/Basic/Content/_social.css",
+    "inputFile": "Themes/Basic/Content/_social.scss"
+  }
+]

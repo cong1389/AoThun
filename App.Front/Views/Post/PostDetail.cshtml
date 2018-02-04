@@ -56,76 +56,10 @@
 
                                         </div>
                                         <div class='pd_sale_wrapper clearfix'>
-                                            @if (Model.GalleryImages.IsAny())
-                                            {
-                                                var attrid = Model.AttributeValues.FirstOrDefault();
-                                                if (attrid != null)
-                                                {
-                                                    var gallery = Model.GalleryImages.FirstOrDefault(x => x.AttributeValueId == attrid.Id);
-                                                    <div class="product-price">
-                                                        <ins>
-                                                            @if (gallery != null && gallery.Price != null)
-                                                            {
-                                                                if (Model.Price.HasValue && Model.Discount.HasValue)
-                                                                {
-                                                                    @Html.Raw(string.Format("{0:##,### VND}", gallery.Price - gallery.Price * Model.Discount / 100))
-                                                                }
-                                                                else if (Model.Price.HasValue && !Model.Discount.HasValue)
-                                                                {
-                                                                    @Html.Raw(string.Format("{0:##,### VND}", gallery.Price))
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                <span class="text text-danger">@T("LienHeDatHang.Lable")</span>
-                                                            }
-                                                            @Html.Hidden("hddPrice", (gallery != null && gallery.Price != null) ? gallery.Price : 0)
-                                                        </ins>
-                                                        @if (Model.Price.HasValue && Model.Discount.HasValue)
-                                                        {
-                                                            <div style="" class="saleoff-price-item">
-                                                                <span class="price-label">Tiết kiệm:</span>
-                                                                <span id="product-discount" class="product-discount">@Model.Discount%</span>
-                                                                <span id="span-saving-price">( @Html.Raw(string.Format("{0:##,### VND}", gallery.Price * Model.Discount / 100)))</span>
-                                                            </div>
-                                                            <div class="old-price-item">
-                                                                <span class="price-label">Giá thị trường:</span>
-                                                                <span id="span-list-price"> @Html.Raw(string.Format("{0:##,### VND}", gallery.Price))</span>
-                                                            </div>
-                                                        }
+                                            @RenderPrice(Model.GalleryImages);
 
-                                                    </div>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <span class="text text-danger">@T("LienHeDatHang.Lable")</span>
-                                            }
-
-
-                                            <!-- Product Single - Rating
-                                            ============================================= -->
                                             <div class="clear"></div>
                                             <div class="line"></div>
-                                            <!-- Product Single - Quantity & Cart Button
-                                            ============================================= -->
-                                            <div class="hidden" style="">
-                                                <select id="product-select" name="id">
-
-                                                    <option value="1012081446" class="">S - 310,000₫</option>
-
-                                                    <option value="1012081447" class="">M - 310,000₫</option>
-
-                                                    <option value="1012081448" class="">L - 310,000₫</option>
-
-                                                    <option value="1012081449" class="">XL - 310,000₫</option>
-
-                                                    <option value="1012081450" class="">2XL - 310,000₫</option>
-
-                                                    <option value="1012081451" class="">3XL - 310,000₫</option>
-
-                                                </select>
-                                            </div>
 
                                             <div class="row  ">
                                                 <div id="option0Picker" class="col-xs-12 options_picker" style="position:relative;">
@@ -152,7 +86,6 @@
                                                                     <div class="conten-attr">
                                                                         @foreach (var at in Model.AttributeValues.Where(x => x.AttributeId == item.Id))
                                                                         {
-
                                                                             string activeClass = "active";
                                                                             if (i > 0)
                                                                             {
@@ -379,7 +312,7 @@
                                             </ins>
                                         </label>
                                     </div>
-                                    <div class="product-price"></div>
+
                                     <div class="product-btn-buy-2">
                                         <a class="addToCart button buynow_scroll button_full noleftmargin norightmargin" href="">MUA NGAY</a>
                                         @*<button href="#" title="Đặt mua" class="button buynow_scroll button_full noleftmargin norightmargin">MUA NGAY</button>*@
@@ -450,8 +383,60 @@
         <!-- #content end -->
     </section>
 
-
 }
+@helper RenderPrice(ICollection<App.Domain.Entities.Data.GalleryImage> galleryImages)
+{
+if (Model.GalleryImages.IsAny())
+{
+    var attrid = Model.AttributeValues.FirstOrDefault();
+    if (attrid != null)
+    {
+        var gallery = Model.GalleryImages.FirstOrDefault(x => x.AttributeValueId == attrid.Id);
+
+            <div class="product-price">
+                <ins>
+                    @if (gallery != null && gallery.Price != null)
+                    {
+                        if (Model.Price.HasValue && Model.Discount.HasValue)
+                        {
+                            var priceAfterDiscount = gallery.Price - gallery.Price * Model.Discount / 100;
+                            @Html.Raw(string.Format("{0:##,### VND}", priceAfterDiscount))
+                            @Html.Hidden("hddPrice", priceAfterDiscount)
+                        }
+                        else if (Model.Price.HasValue && !Model.Discount.HasValue)
+                        {
+                            @Html.Raw(string.Format("{0:##,### VND}", gallery.Price))
+                            @Html.Hidden("hddPrice", gallery.Price)
+                        }
+                    }
+                    else
+                    {
+                        <span class="text text-danger">@T("LienHeDatHang.Lable")</span>
+                    }
+
+                </ins><span class="vat">Đã có VAT</span>
+                @if (Model.Price.HasValue && Model.Discount.HasValue)
+            {
+                    <div style="" class="saleoff-price-item">
+                        <span class="price-label">Tiết kiệm:</span>
+                        <span id="product-discount" class="product-discount">@Model.Discount%</span>
+                        <span id="span-saving-price"> (@Html.Raw(string.Format("{0:##,### VND}", gallery.Price * Model.Discount / 100)))</span>
+                    </div>
+                    <div class="old-price-item">
+                        <span class="price-label">Giá thị trường:</span>
+                        <span id="span-list-price"> @Html.Raw(string.Format("{0:##,### VND}", gallery.Price))</span>
+                    </div>
+                }
+
+            </div>
+    }
+}
+else
+{
+        <span class="text text-danger">@T("LienHeDatHang.Lable")</span>
+}
+}
+
 @section stylesheets
 {
     <link href="~/Content/royalslider/royalslider.min.css" rel="stylesheet" />
@@ -541,7 +526,7 @@
                 url: '@Url.Action("AddProduct", "ShoppingCart")',
                 data:dataParam,
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
                     AddItemSuccess(response);
                     CartNotification();
                 },
@@ -557,7 +542,7 @@
             jQuery("#top-cart").html(data.list);
         };
 
-        function  addItem(form_id) {
+        function addItem(form_id) {
             Haravan.addItemFromForm(form_id, EGA.product.addItemSuccess);
         };
 

@@ -1,7 +1,6 @@
 ﻿<!----_Social.FB_Link-->
 <span id="divFBLink"></span>
 
-
 <script>
     jQuery(function () {
         'use strict';
@@ -10,7 +9,7 @@
             .done(function (data) {
                 var fbLink = data.response.FbLink;
                 if (fbLink != null) {
-                    var code = '<a href="' + fbLink + '" class=""><i class="fa fa-facebook-square"></i></a>';
+                    var code = '<a href="' + fbLink + '" class="si-facebook social-icon si-dark si-colored"><i class="fa fa-facebook"></i><i class="fa fa-facebook"></i></a>';
 
                     jQuery("#divFBLink").html(code);
                 }

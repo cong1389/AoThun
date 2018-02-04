@@ -22,8 +22,7 @@
                 <div class="table-responsive">
                     <table class="table cart">
                         <thead>
-                            <tr>
-                                <th class="cart-product-remove">&nbsp;</th>
+                            <tr>                               
                                 <th class="cart-product-thumbnail">&nbsp;</th>
                                 <th class="cart-product-name">Sản phẩm</th>
                                 <th class="cart-product-price">Đơn giá</th>
@@ -35,12 +34,7 @@
 
                             @foreach (var product in Model.Items)
                             {
-                                <tr class="cart_item" id="row@(product.Id)">
-                                    <td class="cart-product-remove">
-                                        <a href="" class="remove" title="">
-                                            <i class="icon-trash2"></i>
-                                        </a>
-                                    </td>
+                                <tr class="cart_item" id="row@(product.Id)">                                  
 
                                     <td class="cart-product-thumbnail">
                                         <a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })">
@@ -52,7 +46,9 @@
                                         <a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })">
                                             @product.Title
                                         </a>
-                                        <p style="display: none">Default Title</p>
+                                        <p> <a href="" class="remove" title="Xóa" onclick="RemoveCartItem(@Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().Id);">
+                                            <i class="icon-trash2">Xóa</i>
+                                        </a></p>
                                     </td>
 
                                     <td class="cart-product-price">
@@ -93,8 +89,7 @@
                                 </tr>
                             }
 
-                            <tr style="text-align:center;">
-                                <td>&nbsp;</td>
+                            <tr style="text-align:center;">                               
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
@@ -105,18 +100,12 @@
                     </table>
 
                 </div>
-                <div class="row clearfix">
-                    <div class="col-md-6 col-sm-6 col-xs-12 nopadding" style="margin-top:-20px!important">
-                        <div class="checkout-buttons clearfix">
-                            <label for="note">Ghi chú </label>
-                            <textarea style="height:85px" id="note" class="sm-form-control" name="note" rows="8" cols="50"></textarea>
-                        </div>
-                    </div>
+                <div class="row clearfix">                    
                     <div class="col-md-6 col-sm-6 col-xs-12  nopadding">
 
                         <input type="submit" name="startcheckout" value="startcheckout" id="startcheckout" class="hidden" />
                         <button name="checkout" class="button button-3d  fright" onclick="$('#startcheckout').trigger('click'); return false;">
-                            Thanh toán
+                            Tiến hành đặt hàng
                         </button>
                     </div>
                 </div>

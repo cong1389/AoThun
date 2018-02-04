@@ -2521,21 +2521,7 @@ address img {
   line-height: 30px;
   padding: 0 10px; }
 
-/**** SOCIAL ICON ****/
-body:not(.device-touch) .i-rounded,
-body:not(.device-touch) .i-plain,
-body:not(.device-touch) .i-circled,
-body:not(.device-touch) .i-bordered,
-body:not(.device-touch) .social-icon {
-  font-size: 23px; }
 
-.social-icon i {
-  line-height: 38px; }
-
-.social-icon:hover i:first-child {
-  margin-top: -38px; }
-
-/**** END SOCIAL ICON ****/
 /****END SEARCH PAGE ****/
 .index_col_banner_wrap.right {
   float: right; }
