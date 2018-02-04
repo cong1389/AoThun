@@ -13,7 +13,7 @@
     </div>
 </section>
 
-<section id="content">
+<section id="content" class="cart">
 
     <div class="container clearfix">
         @if (Model.Items.IsAny())
@@ -102,7 +102,6 @@
                 </div>
                 <div class="row clearfix">                    
                     <div class="col-md-6 col-sm-6 col-xs-12  nopadding">
-
                         <input type="submit" name="startcheckout" value="startcheckout" id="startcheckout" class="hidden" />
                         <button name="checkout" class="button button-3d  fright" onclick="$('#startcheckout').trigger('click'); return false;">
                             Tiến hành đặt hàng

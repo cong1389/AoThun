@@ -7,7 +7,7 @@
 
         <div class="" id='product-related-products'>
             <div class='product_block_title'>
-                <h4 class='pd_related_title'>SẢN PHẨM LIÊN QUAN</h4>
+                <h4 class='pd_related_title'>SẢN PHẨM THƯỜNG ĐƯỢC XEM CÙNG</h4>
             </div>
 
             <div id="" class="pd_related_product">
@@ -34,8 +34,7 @@
                                     </div>
                                     <div class="product-desc">
                                         <div class="product-title">
-                                            <h4><a href="qcj-32.html">@product.Title</a></h4>
-                                            <!-- <span>QCJ - 31-1</span> -->
+                                            <h4><a href="qcj-32.html">@product.Title</a></h4>                                            
                                         </div>
                                         <div class="product-price">
                                             <ins>
@@ -49,16 +48,15 @@
                                                 }
                                                 else
                                                 {
-                                                   @T("LienHeDatHang.Lable")
-                                                }
-                                                @if (product.Discount.HasValue)
-                                                {
-                                                    <span class="product-discount">
-                                                        @Html.Raw(product.Discount.ToString() + "%")
-                                                    </span>
+                                                    @Html.Raw("LienHeDatHang.Lable")
                                                 }
                                             </ins>
 
+                                            @if (product.Discount.HasValue)
+                                            {
+                                                <span class="price-regular">@Html.Raw(string.Format("{0:##,### VND}", product.Price)) </span>
+                                                <span class="product-discount">@Html.Raw(product.Discount.ToString() + "%")</span>
+                                            }
                                         </div>
                                     </div>
 

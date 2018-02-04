@@ -974,13 +974,6 @@
     font-style: normal;
 }
 
-body {
-    background: #fff;
-    font-family: "myriadpro", Helvetica, Arial, sans-serif;
-    overflow-x: hidden;
-    background-color: white;
-}
-
 h1, h2, h3, h4, h5, h6 {
     font-family: "utmdax" !important;
 }
@@ -2073,6 +2066,7 @@ li.arrow-sub > a:after {
 
 .product-description {
     margin-bottom: 15px;
+    padding-left: 5px;
 }
 
     .product-description p {
@@ -3318,10 +3312,10 @@ h2.title, h2.title-box {
     .product-content .product-price {
         display: inline-block;
         overflow: hidden;
-        font-size: 24px;
-        color: red;
-        font-weight: bold;
-        vertical-align: middle;
+        /* font-size: 24px; */
+        /* color: red; */
+        /* font-weight: bold; */
+        /* vertical-align: middle; */
         margin: 0 0 10px;
     }
 
@@ -3853,16 +3847,6 @@ h2.title, h2.title-box {
     overflow: inherit;
 }
 
-.billingaddress .logo-text {
-    font-size: 20px;
-}
-
-.billingaddress .section {
-    z-index: 1;
-    background: #fff;
-    padding: 0px;
-    margin: 0px;
-}
 
 .step-sections .section-header .section-title {
     font-size: 15px;
