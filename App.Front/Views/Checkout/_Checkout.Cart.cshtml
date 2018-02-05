@@ -111,12 +111,13 @@
                         <tfoot class="total-line-table-footer">
                             <tr class="total-line">
                                 <td class="total-line-name payment-due-label">
-                                    <span class="payment-due-label-total">Tổng cộng</span>
+                                    <span class="payment-due-label-total">Thành tiền</span>
                                 </td>
                                 <td class="total-line-name payment-due">
                                     <span class="payment-due-price" data-checkout-payment-due-target="120000000">
                                         @Html.Raw(string.Format("{0:##,### VND}", decimal.Parse(Model.SubTotal)))
                                     </span>
+                                    <p><small>(Đã bao gồm VAT)</small></p>
                                 </td>
                             </tr>
                         </tfoot>

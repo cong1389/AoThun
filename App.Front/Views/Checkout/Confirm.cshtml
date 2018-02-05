@@ -22,14 +22,7 @@
                 <div class="sidebar">
                     <div id="divCart" class="scroller"></div>
                 </div>
-                <div class="main">
-                    <div class="main-header">
-                        <a href="#" class="logo">
-                            <h1 class="logo-text">
-                                <div id="divCompanyName"></div>
-                            </h1>
-                        </a>
-                    </div>
+                <div class="main">                   
                     <div class="main-content">
                         @{
                             Html.RenderAction("OrderSummary", "ShoppingCart", new { area = "" });
@@ -51,14 +44,6 @@
 
     <script>
         jQuery(function () {
-
-            jQuery.post('@Url.Action("GetSystemSetting", "Summary")')
-                .done(function (data) {
-                    if (data.list != null) {
-                        jQuery("#divCompanyName").html(data.list.Title);
-                    }
-
-                });
 
             jQuery.post('@Url.Action("CartByCustomer", "Checkout")')
                      .done(function (data) {

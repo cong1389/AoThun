@@ -1,81 +1,99 @@
 ﻿<!---_OrderSummary-->
 @model  App.Front.Models.ShoppingCart.ShoppingCartModel
 
-<div>
-    <div class="section">
-        <div class="section-header os-header">
-
-            <div class="os-header-heading">
-                <h2 class="os-header-title">
-                    Đặt hàng thành công
-                </h2>                
-                <span class="os-description">
-                    Cám ơn bạn đã mua hàng!
-                </span>
-
+<div class="step">
+    <div class="step-sections " step="1">
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title"> Kiểm tra đơn hàng</h2>
             </div>
-        </div>
-    </div>
+            <div class="section-content section-customer-information ">
+                <p class="section-content-text">
+                    Bạn vui lòng kiểm tra lai các thông tin đơn hàng bên dưới
+                </p>
 
-    <div class="section thank-you-checkout-info">
-        <div class="section-content">
-            <div class="content-box">
-                <div class="content-box-row content-box-row-padding content-box-row-no-border">
-                    <h2>Thông tin đơn hàng</h2>
-                </div>
-                <div class="content-box-row content-box-row-padding">
-                    <div class="section-content">
-                        <div class="section-content-column">
-
-                            <h3>Thông tin khách hàng</h3>
-                            <div>
-                                @RenderAddress(Model.OrderReviewData.BillingAddress)
+                <div class="account-detail user_box">
+                    <div class="content-box-row">
+                        <div class="fieldset">
+                            <div class="field">
+                                <div class="field-input-wrapper">
+                                    <strong> THÔNG TIN KHÁCH HÀNG</strong>
+                                </div>
                             </div>
+                            @RenderAddress(Model.OrderReviewData.BillingAddress)
+                        </div>
+                    </div>
+                </div>
 
-                            <h3>Thông tin giao hàng</h3>
-                              @RenderAddress(Model.OrderReviewData.ShippingAddress)                            
+                <div class="account-detail user_box">
+                    <div class="content-box-row">
+                        <div class="fieldset">
+                            <div class="field">
+                                <div class="field-input-wrapper">
+                                    <strong> THÔNG TIN GIAO HÀNG</strong>
+                                </div>
+                            </div>
+                            @RenderAddress(Model.OrderReviewData.ShippingAddress)
+                        </div>
+                    </div>
+                </div>
 
-                            <h3>Phương thức thanh toán</h3>
-                            <p>
-                                @Model.OrderReviewData.PaymentMethod
-                            </p>
-
+                <div class="account-detail user_box">
+                    <div class="content-box-row">
+                        <div class="fieldset">
+                            <div class="field">
+                                <div class="field-input-wrapper">
+                                    <strong> PHƯƠNG THỨC THANH TOÁN</strong>
+                                </div>
+                            </div>
+                            @Model.OrderReviewData.PaymentMethod
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="step-footer">
-
-        <input type="submit" name="confirm" value="confirm" id="startconfirm" class="hidden" />
-        <a class="step-footer-continue-btn btn" onclick="$('#startconfirm').trigger('click'); return false;">
-            <span class="btn-content">Hoàn tất đơn hàng</span>
-        </a>
-
-        <p class="step-footer-info">
-            <i class="icon icon-os-question"></i>
-            <span>
-
-
-                Cần hỗ trợ? <a href="">Liên hệ chúng tôi</a>
-            </span>
-        </p>
-    </div>
 </div>
+
+<div class="step-footer">
+
+    <input type="submit" name="confirm" value="confirm" id="startconfirm" class="hidden" />
+    <a class="button button-3d  fright" onclick="$('#startconfirm').trigger('click'); return false;">
+        <span class="btn-content">Hoàn tất đơn hàng</span>
+    </a>
+
+    <p class="step-footer-info">
+        <i class="icon icon-os-question"></i>
+        <span>
+            Cần hỗ trợ? <a href="">Liên hệ chúng tôi</a>
+        </span>
+    </p>
+</div>
+
 @helper RenderAddress(App.FakeEntity.Common.AddressViewModel address)
 {
-if (address.FirstName != null)
-{
-        <strong>@Model.OrderReviewData.BillingAddress.FirstName</strong>
-}
+    <div class="field">
+        <div class="field-input-wrapper">
+            <strong> @Model.OrderReviewData.BillingAddress.FirstName</strong>
+        </div>
+    </div>
 if (address.Address1 != null)
 {
-        <p> @address.Address1</p>
+        <div class="field field-active">
+            <div class="field-input-wrapper">
+                Địa chỉ:  @address.Address1
+            </div>
+        </div>
 }
 if (address.PhoneNumber != null)
 {
-        <p>Điện thoại: @address.PhoneNumber</p>
+        <div class="field field-active">
+            <div class="field-input-wrapper">
+                Điện thoại:  @address.PhoneNumber
+            </div>
+        </div>
 }
+
+
 }
 <!---/_OrderSummary-->

@@ -27,8 +27,7 @@
     }
 
     .section {
-        z-index: 1;
-        background: #fff;
+        z-index: 1;       
         padding: 0px;
         margin: 0px;
     }
@@ -437,7 +436,7 @@ select {
 }
 
 .section .section-content .section-content-text {
-    margin-bottom: 0.75em;
+    margin-bottom: 10px;
 }
 
 .section .section-content.no-mb, .section .section-content:last-child {
@@ -985,7 +984,7 @@ select {
     font-size: 1.71429em;
     font-weight: 500;
     letter-spacing: -0.04em;
-    color: #4b4b4b;
+    color: #fe3834;
     line-height: 1em;
 }
 
@@ -1196,10 +1195,9 @@ select {
 }
 
 @media (min-width: 1000px) {
-    .wrap {
-        padding: 0 5%;
+    .wrap {      
         width: 90%;
-        max-width: 78.57143em;
+        max-width: 81em;
     }
 
     .order-summary-toggle {
@@ -1212,10 +1210,8 @@ select {
         flex-direction: row-reverse;
     }
 
-    .main {
-        width: 52%;
-        width: 52%;
-        padding-right: 6%;
+    .main {       
+        width: 52%;       
         float: left;
     }
 
@@ -1341,7 +1337,7 @@ select {
     }
 
     .section .section-header {
-        margin-bottom: 1.5em;
+        margin-bottom: 10px;
     }
 
     .field-half {

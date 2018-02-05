@@ -682,7 +682,6 @@ body:not(.device-touch) .social-icon i {
 
 .billingaddress .section {
   z-index: 1;
-  background: #fff;
   padding: 0px;
   margin: 0px; }
 
@@ -1016,7 +1015,7 @@ select {
   position: relative; }
 
 .section .section-content .section-content-text {
-  margin-bottom: 0.75em; }
+  margin-bottom: 10px; }
 
 .section .section-content.no-mb, .section .section-content:last-child {
   margin-bottom: inherit; }
@@ -1438,7 +1437,7 @@ select {
   font-size: 1.71429em;
   font-weight: 500;
   letter-spacing: -0.04em;
-  color: #4b4b4b;
+  color: #fe3834;
   line-height: 1em; }
 
 .applied-reduction-code {
@@ -1615,9 +1614,8 @@ select {
 
 @media (min-width: 1000px) {
   .wrap {
-    padding: 0 5%;
     width: 90%;
-    max-width: 78.57143em; }
+    max-width: 81em; }
   .order-summary-toggle {
     display: none; }
   .flexbox .content .wrap {
@@ -1626,8 +1624,6 @@ select {
     flex-direction: row-reverse; }
   .main {
     width: 52%;
-    width: 52%;
-    padding-right: 6%;
     float: left; }
   .main .main-header {
     padding-bottom: 2em; }
@@ -1709,7 +1705,7 @@ select {
   .section.thank-you-checkout-info {
     padding-top: 1.5em; }
   .section .section-header {
-    margin-bottom: 1.5em; }
+    margin-bottom: 10px; }
   .field-half {
     width: 50% !important; }
   .field-two-thirds {
