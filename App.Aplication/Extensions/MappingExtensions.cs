@@ -290,104 +290,111 @@ namespace App.Aplication.Extensions
             if (destination == null)
                 throw new ArgumentNullException("OrderViewModel");
 
-            destination.Id = model.Id;
-            destination.OrderNumber = model.OrderNumber;
+            try
+            {
+                destination.Id = model.Id;
+                destination.OrderNumber = model.OrderNumber;
 
-            destination.OrderGuid = model.OrderGuid;
-            destination.StoreId = model.StoreId;
-            destination.CustomerId = model.CustomerId;
-            destination.BillingAddressId = model.BillingAddressId;
-            destination.ShippingAddressId = model.ShippingAddressId;
-            destination.OrderStatusId = model.OrderStatusId;
-            destination.ShippingStatusId = model.ShippingStatusId;
-            destination.PaymentStatusId = model.PaymentStatusId;
-            destination.PaymentMethodSystemName = model.PaymentMethodSystemName;
-            destination.CustomerCurrencyCode = model.CustomerCurrencyCode;
-            destination.CurrencyRate = model.CurrencyRate;
+                destination.OrderGuid = model.OrderGuid;
+                destination.StoreId = model.StoreId;
+                destination.CustomerId = model.CustomerId;
+                destination.BillingAddressId = model.BillingAddressId;
+                destination.ShippingAddressId = model.ShippingAddressId;
+                destination.OrderStatusId = model.OrderStatusId;
+                destination.ShippingStatusId = model.ShippingStatusId;
+                destination.PaymentStatusId = model.PaymentStatusId;
+                destination.PaymentMethodSystemName = model.PaymentMethodSystemName;
+                destination.CustomerCurrencyCode = model.CustomerCurrencyCode;
+                destination.CurrencyRate = model.CurrencyRate;
 
-            destination.CustomerTaxDisplayTypeId = model.CustomerTaxDisplayTypeId;
-            destination.VatNumber = model.VatNumber;
-            destination.OrderSubtotalInclTax = model.OrderSubtotalInclTax;
-            destination.OrderSubtotalExclTax = model.OrderSubtotalExclTax;
+                destination.CustomerTaxDisplayTypeId = model.CustomerTaxDisplayTypeId;
+                destination.VatNumber = model.VatNumber;
+                destination.OrderSubtotalInclTax = model.OrderSubtotalInclTax;
+                destination.OrderSubtotalExclTax = model.OrderSubtotalExclTax;
 
-            destination.OrderSubTotalDiscountInclTax = model.OrderSubTotalDiscountInclTax;
-            destination.OrderSubTotalDiscountExclTax = model.OrderSubTotalDiscountExclTax;
-            destination.OrderShippingInclTax = model.OrderShippingInclTax;
-            destination.OrderShippingExclTax = model.OrderShippingExclTax;
+                destination.OrderSubTotalDiscountInclTax = model.OrderSubTotalDiscountInclTax;
+                destination.OrderSubTotalDiscountExclTax = model.OrderSubTotalDiscountExclTax;
+                destination.OrderShippingInclTax = model.OrderShippingInclTax;
+                destination.OrderShippingExclTax = model.OrderShippingExclTax;
 
-            destination.PaymentMethodAdditionalFeeInclTax = model.PaymentMethodAdditionalFeeInclTax;
-            destination.PaymentMethodAdditionalFeeExclTax = model.PaymentMethodAdditionalFeeExclTax;
-            destination.TaxRates = model.TaxRates;
-            destination.OrderTax = model.OrderTax;
+                destination.PaymentMethodAdditionalFeeInclTax = model.PaymentMethodAdditionalFeeInclTax;
+                destination.PaymentMethodAdditionalFeeExclTax = model.PaymentMethodAdditionalFeeExclTax;
+                destination.TaxRates = model.TaxRates;
+                destination.OrderTax = model.OrderTax;
 
-            destination.OrderDiscount = model.OrderDiscount;
-            destination.OrderTotal = model.OrderTotal;
-            destination.RefundedAmount = model.RefundedAmount;
-            destination.RewardPointsWereAdded = model.RewardPointsWereAdded;
+                destination.OrderDiscount = model.OrderDiscount;
+                destination.OrderTotal = model.OrderTotal;
+                destination.RefundedAmount = model.RefundedAmount;
+                destination.RewardPointsWereAdded = model.RewardPointsWereAdded;
 
-            destination.CheckoutAttributeDescription = model.CheckoutAttributeDescription;
-            destination.CheckoutAttributesXml = model.CheckoutAttributesXml;
-            destination.CustomerLanguageId = model.CustomerLanguageId;
-            destination.AffiliateId = model.AffiliateId;
+                destination.CheckoutAttributeDescription = model.CheckoutAttributeDescription;
+                destination.CheckoutAttributesXml = model.CheckoutAttributesXml;
+                destination.CustomerLanguageId = model.CustomerLanguageId;
+                destination.AffiliateId = model.AffiliateId;
 
-            destination.CustomerIp = model.CustomerIp;
-            destination.AllowStoringCreditCardNumber = model.AllowStoringCreditCardNumber;
-            destination.CardType = model.CardType;
-            destination.CardName = model.CardName;
+                destination.CustomerIp = model.CustomerIp;
+                destination.AllowStoringCreditCardNumber = model.AllowStoringCreditCardNumber;
+                destination.CardType = model.CardType;
+                destination.CardName = model.CardName;
 
-            destination.CardNumber = model.CardNumber;
-            destination.MaskedCreditCardNumber = model.MaskedCreditCardNumber;
-            destination.CardCvv2 = model.CardCvv2;
-            destination.CardExpirationMonth = model.CardExpirationMonth;
+                destination.CardNumber = model.CardNumber;
+                destination.MaskedCreditCardNumber = model.MaskedCreditCardNumber;
+                destination.CardCvv2 = model.CardCvv2;
+                destination.CardExpirationMonth = model.CardExpirationMonth;
 
-            destination.CardExpirationYear = model.CardExpirationYear;
-            destination.AllowStoringDirectDebit = model.AllowStoringDirectDebit;
-            destination.DirectDebitAccountHolder = model.DirectDebitAccountHolder;
-            destination.DirectDebitAccountNumber = model.DirectDebitAccountNumber;
+                destination.CardExpirationYear = model.CardExpirationYear;
+                destination.AllowStoringDirectDebit = model.AllowStoringDirectDebit;
+                destination.DirectDebitAccountHolder = model.DirectDebitAccountHolder;
+                destination.DirectDebitAccountNumber = model.DirectDebitAccountNumber;
 
-            destination.DirectDebitBankCode = model.DirectDebitBankCode;
-            destination.DirectDebitBankName = model.DirectDebitBankName;
-            destination.DirectDebitBIC = model.DirectDebitBIC;
-            destination.DirectDebitCountry = model.DirectDebitCountry;
+                destination.DirectDebitBankCode = model.DirectDebitBankCode;
+                destination.DirectDebitBankName = model.DirectDebitBankName;
+                destination.DirectDebitBIC = model.DirectDebitBIC;
+                destination.DirectDebitCountry = model.DirectDebitCountry;
 
-            destination.DirectDebitIban = model.DirectDebitIban;
-            destination.AuthorizationTransactionId = model.AuthorizationTransactionId;
-            destination.AuthorizationTransactionCode = model.AuthorizationTransactionCode;
-            destination.AuthorizationTransactionResult = model.AuthorizationTransactionResult;
+                destination.DirectDebitIban = model.DirectDebitIban;
+                destination.AuthorizationTransactionId = model.AuthorizationTransactionId;
+                destination.AuthorizationTransactionCode = model.AuthorizationTransactionCode;
+                destination.AuthorizationTransactionResult = model.AuthorizationTransactionResult;
 
-            destination.CaptureTransactionId = model.CaptureTransactionId;
-            destination.CaptureTransactionResult = model.CaptureTransactionResult;
-            destination.SubscriptionTransactionId = model.SubscriptionTransactionId;
-            destination.PurchaseOrderNumber = model.PurchaseOrderNumber;
+                destination.CaptureTransactionId = model.CaptureTransactionId;
+                destination.CaptureTransactionResult = model.CaptureTransactionResult;
+                destination.SubscriptionTransactionId = model.SubscriptionTransactionId;
+                destination.PurchaseOrderNumber = model.PurchaseOrderNumber;
 
-            destination.PaidDateUtc = model.PaidDateUtc;
-            destination.ShippingMethod = model.ShippingMethod;
-            destination.ShippingRateComputationMethodSystemName = model.ShippingRateComputationMethodSystemName;
-            destination.Deleted = model.Deleted;
+                destination.PaidDateUtc = model.PaidDateUtc;
+                destination.ShippingMethod = model.ShippingMethod;
+                destination.ShippingRateComputationMethodSystemName = model.ShippingRateComputationMethodSystemName;
+                destination.Deleted = model.Deleted;
 
-            destination.CreatedOnUtc = model.CreatedOnUtc;
-            destination.UpdatedOnUtc = model.UpdatedOnUtc;
-            destination.RewardPointsRemaining = model.RewardPointsRemaining;
-            destination.CustomerOrderComment = model.CustomerOrderComment;
+                destination.CreatedOnUtc = model.CreatedOnUtc;
+                destination.UpdatedOnUtc = model.UpdatedOnUtc;
+                destination.RewardPointsRemaining = model.RewardPointsRemaining;
+                destination.CustomerOrderComment = model.CustomerOrderComment;
 
-            destination.OrderShippingTaxRate = model.OrderShippingTaxRate;
-            destination.PaymentMethodAdditionalFeeTaxRate = model.PaymentMethodAdditionalFeeTaxRate;
-            destination.HasNewPaymentNotification = model.HasNewPaymentNotification;
-            destination.AcceptThirdPartyEmailHandOver = model.AcceptThirdPartyEmailHandOver;
+                destination.OrderShippingTaxRate = model.OrderShippingTaxRate;
+                destination.PaymentMethodAdditionalFeeTaxRate = model.PaymentMethodAdditionalFeeTaxRate;
+                destination.HasNewPaymentNotification = model.HasNewPaymentNotification;
+                destination.AcceptThirdPartyEmailHandOver = model.AcceptThirdPartyEmailHandOver;
 
-            destination.CustomerName = model.BillingAddress.GetFullName();
-            destination.CustomerEmail = model.BillingAddress.Email;
-            destination.CreatedOn = model.CreatedOnUtc;
-            destination.UpdatedOn = model.UpdatedOnUtc;
-            destination.OrderTotal = model.OrderTotal;
+                destination.CreatedOn = model.CreatedOnUtc;
+                destination.UpdatedOn = model.UpdatedOnUtc;
+                destination.OrderTotal = model.OrderTotal;
 
-            destination.OrderStatus = ((OrderStatus)model.OrderStatusId).ToString();
-            destination.PaymentStatus = ((PaymentStatus)model.PaymentStatusId).ToString();
-            destination.ShippingStatus = ((ShippingStatus)model.ShippingStatusId).ToString();
+                destination.OrderStatus = ((OrderStatus)model.OrderStatusId).ToString();
+                destination.PaymentStatus = ((PaymentStatus)model.PaymentStatusId).ToString();
+                destination.ShippingStatus = ((ShippingStatus)model.ShippingStatusId).ToString();
 
-            destination.BillingAddress = model.BillingAddress;
-            destination.ShippingAddress = model.ShippingAddress;
+                destination.BillingAddress = model.BillingAddress;
+                destination.ShippingAddress = model.ShippingAddress;
+                destination.CustomerName = model.BillingAddress.GetFullName();
+                destination.CustomerEmail = model.BillingAddress.Email;
+            }
+            catch (Exception ex)
+            {
 
+                throw;
+            }
 
             return destination;
         }

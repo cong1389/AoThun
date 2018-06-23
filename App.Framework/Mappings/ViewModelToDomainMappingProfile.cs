@@ -508,7 +508,8 @@ namespace App.Framework.Mappings
             CreateMap<OrderViewModel, Order>()
             .ForMember((Order x) => x.OrderNumber, map => map.MapFrom<string>((OrderViewModel vm) => vm.OrderNumber))
             .ForMember((Order x) => x.OrderGuid, map => map.MapFrom<Guid>((OrderViewModel vm) => vm.OrderGuid))
-            .ForMember((Order x) => x.CreatedOnUtc, map => map.MapFrom<DateTime>((OrderViewModel vm) => vm.CreatedOn));
+            .ForMember((Order x) => x.CreatedOnUtc, map => map.MapFrom<DateTime>((OrderViewModel vm) => vm.CreatedOn))
+            .ForMember((Order x) => x.BillingAddress, map => map.MapFrom<Address>((OrderViewModel vm) => vm.BillingAddress));
 
             CreateMap<OrderItemViewModel, OrderItem>()
           .ForMember((OrderItem x) => x.OrderId, map => map.MapFrom<int>((OrderItemViewModel vm) => vm.OrderId))

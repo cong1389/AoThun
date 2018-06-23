@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using App.Aplication.Extensions;
+using App.Domain.Orders;
 
 namespace App.Front.Controllers
 {
@@ -86,7 +87,7 @@ namespace App.Front.Controllers
             var model = new CheckoutBillingAddressModel();
             try
             {
-                
+
                 var billAddress = _workContext.CurrentCustomer.Addresses;
                 if (billAddress.Count != 0 && billAddress.Any())
                 {
@@ -445,10 +446,26 @@ namespace App.Front.Controllers
 
             placeOrderResult = _orderProcessingService.PlaceOrder(processPaymentRequest, placeOrderExtraData);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Complete");
         }
 
         #endregion
+
+        public ActionResult Complete()
+        {
+            var customer = _workContext.CurrentCustomer;
+
+            var ieOrder = _orderService.GetByCustomerId(customer.Id,false);
+
+            if (ieOrder== null)
+            {
+                return HttpNotFound();
+            }
+            
+            Order order = ieOrder.OrderByDescending(m => m.Id).FirstOrDefault();
+
+            return View(order);
+        }
 
         public ActionResult AddressDelete(int addressId)
         {

@@ -5,16 +5,13 @@ using App.Core.Utils;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Identity;
 using App.Domain.Entities.Menu;
-using App.Domain.Orders;
 using App.FakeEntity.Gallery;
 using App.FakeEntity.Orders;
 using App.FakeEntity.Post;
 using App.FakeEntity.User;
 using App.Framework.Ultis;
 using App.Front.Models;
-using App.Service.Addresses;
 using App.Service.Common;
-using App.Service.Customers;
 using App.Service.Gallery;
 using App.Service.Locations;
 using App.Service.Menu;
@@ -28,7 +25,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -428,7 +424,7 @@ namespace App.Front.Controllers
         }
 
         #region Information account of customer
-        
+
         public JsonResult AccountOrder()
         {
             IEnumerable<OrderViewModel> model = PrepareCustomerOrderListModel(_workContext.CurrentCustomer);
@@ -449,7 +445,7 @@ namespace App.Front.Controllers
             if (customer == null)
                 throw new ArgumentNullException("customer");
 
-            var ieOrder = _orderService.GetByCustomerId(customer.Id);
+            var ieOrder = _orderService.GetByCustomerId(customer.Id, false);
 
             if (!ieOrder.IsAny())
             {
@@ -459,26 +455,30 @@ namespace App.Front.Controllers
             ieOrder = ieOrder.OrderByDescending(m => m.Id);
 
             OrderViewModel orderViewModel = new OrderViewModel();
-            IEnumerable<OrderViewModel> model = ieOrder
-                .Select(m =>
-                {
-                    foreach (var orderItem in m.OrderItems)
-                    {
-                        var orderItemModel = new OrderViewModel.OrderItemModel
-                        {
-                            Id = orderItem.Id,
-                            PostId = orderItem.PostId,
-                            PostName = orderItem.Post.Title,
-                            Quantity = orderItem.Quantity,
-                            UnitPriceInclTax = orderItem.UnitPriceInclTax,
-                            SubTotalInclTax = orderItem.PriceInclTax
-                        };
 
-                        orderViewModel.Items.Add(orderItemModel);
-                    }
+            IEnumerable<OrderViewModel> model = ieOrder.Select(x => x.ToModel(orderViewModel));
 
-                    return m.ToModel(orderViewModel);
-                });
+            //OrderViewModel orderViewModel = new OrderViewModel();
+            //IEnumerable<OrderViewModel> model = ieOrder
+            //    .Select(m =>
+            //    {
+            //        foreach (var orderItem in m.OrderItems)
+            //        {
+            //            var orderItemModel = new OrderViewModel.OrderItemModel
+            //            {
+            //                Id = orderItem.Id,
+            //                PostId = orderItem.PostId,
+            //                PostName = orderItem.Post.Title,
+            //                Quantity = orderItem.Quantity,
+            //                UnitPriceInclTax = orderItem.UnitPriceInclTax,
+            //                SubTotalInclTax = orderItem.PriceInclTax
+            //            };
+
+            //            orderViewModel.Items.Add(orderItemModel);
+            //        }
+
+            //        return m.ToModel(orderViewModel);
+            //    });
 
             return model;
 

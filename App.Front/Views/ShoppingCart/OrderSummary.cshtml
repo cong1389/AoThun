@@ -71,28 +71,30 @@
 </div>
 
 @helper RenderAddress(App.FakeEntity.Common.AddressViewModel address)
-{
-    <div class="field">
-        <div class="field-input-wrapper">
-            <strong> @Model.OrderReviewData.BillingAddress.FirstName</strong>
-        </div>
-    </div>
-if (address.Address1 != null)
-{
-        <div class="field field-active">
+    {
+        <div class="field">
             <div class="field-input-wrapper">
-                Địa chỉ:  @address.Address1
+                <strong> @Model.OrderReviewData.BillingAddress.FirstName</strong>
             </div>
         </div>
-}
-if (address.PhoneNumber != null)
-{
-        <div class="field field-active">
-            <div class="field-input-wrapper">
-                Điện thoại:  @address.PhoneNumber
+        if (address.Address1 != null)
+        {
+            <div class="field field-active">
+                <div class="field-input-wrapper">
+                    Địa chỉ:  @address.Address1
+                </div>
             </div>
-        </div>
-}
+        }
+
+        if (address.PhoneNumber != null)
+        {
+            <div class="field field-active">
+                <div class="field-input-wrapper">
+                    Điện thoại:  @address.PhoneNumber
+                </div>
+            </div>
+        }
+
 
 
 }

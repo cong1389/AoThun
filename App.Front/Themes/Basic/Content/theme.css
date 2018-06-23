@@ -685,6 +685,24 @@ body:not(.device-touch) .social-icon i {
   padding: 0px;
   margin: 0px; }
 
+.complete .success .well {
+  background: #58b712;
+  font-size: 19px;
+  color: #fff;
+  border: none;
+  text-align: center;
+  font-weight: 400;
+  position: relative;
+  border-radius: 0;
+  width: 200px;
+  margin-bottom: 10px; }
+
+.complete .success h3 {
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 0;
+  color: #ab6767; }
+
 @-webkit-keyframes rotate {
   0% {
     -webkit-transform: rotate(0);

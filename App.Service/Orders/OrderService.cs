@@ -72,27 +72,7 @@ namespace App.Service.Orders
             else
             {
                 ieOrder = _orderRepository.GetByCustomerId(customerId);
-            }
-
-            //Order order;
-            //if (isCache)
-            //{
-            //    StringBuilder sbKey = new StringBuilder();
-            //    sbKey.AppendFormat(CACHE_ORDER_KEY, "GetByCustomerId");
-            //    sbKey.Append(customerId);
-
-            //    string key = sbKey.ToString();
-            //    order = _cacheManager.Get<Order>(key);
-            //    if (order == null)
-            //    {
-            //        order = _orderRepository.GetByCustomerId(customerId);
-            //        _cacheManager.Put(key, order);
-            //    }
-            //}
-            //else
-            //{
-            //    order = _orderRepository.GetByCustomerId(customerId);
-            //}            
+            }     
 
             return ieOrder;
         }

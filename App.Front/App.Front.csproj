@@ -480,6 +480,7 @@
     <Content Include="Themes\Basic\Content\_checkout.scss" />
     <Content Include="Themes\Basic\Content\shared\_buttons.scss" />
     <Content Include="Themes\Basic\Content\_variables.scss" />
+    <Content Include="Views\Checkout\Complete.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -666,7 +667,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63961</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9358/</IISUrl>
+          <IISUrl>http://localhost:9354/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

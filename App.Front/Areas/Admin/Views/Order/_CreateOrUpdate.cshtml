@@ -123,14 +123,14 @@
                                             <div class="col-md-7 value"> @Model.CustomerEmail </div>
                                         </div>
                                     }
-                                    @if (Model.BillingAddress.PhoneNumber != null)
+                                    @if (Model.BillingAddress!= null && Model.BillingAddress.PhoneNumber != null)
                                     {
                                         <div class="row static-info">
                                             <div class="col-md-5 name"> Phone: </div>
                                             <div class="col-md-7 value"> @Model.BillingAddress.PhoneNumber</div>
                                         </div>
                                     }
-                                    @if (Model.BillingAddress.Address1 != null)
+                                    @if (Model.BillingAddress != null && Model.BillingAddress.Address1 != null)
                                     {
                                         <div class="row static-info">
                                             <div class="col-md-5 name"> Address: </div>

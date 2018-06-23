@@ -15,7 +15,95 @@
 @if (Model != null)
 {
     @Html.HiddenFor(model => model.NewAddress.Id)
+    <button class="order-summary-toggle order-summary-toggle-hide">
+        <div class="wrap">
+            <div class="order-summary-toggle-inner">
+                <div class="order-summary-toggle-icon-wrapper">
+                    <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg" class="order-summary-toggle-icon"><path d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"></path></svg>
+                </div>
+                <div class="order-summary-toggle-text order-summary-toggle-text-show">
+                    <span>Hiển thị thông tin đơn hàng</span>
+                    <svg width="11" height="6" xmlns="http://www.w3.org/2000/svg" class="order-summary-toggle-dropdown" fill="#000"><path d="M.504 1.813l4.358 3.845.496.438.496-.438 4.642-4.096L9.504.438 4.862 4.534h.992L1.496.69.504 1.812z"></path></svg>
+                </div>
+                <div class="order-summary-toggle-text order-summary-toggle-text-hide">
+                    <span>Ẩn thông tin đơn hàng</span>
+                    <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg" class="order-summary-toggle-dropdown" fill="#000"><path d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path></svg>
+                </div>
+                <div class="order-summary-toggle-total-recap" data-checkout-payment-due-target="35000000">
+                    <span class="total-recap-final-price">350,000₫</span>
+                </div>
+            </div>
+        </div>
+    </button>
+    <div class="content content-second">
+        <div class="wrap">
+            <div class="sidebar sidebar-second">
+                <div class="sidebar-content">
+                    <div class="order-summary order-summary-is-expanded">
+                        <div class="order-summary-sections">
 
+                            <div class="order-summary-section order-summary-section-product-list" data-order-summary-section="line-items">
+                                <table class="product-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"><span class="visually-hidden">Hình ảnh</span></th>
+                                            <th scope="col"><span class="visually-hidden">Mô tả</span></th>
+                                            <th scope="col"><span class="visually-hidden">Số lượng</span></th>
+                                            <th scope="col"><span class="visually-hidden">Giá</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr class="product" data-product-id="1011783776" data-variant-id="1022661963">
+                                            <td class="product-image">
+                                                <div class="product-thumbnail">
+                                                    <div class="product-thumbnail-wrapper">
+                                                        <img class="product-thumbnail-image" alt="SM" src="//product.hstatic.net/1000133495/product/tb213pece5o.ebjszfxxxaajfxa___130752548_small.jpg">
+                                                    </div>
+                                                    <span class="product-thumbnail-quantity" aria-hidden="true">1</span>
+                                                </div>
+                                            </td>
+                                            <td class="product-description">
+                                                <span class="product-description-name order-summary-emphasis">SM</span>
+
+                                            </td>
+                                            <td class="product-quantity visually-hidden">1</td>
+                                            <td class="product-price">
+                                                <span class="order-summary-emphasis">350,000₫</span>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="order-summary-section order-summary-section-discount" data-order-summary-section="discount">
+                                <form id="form_discount_add" accept-charset="UTF-8" method="post">
+                                    <input name="utf8" type="hidden" value="✓">
+                                    <div class="fieldset">
+                                        <div class="field  ">
+                                            <div class="field-input-btn-wrapper">
+                                                <div class="field-input-wrapper">
+                                                    <label class="field-label" for="discount.code">Mã giảm giá</label>
+                                                    <input placeholder="Mã giảm giá" class="field-input" data-discount-field="true" autocomplete="off" autocapitalize="off" spellcheck="false" size="30" type="text" id="discount.code" name="discount.code" value="">
+                                                </div>
+                                                <button type="submit" class="field-input-btn btn btn-default btn-disabled">
+                                                    <span class="btn-content">Sử dụng</span>
+                                                    <i class="btn-spinner icon icon-button-spinner"></i>
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="content billingaddress">
         <div class="wrap">
             <div class="sidebar">
@@ -30,7 +118,7 @@
                                 <div class="section-header">
                                     <h2 class="section-title">2. Địa chỉ giao hàng</h2>
                                 </div>
-                                <div class="section-content section-customer-information ">                                   
+                                <div class="section-content section-customer-information ">
                                     <p class="section-content-text">
                                         Chọn địa chỉ giao hàng có sẵn bên dưới
                                     </p>
@@ -134,13 +222,13 @@
                                 </svg>
                                 Giỏ hàng
                             </a>
-                            <div class="create-address"><a href="#" onclick="Haravan.CustomerAddress.toggleNewForm(); return false;" class="add-new-address">Thêm địa chỉ</a></div>
+                            <div class="create-address">
+                                <a href="#" onclick="Haravan.CustomerAddress.toggleNewForm();return false;" class="add-new-address">Thêm địa chỉ</a>
+                            </div>
                         </div>
                     </div>
 
                     <!----Create new billingAddress-->
-
-
                     <div id="add_address" class="from-create-address" style="display:none;">
 
                         @using (Html.BeginForm("BillingAddress", "Checkout", FormMethod.Post, new { data_container = ViewContext.RouteData.Values["controller"], enctype = "multipart/form-data" }))
@@ -231,5 +319,280 @@
     })
 
 </script>
+<script type="text/javascript">
+                        window.onpageshow = function(event) {
+                            if (event.persisted) {
+                                var currentUrl = '';
 
+
+                                    currentUrl = '/checkouts/d501d051ac2149a6bc0139d5b08c56b6?step=1';
+
+
+                                if(currentUrl)
+                                    window.location = currentUrl;
+                            }
+                        };
+
+
+
+						var isInit = false;
+
+						function funcFormOnSubmit(e) {
+
+						    if(!isInit) {
+						        isInit = true;
+
+						        $.fn.tagName = function() {
+						            return this.prop("tagName").toLowerCase();
+						        };
+						    }
+
+							if(typeof(e) == 'string') {
+								var element = $(e);
+								var formData = e;
+							} else {
+								var element = this;
+								var formData = this;
+								e.preventDefault();
+							}
+
+							$(element).find('button:submit').addClass('btn-loading');
+
+							var formId = $(element).attr('id'), replaceElement = [], funcCallback;
+
+							if(formId == undefined || formId == null || formId == '')
+								return;
+
+
+
+								if(formId == 'form_next_step') {
+									formData = '.section-customer-information';
+									replaceElement.push('.step-sections');
+								}
+								else if(
+									formId == 'form_discount_add'
+									|| formId == 'form_discount_remove'
+									|| formId == 'form_update_location'
+
+										|| formId == 'form_update_shipping_method'
+
+									) {
+									replaceElement.push('#form_update_location');
+									replaceElement.push('.inventory_location');
+									replaceElement.push('.inventory_location_data');
+									replaceElement.push('.order-summary-toggle-inner .order-summary-toggle-total-recap');
+									replaceElement.push('.order-summary-sections');
+								}
+
+
+
+									if(formId == 'form_update_location_customer_shipping') {
+										formId = 'form_update_location';
+										replaceElement.push('#form_update_location_customer_shipping');
+										replaceElement.push('.inventory_location');
+										replaceElement.push('.inventory_location_data');
+										replaceElement.push('.order-summary-toggle-inner .order-summary-toggle-total-recap');
+										replaceElement.push('.order-summary-sections');
+									}
+									if(formId == 'form_update_location_customer_pick_at_location') {
+										formId = 'form_update_location';
+										replaceElement.push('#form_update_location_customer_pick_at_location');
+										replaceElement.push('.inventory_location');
+										replaceElement.push('.inventory_location_data');
+										replaceElement.push('.order-summary-toggle-inner .order-summary-toggle-total-recap');
+										replaceElement.push('.order-summary-sections');
+									}
+
+
+
+
+
+							if(!$(formData) || $(formData).length == 0) {
+							    window.location.reload();
+							    return false;
+							}
+
+							if($(formData).tagName() != 'form')
+								formData += ' :input';
+
+							$.ajax({
+								type: 'GET',
+								url: window.location.origin + window.location.pathname + '?' + $(formData).serialize() + encodeURI('&form_name=' + formId),
+								success: function(html) {
+									if($(html).attr('id') == 'redirect-url') {
+										window.location = $(html).val();
+									} else {
+										if(replaceElement.length > 0) {
+											for (var i = 0; i < replaceElement.length; i++)
+											{
+												var tempElement = replaceElement[i];
+												var newElement = $(html).find(tempElement);
+
+												if(newElement.length > 0) {
+													if(tempElement == '.step-sections')
+														$(tempElement).attr('step', $(newElement).attr('step'));
+
+													var listTempElement = $(tempElement);
+
+													for(var j = 0; j < newElement.length; j++)
+														if(j < listTempElement.length)
+															$(listTempElement[j]).html($(newElement[j]).html());
+												}
+											}
+										}
+
+										$('body').attr('src', $(html).attr('src'));
+										$(element).find('button:submit').removeClass('btn-loading');
+
+										if(($('body').find('.field-error') && $('body').find('.field-error').length > 0)
+                                            || ($('body').find('.has-error') && $('body').find('.has-error').length > 0))
+										    $("html, body").animate({ scrollTop: 0 }, "slow");
+
+										if(funcCallback)
+											funcCallback();
+									}
+								}
+							}).fail(function() {
+								$(element).find('button:submit').removeClass('btn-loading');
+							});
+
+							return false;
+						};
+						function funcSetEvent() {
+							var effectControlFieldClass = '.field input, .field select, .field textarea';
+
+							$('body')
+								.on('focus', effectControlFieldClass, function() {
+									funcFieldFocus($(this), true);
+								})
+								.on('blur', effectControlFieldClass, function() {
+									funcFieldFocus($(this), false);
+									funcFieldHasValue($(this), true);
+								})
+								.on('keyup input paste', effectControlFieldClass, function() {
+									funcFieldHasValue($(this), false);
+								})
+								.on('submit', 'form', funcFormOnSubmit);
+
+
+
+
+
+									$('body')
+										.on('change', '#form_update_location_customer_shipping', function() {
+											funcFormOnSubmit('#form_update_location_customer_shipping');
+										})
+										.on('change', '#form_update_location_customer_pick_at_location', function() {
+											funcFormOnSubmit('#form_update_location_customer_pick_at_location');
+										});
+
+
+
+								$('body')
+									.on('change', '#form_update_location select[name=customer_shipping_district]', function() {
+										$('.section-customer-information input:hidden[name=customer_shipping_district]').val($(this).val());
+									})
+									.on('change', '#form_update_location select[name=customer_shipping_ward]', function() {
+										$('.section-customer-information input:hidden[name=customer_shipping_ward]').val($(this).val());
+									});
+
+
+
+								$('body')
+									.on('change', '#form_update_shipping_method input:radio', function() {
+										$('#form_update_shipping_method .content-box-row.content-box-row-secondary').addClass('hidden');
+
+										var id = $(this).attr('id');
+
+										if(id) {
+											var sub = $('body').find('.content-box-row.content-box-row-secondary[for=' + id + ']')
+
+											if(sub && sub.length > 0) {
+												$(sub).removeClass('hidden');
+											}
+										}
+									});
+
+
+
+
+
+
+								$('body')
+									.on('change', '#form_update_shipping_method input:radio[name=customer_pick_at_location]', function() {
+										var methodValue = $(this).val();
+
+										if(methodValue && methodValue == 'false')
+											$('.inventory_location').hide();
+										else
+											$('.inventory_location').show();
+
+										$('#form_update_shipping_method').submit();
+									})
+									.on('change', '.inventory_location input:radio[name=inventory_location_id]', function() {
+										$('.section-customer-information input:hidden[name=inventory_location_id]').val($(this).val());
+									});
+
+
+						};
+						function funcFieldFocus(fieldInputElement, isFocus) {
+							if(fieldInputElement == undefined)
+								return;
+
+							var fieldElement = $(fieldInputElement).closest('.field');
+
+							if(fieldElement == undefined)
+								return;
+
+							if(isFocus)
+								$(fieldElement).addClass('field-active');
+							else
+								$(fieldElement).removeClass('field-active');
+						};
+						function funcFieldHasValue(fieldInputElement, isCheckRemove) {
+							if(fieldInputElement == undefined)
+								return;
+
+							var fieldElement = $(fieldInputElement).closest('.field');
+
+							if(fieldElement == undefined)
+								return;
+
+							if($(fieldElement).find('.field-input-wrapper-select').length > 0) {
+								var value = $(fieldInputElement).find(':selected').val();
+
+								if(value == 'null')
+									value = undefined;
+							} else {
+								var value = $(fieldInputElement).val();
+							}
+
+							if(!isCheckRemove) {
+								if(value != $(fieldInputElement).attr('value'))
+									$(fieldElement).removeClass('field-error');
+							}
+
+							var fieldInputBtnWrapperElement = $(fieldInputElement).closest('.field-input-btn-wrapper');
+
+							if(value && value.trim() != '') {
+								$(fieldElement).addClass('field-show-floating-label');
+								$(fieldInputBtnWrapperElement).find('button:submit').removeClass('btn-disabled');
+							}
+							else if(isCheckRemove) {
+								$(fieldElement).removeClass('field-show-floating-label');
+								$(fieldInputBtnWrapperElement).find('button:submit').addClass('btn-disabled');
+							}
+							else {
+								$(fieldInputBtnWrapperElement).find('button:submit').addClass('btn-disabled');
+							}
+						};
+						function funcInit() {
+							funcSetEvent();
+
+
+						}
+						$(document).ready(function() {
+							funcInit();
+						});
+</script>
 <!----/BillingAddress-->

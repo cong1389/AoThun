@@ -37,7 +37,8 @@
     <RootNamespace>App.Aplication</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="App.FakeEntity">
+    <Reference Include="App.FakeEntity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\App.FakeEntity\bin\Debug\App.FakeEntity.dll</HintPath>
     </Reference>
     <Reference Include="App.Service">
