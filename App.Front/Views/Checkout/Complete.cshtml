@@ -1,0 +1,63 @@
+﻿<!----Complete-->
+
+@model App.Domain.Orders.Order
+
+
+<section id="page-title">
+    <div class="container">
+        <ol class="breadcrumb col-md-12 col-sm-12">
+            <li><a href="/">Trang chủ</a></li>
+
+            <li><a href="/account">Tài khoản</a></li>
+
+        </ol>
+    </div>
+</section>
+
+<div class="container complete">
+    <div class="row row-style-5">
+        <div class="col-lg-12">
+
+            <div class="panel panel-default success">
+                <div class="panel-body">
+                    <div class="row row-style-6">
+                        <div class="col-lg-4 col-md-3 visible-lg-block visible-md-block">
+                            <img src="/Areas/Admin/images/checkout-complete-carticon.png" height="178" width="195" class="img-responsive" alt="Image">
+                        </div>
+                        <div class="col-lg-8 col-md-9">
+                            <h3>@T("Checkout.ThankYou")</h3>
+
+                            <!-- BEGIN ORDER INFO -->
+                            <p>Mã số đơn hàng của bạn: </p>
+                            <div class="well well-sm">
+                                @Model.Id
+                            </div>
+                            <p>Bạn có thể xem lại <a href="@Url.Action("Details", "Order", new { id = Model.Id })">đơn hàng của tôi</a></p>
+                            <p>
+                                <img src="https://vcdn.tikicdn.com/assets/img/ico2.png" height="25" width="30" alt="">
+                                Thời gian dự kiến giao hàng trước 10:00 ngày mai <img class="icon-24h" src="https://vcdn.tikicdn.com/desktop/img/2h-circle@2x.png" height="24" width="24" alt="Giao hàng nhanh 2 tiếng" title="Giao hàng nhanh 2 tiếng">.
+                            </p>
+                            <!-- END ORDER INFO -->
+
+                            <p>
+                                Thông tin chi tiết về đơn hàng đã được gửi đến địa chỉ mail <span>ddemo9698@gmail.com</span>. Nếu
+                                không tìm thấy vui lòng kiểm tra trong hộp thư <strong>Spam</strong> hoặc <strong>Junk Folder</strong>.
+                            </p>
+                            <div class="alert alert-success no-icon" role="alert">
+                                <p>
+                                    Nhằm giúp việc xử lý đơn hàng nhanh hơn nữa, Tiki.vn sẽ không gọi điện cho bạn để
+                                    xác nhận đơn hàng.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!----/Complete-->
